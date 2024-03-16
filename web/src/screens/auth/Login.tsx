@@ -63,19 +63,21 @@ export default function Login() {
     })
   }
   return (
-    <div className="w-full h-screen bg-gradient-to-tl from-Light-primary to-Light-accent">
-      <main className="bg-Light-background w-1/2 h-screen flex flex-col items-start py-14 px-24 gap-12  ">
-        <header>
+    <div className="w-screen sm:w-full h-screen bg-gradient-to-tl from-Light-primary to-Light-accent flex xl:justify-start justify-center">
+      <main className="bg-Light-background w-full md:w-5/6 xl:w-1/2 sm:h-full flex flex-col items-start px-4 md:px-8 xl:px-24 py-8 xl:py-12 xl:gap-12 gap-8 ">
+        <header className="w-full flex justify-center sm:justify-start items-center ">
           <img
             src={Logo}
             width={160}
             alt="Logo gradiente do azul para o verde da Science - marketing inteligente"
           />
         </header>
-        <section className="flex flex-col w-full h-full justify-between pb-4">
+        <section className="flex flex-col w-full h-full justify-start lg:gap-8 gap-4 sm:gap-10 sm:pb-4 pb-20 xl:pt-4 pt-0">
           <div>
-            <h1 className="text-3xl font-bold ">Bem-vindo de volta!</h1>
-            <p className="text-zinc-500 text-base">
+            <h1 className="text-2xl xl:text-3xl font-bold sm:text-left text-center">
+              Bem-vindo de volta!
+            </h1>
+            <p className="text-zinc-500 text-base sm:text-left text-center">
               Insira suas credenciais para acessar a plataforma
             </p>
           </div>
@@ -83,7 +85,7 @@ export default function Login() {
             <form
               id="loginForm"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full flex flex-col gap-4 "
+              className="w-full md:h-auto sm:h-full flex flex-col gap-6 xl:pt-4 pt-0"
               autoComplete="on"
             >
               <fieldset>
@@ -96,7 +98,7 @@ export default function Login() {
                       <FormItem>
                         <FormLabel
                           htmlFor="userInput"
-                          className="text-zinc-700 font-medium text-base"
+                          className="text-zinc-800 font-semibold text-base"
                         >
                           Usuário
                         </FormLabel>
@@ -108,6 +110,7 @@ export default function Login() {
                             autoFocus
                             error={!!formState.errors.username}
                             placeholder="Seu usuário"
+                            className="caret-accent "
                             leftIcon={
                               <User size={28} className="text-zinc-600" />
                             }
@@ -125,7 +128,7 @@ export default function Login() {
                       <FormItem>
                         <FormLabel
                           htmlFor="passwordInput"
-                          className="text-zinc-700 font-medium text-base"
+                          className="text-zinc-800 font-semibold text-base"
                         >
                           Senha
                         </FormLabel>
@@ -136,6 +139,7 @@ export default function Login() {
                             autoComplete="current-password"
                             placeholder="Sua senha"
                             error={!!formState.errors.password}
+                            className="caret-accent "
                             leftIcon={
                               <LockKey size={28} className="text-zinc-600" />
                             }
@@ -185,7 +189,7 @@ export default function Login() {
             form="loginForm"
             type="submit"
             variant={'animation'}
-            className="h-16 font-semibold text-lg text-primaryScale-50"
+            className="h-16 xl:mt-12 md:mt-0 mt-8 font-semibold text-lg text-primaryScale-50 "
           >
             Entrar
           </Button>

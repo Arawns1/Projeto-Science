@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,7 +28,7 @@ export default function Login() {
     },
   })
   function onSubmit(values: LoginSchemaType) {
-    console.log('teste')
+    console.log(values)
     alert("You're logged in!")
   }
 

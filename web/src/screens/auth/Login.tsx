@@ -64,7 +64,7 @@ export default function Login() {
   }
   return (
     <div className="w-full h-screen bg-gradient-to-tl from-Light-primary to-Light-accent">
-      <main className="bg-Light-background w-1/2 h-screen flex flex-col items-start py-14 px-24 gap-12  ">
+      <main className="bg-Light-background w-1/2 h-screen flex flex-col items-start py-12 px-24 gap-12  ">
         <header>
           <img
             src={Logo}
@@ -72,7 +72,7 @@ export default function Login() {
             alt="Logo gradiente do azul para o verde da Science - marketing inteligente"
           />
         </header>
-        <section className="flex flex-col w-full h-full justify-between pb-4">
+        <section className="flex flex-col w-full h-full justify-start gap-10 pb-4">
           <div>
             <h1 className="text-3xl font-bold ">Bem-vindo de volta!</h1>
             <p className="text-zinc-500 text-base">
@@ -83,7 +83,7 @@ export default function Login() {
             <form
               id="loginForm"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full flex flex-col gap-4 "
+              className="w-full flex flex-col gap-6 "
               autoComplete="on"
             >
               <fieldset>
@@ -96,7 +96,7 @@ export default function Login() {
                       <FormItem>
                         <FormLabel
                           htmlFor="userInput"
-                          className="text-zinc-700 font-medium text-base"
+                          className="text-zinc-800 font-semibold text-base"
                         >
                           Usuário
                         </FormLabel>
@@ -108,6 +108,7 @@ export default function Login() {
                             autoFocus
                             error={!!formState.errors.username}
                             placeholder="Seu usuário"
+                            className="caret-accent "
                             leftIcon={
                               <User size={28} className="text-zinc-600" />
                             }
@@ -125,7 +126,7 @@ export default function Login() {
                       <FormItem>
                         <FormLabel
                           htmlFor="passwordInput"
-                          className="text-zinc-700 font-medium text-base"
+                          className="text-zinc-800 font-semibold text-base"
                         >
                           Senha
                         </FormLabel>
@@ -136,6 +137,7 @@ export default function Login() {
                             autoComplete="current-password"
                             placeholder="Sua senha"
                             error={!!formState.errors.password}
+                            className="caret-accent "
                             leftIcon={
                               <LockKey size={28} className="text-zinc-600" />
                             }
@@ -185,7 +187,7 @@ export default function Login() {
             form="loginForm"
             type="submit"
             variant={'animation'}
-            className="h-16 font-semibold text-lg text-primaryScale-50"
+            className="h-16 mt- font-semibold text-lg text-primaryScale-50"
           >
             Entrar
           </Button>

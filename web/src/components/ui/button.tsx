@@ -19,7 +19,7 @@ const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
         animation:
-          'text-primary gradient-button hover:animate-gradient hover:shadow-lg focus:animate-gradient focus:shadow-lg transition-all rounded-lg ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2',
+          'text-primary gradient-button hover:animate-gradient hover:shadow-lg focus:animate-gradient focus:shadow-lg transition-all ease-in-out delay-150 rounded-lg ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2',
       },
       // hover:repeat-infinite hover:bg-gradient-to-r hover:to-secondaryScale-600 hover:via-Light-primary hover:from-accentScale-400 hover:bg-size-200 hover:bg-pos-0 hover:bg-pos-100
       size: {

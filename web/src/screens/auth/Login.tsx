@@ -63,8 +63,8 @@ export default function Login() {
     })
   }
   return (
-    <div className="w-screen sm:w-full h-screen bg-gradient-to-tl from-Light-primary to-Light-accent flex xl:justify-start justify-center">
-      <main className="bg-Light-background w-full md:w-5/6 xl:w-1/2 sm:h-full flex flex-col items-start px-4 md:px-8 xl:px-24 py-8 xl:py-12 xl:gap-12 gap-8 ">
+    <div className="w-screen sm:w-full h-screen xl:h-screen md:h-full bg-gradient-to-tl from-Light-primary to-Light-accent flex xl:justify-start justify-center ">
+      <main className="bg-Light-background w-full md:w-5/6 xl:w-1/2 h-full flex flex-col items-start px-4 md:px-8 xl:px-16 py-12 md:py-4 xl:gap-6 gap-8  ">
         <header className="w-full flex justify-center sm:justify-start items-center ">
           <img
             src={Logo}
@@ -72,7 +72,7 @@ export default function Login() {
             alt="Logo gradiente do azul para o verde da Science - marketing inteligente"
           />
         </header>
-        <section className="flex flex-col w-full h-full justify-start lg:gap-8 gap-4 sm:gap-10 sm:pb-4 pb-20 xl:pt-4 pt-0">
+        <section className="flex flex-col w-full h-full justify-start  xl:pt-4 pt-0 ">
           <div>
             <h1 className="text-2xl xl:text-3xl font-bold sm:text-left text-center">
               Bem-vindo de volta!
@@ -85,12 +85,12 @@ export default function Login() {
             <form
               id="loginForm"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full md:h-auto sm:h-full flex flex-col gap-6 xl:pt-4 pt-0"
+              className="w-full xl:h-auto sm:h-full flex flex-col gap-4 pt-6"
               autoComplete="on"
             >
               <fieldset>
                 <legend className="sr-only">Formulário de Login</legend>
-                <div className="flex flex-col gap-8 ">
+                <div className="flex flex-col gap-8 xl:gap-8 md:gap-6">
                   <FormField
                     control={form.control}
                     name="username"
@@ -189,7 +189,7 @@ export default function Login() {
             form="loginForm"
             type="submit"
             variant={'animation'}
-            className="h-16 xl:mt-12 md:mt-0 mt-8 font-semibold text-lg text-primaryScale-50 "
+            className="h-16 mt-10 md:mt-4 xl:mt-6 font-semibold text-lg text-primaryScale-50"
           >
             Entrar
           </Button>

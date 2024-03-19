@@ -56,10 +56,12 @@ module.exports = {
           background: '#f7fdff',
           secondary: '#00adcd',
           primary: '#41b983',
+          'primary-20%': 'hsl(153, 48%, 51%, 0.2)',
           accent: '#7cd75b',
         },
         Dark: {
           primary: '#46be88',
+          'primary-30%': 'hsl(153, 48%, 51%,0.3)',
           text: '#edf8fd',
           background: '#00080a',
           accent: '#49a428',

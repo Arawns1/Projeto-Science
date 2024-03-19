@@ -63,7 +63,7 @@ export default function Login() {
     })
   }
   return (
-    <div className="w-screen sm:w-full h-screen xl:h-screen md:h-full bg-gradient-to-tl from-Light-primary to-Light-accent flex xl:justify-start justify-center ">
+    <div className="w-screen sm:w-full min-h-screen xl:h-screen md:h-full bg-gradient-to-tl from-Light-primary to-Light-accent flex xl:justify-start justify-center ">
       <main className="bg-Light-background w-full md:w-5/6 xl:w-1/2 h-full flex flex-col items-start px-4 md:px-8 xl:px-16 py-12 md:py-4 xl:gap-6 gap-8  ">
         <header className="w-full flex justify-center sm:justify-start items-center ">
           <img

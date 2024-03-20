@@ -1,15 +1,8 @@
-import { Button } from '@/components/ui/button'
 import Logo from '@/assets/science-logo-2.svg'
-import { User, SignOut, MagnifyingGlass } from '@phosphor-icons/react'
+import ClientCard from '@/components/ClientCard'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { MagnifyingGlass, SignOut, User } from '@phosphor-icons/react'
 export default function Home() {
   return (
     <div className="bg-Light-background min-h-screen flex flex-col">
@@ -63,112 +56,13 @@ export default function Home() {
               leftIcon={<MagnifyingGlass size={24} className="text-zinc-600" />}
             />
           </div>
-          <div className="w-full grid grid-cols-3 gap-x-20 gap-y-16">
-            <Card>
-              <CardHeader className="gradient-button w-full px-0 py-0">
-                <div className=" bg-card mt-24 ">
-                  <div className="text-center flex flex-col items-center justify-center -translate-y-14 px-4 gap-2">
-                    <div className="w-28 h-28 border-4 border-white bg-zinc-200 rounded-full "></div>
-                    <CardTitle>John Doe</CardTitle>
-                    <CardDescription>
-                      Uma breve descrição de um projeto do cliente acima só que
-                      ela está começand...
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-
-              <CardFooter className="flex justify-between items-center ">
-                <Button variant={'outline'} className="w-28">
-                  Email
-                </Button>
-                <Button className="w-28">Editar</Button>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
-              </CardFooter>
-            </Card>
+          <div className="grid grid-cols-3 gap-y-16 gap-24">
+            <ClientCard />
+            <ClientCard />
+            <ClientCard />
+            <ClientCard />
+            <ClientCard />
+            <ClientCard />
           </div>
         </main>
       </div>

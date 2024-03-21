@@ -34,14 +34,18 @@ import {
   Warning,
 } from '@phosphor-icons/react'
 import { useState } from 'react'
-import { Client } from '@/screens/home/Home'
+import { Client } from '@/dtos/ClientDTO'
+import { useDeleteClientById } from '@/queries/clients'
+import { Loader2 } from 'lucide-react'
 
 interface ClientCardProps {
   client: Client
 }
 export default function ClientCard({ client }: ClientCardProps) {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
-    <AlertDialog>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <Card className="w-full  gradient-button pt-20 relative rounded-lg hover:shadow-shadows/2 transition-shadow duration-500 ease-in-out">
         <div className=" bg-card h-52 ">
           <div className="-translate-y-20 ">
@@ -92,7 +96,12 @@ export default function ClientCard({ client }: ClientCardProps) {
           </DropdownMenuContent>
         </DropdownMenu>
       </Card>
-      <ConfirmExclusionDialog clientName={client.fullName} />
+
+      <ConfirmExclusionDialog
+        clientName={client.fullName}
+        clientId={client.id}
+        setIsOpen={setIsOpen}
+      />
     </AlertDialog>
   )
 }
@@ -176,12 +185,23 @@ const CopyLinkButton = () => {
 }
 
 interface ConfirmExclusionDialogProps {
-  clientName: String
+  clientName: string
+  clientId: string
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ConfirmExclusionDialog = ({
   clientName,
+  clientId,
+  setIsOpen,
 }: ConfirmExclusionDialogProps) => {
+  const { mutate, isPending, isSuccess, isError } = useDeleteClientById()
+
+  function handleDeleteClient() {
+    mutate(clientId)
+    isSuccess ? setIsOpen(false) : setIsOpen(true)
+  }
+
   return (
     <AlertDialogContent className="flex flex-col gap-8">
       <AlertDialogHeader className="flex flex-col w-full items-center justify-items-center gap-2">
@@ -189,7 +209,7 @@ const ConfirmExclusionDialog = ({
           <Warning size={36} />
         </div>
         <AlertDialogTitle className="font-semibold text-xl ">
-          Confirmar exclusão de <span className="capitalize">{clientName}</span>{' '}
+          Confirmar exclusão de <span className="capitalize">{clientName}</span>
           ?
         </AlertDialogTitle>
         <AlertDialogDescription className="text-center">
@@ -198,12 +218,24 @@ const ConfirmExclusionDialog = ({
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter className="w-full flex flex-row items-center justify-center gap-8">
-        <AlertDialogCancel className="w-full h-14 text-base">
+        <AlertDialogCancel
+          className="w-full h-14 text-base"
+          disabled={isPending}
+        >
           Cancelar
         </AlertDialogCancel>
-        <AlertDialogAction className="w-full h-14 text-base">
-          Excluir Cliente
-        </AlertDialogAction>
+        <Button
+          type="button"
+          className="w-full h-14 text-base"
+          onClick={handleDeleteClient}
+          disabled={isPending}
+        >
+          {isPending ? (
+            <Loader2 className=" h-8 w-8 animate-spin" />
+          ) : (
+            'Excluir Cliente'
+          )}
+        </Button>
       </AlertDialogFooter>
     </AlertDialogContent>
   )

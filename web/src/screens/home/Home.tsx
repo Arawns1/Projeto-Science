@@ -2,51 +2,12 @@ import ClientCard from '@/components/ClientCard'
 import Drawer from '@/components/Drawer'
 import Header from '@/components/Header'
 import { Input } from '@/components/ui/input'
+import { useFetchClients } from '@/queries/clients'
+
 import { MagnifyingGlass } from '@phosphor-icons/react'
 
-export interface Client {
-  id: number
-  fullName: string
-  photoURL: string
-  description: string
-}
-
-const clientsList: Client[] = [
-  {
-    id: 1,
-    fullName: 'João da Silva',
-    photoURL: 'https://source.unsplash.com/random/300x300/?dog',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Seddo eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcolaboris nisi ut aliquip ex ea commodo consequat.',
-  },
-  {
-    id: 2,
-    fullName: 'Henrique da Silva',
-    photoURL: 'https://source.unsplash.com/random/300x300/?dog',
-    description:
-      'O henrique possui um projeto extremamente legal e complicado de ser realizado em um curto período de tempo',
-  },
-  {
-    id: 3,
-    fullName: 'Paulo Tobias',
-    photoURL: 'https://source.unsplash.com/random/300x300/?dog',
-    description: 'Projeto do Paulão!',
-  },
-  {
-    id: 4,
-    fullName: 'Paulo Tobias',
-    photoURL: '',
-    description: 'Projeto do Paulão!',
-  },
-  {
-    id: 5,
-    fullName: 'Paulo Tobias',
-    photoURL: 'https://source.unsplash.com/random/300x300/?dog',
-    description: '',
-  },
-]
-
 export default function Home() {
+  const { data } = useFetchClients()
   return (
     <div className="bg-Light-background min-h-screen flex flex-col ">
       <Header />
@@ -63,7 +24,7 @@ export default function Home() {
             />
           </div>
           <div className="grid grid-cols-3 gap-y-16 gap-24">
-            {clientsList.map((client) => {
+            {data?.map((client) => {
               return <ClientCard key={client.id} client={client} />
             })}
           </div>

@@ -15,8 +15,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import React, { useState } from 'react'
 import { Checkbox } from '@/components/ui/checkbox'
+import { useNavigate } from 'react-router-dom'
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
@@ -28,8 +30,7 @@ export default function Login() {
     },
   })
   function onSubmit(values: LoginSchemaType) {
-    console.log(values)
-    alert("You're logged in!")
+    navigate('dashboard')
   }
 
   function handleShowPassword() {

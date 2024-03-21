@@ -1,11 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import '../app/globals.css'
-import Login from './screens/auth/Login.tsx'
-import Home from './screens/home/Home.tsx'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes/root.routes'
+
+
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Home />
+    <RouterProvider router={router} />
   </React.StrictMode>
 )

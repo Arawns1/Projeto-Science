@@ -13,55 +13,87 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
+import {
   Check,
+  User,
   Copy,
   Gear,
   PaperPlaneTilt,
   Pencil,
   Trash,
+  Warning,
 } from '@phosphor-icons/react'
 import { useState } from 'react'
+import { Client } from '@/screens/home/Home'
 
-export default function ClientCard() {
+interface ClientCardProps {
+  client: Client
+}
+export default function ClientCard({ client }: ClientCardProps) {
   return (
-    <Card className="w-full  gradient-button pt-20 relative rounded-lg hover:shadow-shadows/2 transition-shadow duration-500 ease-in-out">
-      <div className=" bg-card h-52 ">
-        <div className="-translate-y-20 ">
-          <CardHeader className="text-center flex flex-col items-center justify-center ">
-            <div className="w-24 h-24 border-4 border-white bg-zinc-200 rounded-full " />
-            <div className="flex flex-col gap-2">
-              <CardTitle className="font-semibold text-xl">John Doe</CardTitle>
-              <CardDescription className="text-center text-ellipsis line-clamp-2 ">
-                lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </CardDescription>
-            </div>
-          </CardHeader>
+    <AlertDialog>
+      <Card className="w-full  gradient-button pt-20 relative rounded-lg hover:shadow-shadows/2 transition-shadow duration-500 ease-in-out">
+        <div className=" bg-card h-52 ">
+          <div className="-translate-y-20 ">
+            <CardHeader className="text-center flex flex-col items-center justify-center ">
+              {client.photoURL ? (
+                <img
+                  className="w-24 h-24 border-4 border-white bg-zinc-200 rounded-full "
+                  src={client.photoURL}
+                  alt={`Imagem do cliente ${client.fullName}`}
+                />
+              ) : (
+                <div className="w-24 h-24 border-4 border-white bg-zinc-200 rounded-full flex items-center justify-center text-gray-400">
+                  <User weight={'fill'} size={64} />
+                </div>
+              )}
 
-          <CardFooter className="flex justify-center items-center gap-8 ">
-            <EmailSenderButton />
-            <Button className="w-full flex flex-row gap-x-2 text-base  ">
-              <Pencil size={22} />
-              <span>Editar</span>
-            </Button>
-          </CardFooter>
+              <div className="flex flex-col gap-2">
+                <CardTitle className="font-semibold text-xl capitalize">
+                  {client.fullName}
+                </CardTitle>
+                <CardDescription className="text-center text-ellipsis line-clamp-2 h-10">
+                  {client.description}
+                </CardDescription>
+              </div>
+            </CardHeader>
+
+            <CardFooter className="flex justify-end items-center gap-8 ">
+              <EmailSenderButton />
+              <Button className="w-full flex flex-row gap-x-2 text-base  ">
+                <Pencil size={22} />
+                <span>Editar</span>
+              </Button>
+            </CardFooter>
+          </div>
         </div>
-      </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger className="absolute right-2 top-2 bg-black/40 w-8 h-8 rounded-full text-white flex items-center justify-center">
-          <Gear size={24} />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="border-none opacity-95 absolute -right-4 w-max">
-          <CopyLinkButton />
-          <DropdownMenuItem className=" text-destructive gap-2 focus:bg-destructive hover:text-destructive cursor-pointer">
-            <Trash size={24} />
-            Excluir
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </Card>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="absolute right-2 top-2 bg-black/40 w-8 h-8 rounded-full text-white flex items-center justify-center">
+            <Gear size={24} />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="border-none opacity-95 absolute -right-4 w-max">
+            <CopyLinkButton />
+            <AlertDialogTrigger asChild>
+              <DropdownMenuItem className=" text-destructive gap-2 focus:bg-destructive hover:text-destructive cursor-pointer">
+                <Trash size={24} />
+                Excluir
+              </DropdownMenuItem>
+            </AlertDialogTrigger>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </Card>
+      <ConfirmExclusionDialog clientName={client.fullName} />
+    </AlertDialog>
   )
 }
 const EmailSenderButton = () => {
@@ -113,7 +145,7 @@ const EmailSenderButton = () => {
 const CopyLinkButton = () => {
   const [isCopied, setIsCopied] = useState(false)
 
-  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleClick(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault()
     setIsCopied(true)
 
@@ -140,5 +172,39 @@ const CopyLinkButton = () => {
         </>
       )}
     </DropdownMenuItem>
+  )
+}
+
+interface ConfirmExclusionDialogProps {
+  clientName: String
+}
+
+const ConfirmExclusionDialog = ({
+  clientName,
+}: ConfirmExclusionDialogProps) => {
+  return (
+    <AlertDialogContent className="flex flex-col gap-8">
+      <AlertDialogHeader className="flex flex-col w-full items-center justify-items-center gap-2">
+        <div className="w-16 h-16 rounded-full bg-primaryScale-200 text-primaryScale-700 flex items-center justify-center">
+          <Warning size={36} />
+        </div>
+        <AlertDialogTitle className="font-semibold text-xl ">
+          Confirmar exclusão de <span className="capitalize">{clientName}</span>{' '}
+          ?
+        </AlertDialogTitle>
+        <AlertDialogDescription className="text-center">
+          Esta ação não pode ser desfeita. Se continuar os dados do cliente
+          serão deletados permanentemente dos nossos servidores.
+        </AlertDialogDescription>
+      </AlertDialogHeader>
+      <AlertDialogFooter className="w-full flex flex-row items-center justify-center gap-8">
+        <AlertDialogCancel className="w-full h-14 text-base">
+          Cancelar
+        </AlertDialogCancel>
+        <AlertDialogAction className="w-full h-14 text-base">
+          Excluir Cliente
+        </AlertDialogAction>
+      </AlertDialogFooter>
+    </AlertDialogContent>
   )
 }

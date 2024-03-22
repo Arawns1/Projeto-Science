@@ -37,24 +37,48 @@ import { useState } from 'react'
 import { Client } from '@/dtos/ClientDTO'
 import { useDeleteClientById } from '@/queries/clients'
 import { Loader2 } from 'lucide-react'
+import { useToast } from '@/components/ui/use-toast'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface ClientCardProps {
-  client: Client
+  client?: Client
+  isLoading?: boolean
 }
-export default function ClientCard({ client }: ClientCardProps) {
+export default function ClientCard({ client, isLoading }: ClientCardProps) {
   const [isOpen, setIsOpen] = useState(false)
 
+  if (isLoading) {
+    return (
+      <div className="  border-2 border-gray-200 rounded-lg w-full h-72 relative">
+        <div className="bg-zinc-200 w-full h-20"></div>
+        <div className="flex flex-col justify-center items-center space-y-3 absolute -top- w-full h-full ">
+          <Skeleton className="w-24 h-24 rounded-full  border-4 border-white" />
+          <div className="space-y-4 flex flex-col justify-center items-center  w-full">
+            <Skeleton className="h-4 w-32" />
+            <div className="space-y-1  flex flex-col justify-center items-center">
+              <Skeleton className="h-2 w-[250px]" />
+              <Skeleton className="h-2 w-[200px]" />
+            </div>
+          </div>
+        </div>
+        <div className="w-full flex justify-end items-center gap-8 absolute bottom-4 px-6">
+          <Skeleton className="w-full h-10" />
+          <Skeleton className="w-full h-10" />
+        </div>
+      </div>
+    )
+  }
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <Card className="w-full  gradient-button pt-20 relative rounded-lg hover:shadow-shadows/2 transition-shadow duration-500 ease-in-out">
         <div className=" bg-card h-52 ">
           <div className="-translate-y-20 ">
             <CardHeader className="text-center flex flex-col items-center justify-center ">
-              {client.photoURL ? (
+              {client?.photoURL ? (
                 <img
                   className="w-24 h-24 border-4 border-white bg-zinc-200 rounded-full "
-                  src={client.photoURL}
-                  alt={`Imagem do cliente ${client.fullName}`}
+                  src={client?.photoURL}
+                  alt={`Imagem do cliente ${client?.fullName}`}
                 />
               ) : (
                 <div className="w-24 h-24 border-4 border-white bg-zinc-200 rounded-full flex items-center justify-center text-gray-400">
@@ -64,10 +88,10 @@ export default function ClientCard({ client }: ClientCardProps) {
 
               <div className="flex flex-col gap-2">
                 <CardTitle className="font-semibold text-xl capitalize">
-                  {client.fullName}
+                  {client?.fullName}
                 </CardTitle>
                 <CardDescription className="text-center text-ellipsis line-clamp-2 h-10">
-                  {client.description}
+                  {client?.description}
                 </CardDescription>
               </div>
             </CardHeader>
@@ -98,13 +122,14 @@ export default function ClientCard({ client }: ClientCardProps) {
       </Card>
 
       <ConfirmExclusionDialog
-        clientName={client.fullName}
-        clientId={client.id}
+        clientName={client?.fullName}
+        clientId={client?.id}
         setIsOpen={setIsOpen}
       />
     </AlertDialog>
   )
 }
+
 const EmailSenderButton = () => {
   const [isSent, setIsSent] = useState(false)
   const [isSending, setIsSending] = useState(false)
@@ -185,8 +210,8 @@ const CopyLinkButton = () => {
 }
 
 interface ConfirmExclusionDialogProps {
-  clientName: string
-  clientId: string
+  clientName?: string
+  clientId?: string
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -196,10 +221,19 @@ const ConfirmExclusionDialog = ({
   setIsOpen,
 }: ConfirmExclusionDialogProps) => {
   const { mutate, isPending, isSuccess, isError } = useDeleteClientById()
-
+  const { toast } = useToast()
   function handleDeleteClient() {
-    mutate(clientId)
-    isSuccess ? setIsOpen(false) : setIsOpen(true)
+    if (clientId) {
+      mutate(clientId)
+    }
+    if (isError) {
+      setIsOpen(true)
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao excluir cliente',
+        description: 'Tente novamente mais tarde',
+      })
+    }
   }
 
   return (

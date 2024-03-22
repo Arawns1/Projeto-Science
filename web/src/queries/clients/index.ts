@@ -1,14 +1,21 @@
 import { Client } from '@/dtos/ClientDTO'
+import { ClientPagination } from '@/dtos/ClientPagination'
 import api from '@/lib/api'
 import { queryClient } from '@/lib/queryClient'
 import {
   useQuery,
   useMutation,
   QueryFunctionContext,
+  useInfiniteQuery,
 } from '@tanstack/react-query'
 
-async function getAllClients() {
-  const { data } = await api.get<Client[]>('/clients')
+async function getAllClients({ queryKey, pageParam = 0 }) {
+  const searchParam = queryKey[1]
+  if (searchParam) {
+    const { data } = await api.get(`/clients?fullName_like${searchParam}`)
+    return data
+  }
+  const { data } = await api.get(`/clients?_page=${pageParam}&_per_page=6`)
   return data
 }
 
@@ -23,8 +30,15 @@ async function deleteClientById(clientId: string) {
   return data
 }
 
-export function useFetchClients() {
-  return useQuery({ queryKey: ['clients'], queryFn: getAllClients })
+export function useFetchClients(search: string = '') {
+  return useInfiniteQuery({
+    queryKey: ['clients', search],
+    queryFn: getAllClients,
+    staleTime: 5000,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.next,
+    getPreviousPageParam: (firstPage) => firstPage.prev,
+  })
 }
 
 export function useFetchClientById(clientId: string) {

@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "fakeApi": "json-server db.json "
+    "server": "json-server db.json "
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -19,6 +19,7 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
     "@tanstack/react-query": "^5.28.6",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
@@ -30,6 +31,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.0",
+    "react-intersection-observer": "^9.8.1",
     "react-router": "^6.22.3",
     "react-router-dom": "^6.22.3",
     "sort-by": "^1.2.0",

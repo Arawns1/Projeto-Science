@@ -1,3 +1,13 @@
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -12,20 +22,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useToast } from '@/components/ui/use-toast'
+import { Client } from '@/dtos/ClientDTO'
+import { useDeleteClientById } from '@/queries/clients'
 import {
   Check,
-  User,
   Copy,
   Gear,
   PaperPlaneTilt,
@@ -33,12 +35,9 @@ import {
   Trash,
   Warning,
 } from '@phosphor-icons/react'
-import { useState } from 'react'
-import { Client } from '@/dtos/ClientDTO'
-import { useDeleteClientById } from '@/queries/clients'
 import { Loader2 } from 'lucide-react'
-import { useToast } from '@/components/ui/use-toast'
-import { Skeleton } from '@/components/ui/skeleton'
+import { useState } from 'react'
+import UserPhoto from './UserPhoto'
 
 interface ClientCardProps {
   client?: Client
@@ -74,18 +73,7 @@ export default function ClientCard({ client, isLoading }: ClientCardProps) {
         <div className=" bg-card h-52 ">
           <div className="-translate-y-20 ">
             <CardHeader className="text-center flex flex-col items-center justify-center ">
-              {client?.photoURL ? (
-                <img
-                  className="w-24 h-24 border-4 border-white bg-zinc-200 rounded-full "
-                  src={client?.photoURL}
-                  alt={`Imagem do cliente ${client?.fullName}`}
-                />
-              ) : (
-                <div className="w-24 h-24 border-4 border-white bg-zinc-200 rounded-full flex items-center justify-center text-gray-400">
-                  <User weight={'fill'} size={64} />
-                </div>
-              )}
-
+              <UserPhoto client={client} />
               <div className="flex flex-col gap-2">
                 <CardTitle className="font-semibold text-xl capitalize">
                   {client?.fullName}

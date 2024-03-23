@@ -1,5 +1,7 @@
 import Logo from '@/assets/science-logo.svg'
+import { PasswordInput } from '@/components/PasswordInput'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -9,15 +11,12 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { User, LockKey, Eye, EyeSlash } from '@phosphor-icons/react'
-import { loginSchema, LoginSchemaType } from './LoginSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { User } from '@phosphor-icons/react'
 import { useForm } from 'react-hook-form'
-import React, { useState } from 'react'
-import { Checkbox } from '@/components/ui/checkbox'
 import { useNavigate } from 'react-router-dom'
+import { LoginSchemaType, loginSchema } from './LoginSchema'
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
 
   const form = useForm<LoginSchemaType>({
@@ -33,36 +32,6 @@ export default function Login() {
     navigate('/dashboard')
   }
 
-  function handleShowPassword() {
-    setShowPassword(!showPassword)
-  }
-
-  const getPasswordIcon = () => {
-    const passwordIcon = showPassword ? (
-      <EyeSlash aria-label="Ocultar senha" />
-    ) : (
-      <Eye aria-label="Mostrar senha" />
-    )
-
-    return React.cloneElement(passwordIcon, {
-      key: 'passwordIcon',
-      onClick: handleShowPassword,
-      className: 'text-zinc-400 cursor-pointer hover:brightness-90',
-      size: 24,
-      tabIndex: 0,
-      onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-        }
-      },
-      onKeyUp: (e: React.KeyboardEvent<HTMLButtonElement>) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          handleShowPassword()
-          e.preventDefault()
-        }
-      },
-    })
-  }
   return (
     <div className="w-screen sm:w-full h-screen  bg-gradient-to-tl from-Light-primary to-Light-accent flex xl:justify-start justify-center ">
       <main className="bg-Light-background w-full md:w-5/6 xl:w-1/2 h-full flex flex-col items-start px-4 md:px-8 xl:px-16 py-2 xl:py-12 md:py-4 xl:gap-6 gap-8  ">
@@ -134,17 +103,12 @@ export default function Login() {
                           Senha
                         </FormLabel>
                         <FormControl>
-                          <Input
+                          <PasswordInput
                             id="passwordInput"
-                            type={showPassword ? 'text' : 'password'}
                             autoComplete="current-password"
                             placeholder="Sua senha"
                             error={!!formState.errors.password}
                             className="caret-accent "
-                            leftIcon={
-                              <LockKey size={28} className="text-zinc-600" />
-                            }
-                            rightIcon={getPasswordIcon()}
                             {...field}
                           />
                         </FormControl>
@@ -190,7 +154,7 @@ export default function Login() {
             form="loginForm"
             type="submit"
             variant={'animation'}
-            className="h-16 mt-10 md:mt-4 xl:mt-6 font-semibold text-lg text-primaryScale-50"
+            className="h-16 mt-10 md:mt-4 xl:mt-6 text-primaryScale-50"
           >
             Entrar
           </Button>

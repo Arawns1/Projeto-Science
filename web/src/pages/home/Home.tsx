@@ -1,6 +1,7 @@
 import ClientCard from '@/components/ClientCard'
 import Drawer from '@/components/Drawer'
-import Header from '@/components/Header'
+import { Header } from '@/components/Header/Header'
+import { NewClientButton } from '@/components/NewClientButton'
 import { SearchInput } from '@/components/SearchInput'
 import { Client } from '@/dtos/ClientDTO'
 import { useFetchClients } from '@/queries/clients'
@@ -21,7 +22,12 @@ export default function Home() {
 
   return (
     <div className="bg-Light-background min-h-screen flex flex-col ">
-      <Header />
+      <Header.Root>
+        <Header.RightMenu.Root>
+          <NewClientButton />
+          <Header.RightMenu.User />
+        </Header.RightMenu.Root>
+      </Header.Root>
       <div className=" flex flex-1 flex-row gap-8 py-12">
         <aside className="flex flex-col w-[260px]">
           <Drawer isHeaderVisible={isHeaderVisible} />

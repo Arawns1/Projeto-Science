@@ -12,6 +12,7 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
 
     --background: 195, 100%, 98%;
     --foreground: 240 10% 3.9%;

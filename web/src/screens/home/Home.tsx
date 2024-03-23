@@ -1,18 +1,15 @@
 import ClientCard from '@/components/ClientCard'
 import Drawer from '@/components/Drawer'
 import Header from '@/components/Header'
-import { Input } from '@/components/ui/input'
-import { useFetchClients } from '@/queries/clients'
-import { MagnifyingGlass } from '@phosphor-icons/react'
+import { SearchInput } from '@/components/SearchInput'
 import { Client } from '@/dtos/ClientDTO'
-import { useInView } from 'react-intersection-observer'
-import { useEffect, useRef, useState } from 'react'
+import { useFetchClients } from '@/queries/clients'
 import { Loader2 } from 'lucide-react'
+import { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 export default function Home() {
-  const [search, setSearch] = useState('')
-
   const { data, fetchNextPage, isLoading, isFetchingNextPage } =
-    useFetchClients(search)
+    useFetchClients()
   const { ref, inView } = useInView()
   const { ref: headerRef, inView: isHeaderVisible } = useInView()
 
@@ -22,26 +19,20 @@ export default function Home() {
     }
   }, [fetchNextPage, inView])
 
-  console.log(data?.pages)
-
   return (
     <div className="bg-Light-background min-h-screen flex flex-col ">
       <Header />
       <div className=" flex flex-1 flex-row gap-8 py-12">
-        <Drawer />
+        <aside className="flex flex-col w-[260px]">
+          <Drawer isHeaderVisible={isHeaderVisible} />
+        </aside>
         <main className="flex flex-1 flex-col pr-16 gap-y-6 ">
           <div
             className="w-full flex justify-between items-center"
             ref={headerRef}
           >
             <h1 className="text-3xl font-semibold">Meus Clientes</h1>
-            <Input
-              className="caret-accent w-[315px] h-12"
-              type="search"
-              placeholder="Buscar por Cliente"
-              leftIcon={<MagnifyingGlass size={24} className="text-zinc-600" />}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <SearchInput className="w-[400px]" />
           </div>
           {isLoading ? (
             <div className="grid grid-cols-3 gap-y-16 gap-24">

@@ -39,7 +39,7 @@ export default function Drawer({ isHeaderVisible }: DrawerProps) {
         <li className="bg-Light-background h-12 w-full flex items-center justify-start text-base font-semibold text-zinc-400 rounded-lg px-6 hover:brightness-95 hover:cursor-pointer ">
           <SignOut size={28} weight="bold" />
           <Link
-            to={'/'}
+            to={'/login'}
             className="w-full flex items-center justify-center text-center"
           >
             Sair

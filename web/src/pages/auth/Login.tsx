@@ -30,7 +30,7 @@ export default function Login() {
     },
   })
   function onSubmit(values: LoginSchemaType) {
-    navigate('dashboard')
+    navigate('/dashboard')
   }
 
   function handleShowPassword() {

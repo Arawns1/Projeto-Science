@@ -9,6 +9,7 @@ import {
 import ProtectedRoutes from './ProtectedRoutes'
 import ErrorPage from '@/pages/ErrorPage'
 import Home from '@/pages/home/Home'
+import FormLayout from '@/pages/clientForm/FormLayout'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,7 +17,9 @@ export const router = createBrowserRouter(
       <Route element={<Login />} path="login" />
       <Route element={<ProtectedRoutes />}>
         <Route element={<Home />} path="dashboard" />
-        <Route element={<Apresentacao />} path="novo-cliente" />
+        <Route element={<FormLayout />}>
+          <Route element={<Apresentacao />} path="novo-cliente" />
+        </Route>
       </Route>
     </Route>
   )

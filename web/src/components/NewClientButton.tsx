@@ -3,6 +3,7 @@ import { Button, ButtonProps } from './ui/button'
 import { cn } from '@/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { Plus } from '@phosphor-icons/react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 const newClientButtonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -30,11 +31,16 @@ const NewClientButton = React.forwardRef<
   NewClientButtonProps
 >(({ className, variant, ...props }, ref) => {
   const isCollapsed = variant === 'collapsed'
+  const navigate = useNavigate()
   return (
     <Button
+      onClick={() => {
+        navigate('/novo-cliente')
+      }}
       type="button"
       className={cn(newClientButtonVariants({ variant, className }))}
       ref={ref}
+      title="Adicionar novo cliente"
       {...props}
     >
       {isCollapsed ? <Plus size={24} weight="bold" /> : 'Novo Cliente'}

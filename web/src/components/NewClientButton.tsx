@@ -35,7 +35,7 @@ const NewClientButton = React.forwardRef<
   return (
     <Button
       onClick={() => {
-        navigate('/novo-cliente')
+        navigate('/novo-cliente/apresentacao')
       }}
       type="button"
       className={cn(newClientButtonVariants({ variant, className }))}

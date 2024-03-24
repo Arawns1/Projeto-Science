@@ -12,7 +12,7 @@ export interface InputProps
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, leftIcon, rightIcon, error, ...props }, ref) => {
     return (
-      <div className="relative flex">
+      <div className="relative flex w-full">
         {leftIcon && (
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-600">
             {leftIcon}

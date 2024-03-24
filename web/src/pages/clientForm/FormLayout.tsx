@@ -1,6 +1,15 @@
 import { Header } from '@/components/Header/Header'
-import { Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+
 export default function FormLayout() {
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (pathname === '/novo-cliente') {
+      navigate('/novo-cliente/apresentacao')
+    }
+  }, [])
   return (
     <>
       <Header.Root>

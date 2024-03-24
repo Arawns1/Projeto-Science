@@ -4,6 +4,7 @@ import { CameraPlus } from '@phosphor-icons/react'
 import { HtmlHTMLAttributes, useEffect, useRef, useState } from 'react'
 import { Button } from './ui/button'
 import { useFormContext } from 'react-hook-form'
+import userImagePlaceholder from '../assets/images/img_placeholder.png'
 
 interface UserPhotoProps extends HtmlHTMLAttributes<HTMLImageElement> {
   client?: Client
@@ -15,12 +16,16 @@ export default function UserPhoto({
   editable = false,
   ...props
 }: UserPhotoProps) {
-  const [userImage, setUserImage] = useState(
-    'src/assets/images/img_placeholder.png'
-  )
+  const [userImage, setUserImage] = useState(userImagePlaceholder)
   const formContext = useFormContext()
 
   const fileInput = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (client?.photoURL) {
+      setUserImage(client.photoURL)
+    }
+  }, [client, userImage])
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target?.files?.[0]
@@ -56,8 +61,8 @@ export default function UserPhoto({
               editable ? 'border-4' : 'border-1'
             } border-white bg-zinc-200 rounded-full `
           )}
-          src={client?.photoURL ? client?.photoURL : userImage}
-          alt={`Imagem do cliente ${client?.fullName}`}
+          src={userImage}
+          alt={`Imagem do cliente ${client?.fullName ?? ''}`}
           {...props}
         />
 
@@ -80,19 +85,9 @@ export default function UserPhoto({
         onChange={handleFileChange}
         ref={fileInput}
         style={{ display: 'none' }}
-        // ref={(e) => {
-        //   ref(e)
-        //   fileInput.current = e
-        // }}
-        // onChange={() => {
-
-        // }}
-        // {...register('userPhoto', {
-        //   onChange: (e) => handleFileChange(e),
-        // })}
       />
       {editable && (
-        <span className="text-xs text-zinc-400">
+        <span className="text-sm text-center text-zinc-400">
           Tamanho Recomendado: 500x500
         </span>
       )}

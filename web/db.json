@@ -1,12 +1,6 @@
 {
   "clients": [
     {
-      "id": "1",
-      "fullName": "Henrique da Silva",
-      "photoURL": "",
-      "description": "O henrique possui um projeto extremamente legal e complicado de ser realizado em um curto período de tempo"
-    },
-    {
       "id": "2",
       "fullName": "José da Silva",
       "photoURL": "https://source.unsplash.com/random/300x300/?dog?2",

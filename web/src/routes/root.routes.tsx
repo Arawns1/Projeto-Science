@@ -3,6 +3,7 @@ import Apresentacao from '@/pages/clientForm/Apresentacao'
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
   Routes,
 } from 'react-router-dom'
@@ -14,13 +15,14 @@ import FormLayout from '@/pages/clientForm/FormLayout'
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
-      <Route element={<Login />} path="login" />
+      <Route path="/" element={<Login />} />
       <Route element={<ProtectedRoutes />}>
         <Route element={<Home />} path="dashboard" />
         <Route element={<FormLayout />}>
           <Route element={<Apresentacao />} path="novo-cliente" />
         </Route>
       </Route>
+      <Route path="*" element={<Navigate to="/" />} />
     </Route>
   )
 

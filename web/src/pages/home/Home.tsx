@@ -40,7 +40,7 @@ export default function Home() {
             <h1 className="text-3xl font-semibold pb-2">Meus Clientes</h1>
             <SearchInput
               iconPosition="right"
-              className="w-[400px] border-none text-right text-lg font-medium focus-visible:outline-none focus-visible:ring-0 caret-black placeholder:text-zinc-400 px-12"
+              className="  border-none text-right text-lg font-medium focus-visible:outline-none focus-visible:ring-0 caret-black placeholder:text-zinc-400 px-12"
             />
           </div>
           {isLoading ? (

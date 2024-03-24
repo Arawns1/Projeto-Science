@@ -34,11 +34,14 @@ export default function Home() {
         </aside>
         <main className="flex flex-1 flex-col pr-16 gap-y-6 ">
           <div
-            className="w-full flex justify-between items-center"
+            className="w-full flex justify-between items-center border-b border-gray-200 "
             ref={headerRef}
           >
-            <h1 className="text-3xl font-semibold">Meus Clientes</h1>
-            <SearchInput className="w-[400px]" />
+            <h1 className="text-3xl font-semibold pb-2">Meus Clientes</h1>
+            <SearchInput
+              iconPosition="right"
+              className="w-[400px] border-none text-right text-lg font-medium focus-visible:outline-none focus-visible:ring-0 caret-black placeholder:text-zinc-400"
+            />
           </div>
           {isLoading ? (
             <div className="grid grid-cols-3 gap-y-16 gap-24">

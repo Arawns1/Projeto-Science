@@ -33,16 +33,16 @@ export default function Login() {
   }
 
   return (
-    <div className="w-screen sm:w-full h-screen  bg-gradient-to-tl from-Light-primary to-Light-accent flex xl:justify-start justify-center ">
-      <main className="bg-Light-background w-full md:w-5/6 xl:w-1/2 h-full flex flex-col items-start px-4 md:px-8 xl:px-16 py-2 xl:py-12 md:py-4 xl:gap-6 gap-8  ">
+    <div className="w-full min-h-screen flex flex-row ">
+      <main className="w-5/6 bg-Light-background  h-full flex flex-col items-start px-4 md:px-8 xl:px-16 py-2 xl:py-12 md:py-4 xl:gap-6 gap-8  ">
         <header className="w-full flex justify-center sm:justify-start items-center ">
           <img
             src={Logo}
-            width={160}
+            width={150}
             alt="Logo gradiente do azul para o verde da Science - marketing inteligente"
           />
         </header>
-        <section className="flex flex-col w-full h-full justify-start  xl:pt-4 pt-0 ">
+        <section className="flex flex-col w-full h-full justify-start  xl:pt-10 pt-0 ">
           <div>
             <h1 className="text-2xl xl:text-3xl font-bold sm:text-left text-center">
               Bem-vindo de volta!
@@ -55,7 +55,7 @@ export default function Login() {
             <form
               id="loginForm"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full xl:h-auto sm:h-full flex flex-col gap-4 pt-6"
+              className="w-full xl:h-[400px] sm:h-full flex flex-col gap-4 pt-16"
               autoComplete="on"
             >
               <fieldset>
@@ -154,12 +154,13 @@ export default function Login() {
             form="loginForm"
             type="submit"
             variant={'animation'}
-            className="h-16 mt-10 md:mt-4 xl:mt-6 text-primaryScale-50"
+            className="h-16 mt-12 md:mt-4 xl:mt-6 text-primaryScale-50"
           >
             Entrar
           </Button>
         </section>
       </main>
+      <div className="w-full bg-gradient-to-tl from-Light-primary to-Light-accent"></div>
     </div>
   )
 }

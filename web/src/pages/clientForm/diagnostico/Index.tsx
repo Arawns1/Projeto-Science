@@ -34,7 +34,7 @@ export default function DiagnosticoPage() {
               Diagnóstico do <b>projeto</b>
             </h2>
             <FormProvider {...form}>
-              <SimpleList />
+              <SimpleList listType="both" />
             </FormProvider>
           </div>
         </section>

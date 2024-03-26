@@ -1,5 +1,6 @@
-import { Plus, Trash } from '@phosphor-icons/react'
+import { Trash } from '@phosphor-icons/react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
+import { AddNewButton } from './AddNewButton'
 import SimpleListItem from './SimpleListItem'
 import { Button } from './ui/button'
 
@@ -53,15 +54,7 @@ export default function SimpleList({ listType = 'input' }: SimpleListProps) {
       </ul>
 
       <div className="w-full flex items-center justify-start">
-        <Button
-          type="button"
-          variant={'ghost'}
-          onClick={addNew}
-          className="gap-4 px-3"
-        >
-          <Plus size={24} weight="bold" />
-          <span>Adicionar novo</span>
-        </Button>
+        <AddNewButton onClick={addNew} />
       </div>
     </div>
   )

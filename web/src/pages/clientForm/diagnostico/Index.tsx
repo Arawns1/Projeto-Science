@@ -2,6 +2,7 @@ import SimpleList from '@/components/SimpleList'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import CustomTable from '@/components/CustomTable'
 
 const testSchema = z.object({
   techs: z.array(
@@ -34,7 +35,8 @@ export default function DiagnosticoPage() {
               Diagnóstico do <b>projeto</b>
             </h2>
             <FormProvider {...form}>
-              <SimpleList listType="both" />
+              <SimpleList listType="input" />
+              <CustomTable />
             </FormProvider>
           </div>
         </section>

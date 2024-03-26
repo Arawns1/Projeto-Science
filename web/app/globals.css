@@ -57,25 +57,6 @@
     --input: 240 3.7% 15.9%;
     --ring: 142.4 71.8% 29.2%;
   }
-}
-
-.gradient-button {
-  background: linear-gradient(
-    to right,
-    #32c4c9,
-    #63dd84,
-    #89e766,
-    #32c4c9,
-    #63dd84
-  );
-  background-size: 400% 100%;
-}
-::selection {
-  background: hsl(var(--primary));
-  color: white;
-}
-
-@layer base {
   * {
     @apply border-border;
     scrollbar-width: thin;
@@ -101,6 +82,21 @@
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
+  }
+  .gradient-button {
+    background: linear-gradient(
+      to right,
+      #32c4c9,
+      #63dd84,
+      #89e766,
+      #32c4c9,
+      #63dd84
+    );
+    background-size: 400% 100%;
+  }
+  ::selection {
+    background: hsl(var(--primary));
+    color: white;
   }
 
   body {

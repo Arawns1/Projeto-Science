@@ -69,7 +69,7 @@ export default function ClientCard({ client, isLoading }: ClientCardProps) {
   }
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-      <Card className="w-full  gradient-button pt-20 relative rounded-lg hover:shadow-shadows/2 transition-shadow duration-500 ease-in-out">
+      <Card className="w-full max-w-[380px] gradient-button pt-20 relative rounded-lg hover:shadow-shadows/2 transition-shadow duration-500 ease-in-out">
         <div className=" bg-card h-52 ">
           <div className="-translate-y-20 ">
             <CardHeader className="text-center flex flex-col items-center justify-center ">
@@ -84,7 +84,7 @@ export default function ClientCard({ client, isLoading }: ClientCardProps) {
               </div>
             </CardHeader>
 
-            <CardFooter className="flex justify-end items-center gap-8 ">
+            <CardFooter className="flex justify-center items-center gap-4 ">
               <EmailSenderButton />
               <Button className="w-full flex flex-row gap-x-2 text-base  ">
                 <Pencil size={22} />

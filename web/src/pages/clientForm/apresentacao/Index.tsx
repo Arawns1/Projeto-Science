@@ -51,7 +51,7 @@ export default function ApresentacaoPage() {
   }, [contatoValue])
 
   function onSubmit(values: ApresentacaoSchemaType) {
-    navigate('diagnostico')
+    navigate('/novo-cliente/diagnostico')
   }
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   function handleDiscard() {
@@ -159,7 +159,6 @@ export default function ApresentacaoPage() {
                     <FormControl>
                       <PasswordInput
                         id="passwordInput"
-                        autoComplete="current-password"
                         placeholder="Sua senha"
                         error={!!formState.errors.senha}
                         className="caret-accent "

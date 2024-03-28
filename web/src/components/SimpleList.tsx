@@ -16,7 +16,7 @@ export default function SimpleList({ listType = 'input' }: SimpleListProps) {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'techs',
+    name: 'diagnostico',
   })
 
   function addNew() {

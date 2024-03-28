@@ -37,7 +37,9 @@ export default function Home() {
             className="w-full flex justify-between items-center border-b border-gray-200 "
             ref={headerRef}
           >
-            <h1 className="text-3xl font-semibold pb-2">Meus Clientes</h1>
+            <h1 className="text-3xl font-semibold pb-2 w-full">
+              Meus Clientes
+            </h1>
             <SearchInput
               iconPosition="right"
               className="  border-none text-right text-lg font-medium focus-visible:outline-none focus-visible:ring-0 caret-black placeholder:text-zinc-400 px-12"
@@ -52,7 +54,10 @@ export default function Home() {
           ) : (
             data?.pages.map((page, index) => {
               return (
-                <div className="grid grid-cols-3 gap-y-16 gap-24" key={index}>
+                <div
+                  className="grid grid-cols-3 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-y-16 gap-16"
+                  key={index}
+                >
                   {page.data?.map((client: Client) => {
                     return <ClientCard key={client.id} client={client} />
                   })}

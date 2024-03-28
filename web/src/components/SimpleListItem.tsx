@@ -24,14 +24,14 @@ export default function SimpleListItem({
         return (
           <Input
             placeholder="O expert possui uma técnica única que..."
-            {...register(`techs.${index}.value`)}
+            {...register(`diagnostico.${index}.value`)}
           />
         )
       case 'textArea':
         return (
           <Textarea
             placeholder="O expert possui uma técnica única que..."
-            {...register(`techs.${index}.value`)}
+            {...register(`diagnostico.${index}.value`)}
           />
         )
       case 'both':
@@ -39,11 +39,11 @@ export default function SimpleListItem({
           <div className="w-full flex flex-col gap-4">
             <Input
               placeholder="O expert possui uma técnica única que..."
-              {...register(`techs.${index}.title`)}
+              {...register(`diagnostico.${index}.title`)}
             />
             <Textarea
               placeholder="O expert possui uma técnica única que..."
-              {...register(`techs.${index}.value`)}
+              {...register(`diagnostico.${index}.value`)}
             />
           </div>
         )

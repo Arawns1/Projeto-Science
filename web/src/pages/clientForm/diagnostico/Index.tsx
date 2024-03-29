@@ -27,21 +27,24 @@ import {
 import { AddNewButton } from '@/components/AddNewButton'
 import { Trash } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
+import DiscardDialog from '@/components/DiscardDialog'
+import { AlertDialog } from '@/components/ui/alert-dialog'
+import { useState } from 'react'
 
 const testSchema = z.object({
   diagnosticos: z.array(
     z.object({
-      value: z.string(),
+      value: z.string().min(1, 'O diagnóstico não pode estar vazio'),
     })
   ),
   pontosFortes: z.array(
     z.object({
-      value: z.string(),
+      value: z.string().min(1, 'Adicione pelo menos um ponto forte'),
     })
   ),
   pontosFracos: z.array(
     z.object({
-      value: z.string(),
+      value: z.string().min(1, 'Adicione pelo menos um ponto fraco'),
     })
   ),
   diferencial: z.string(),
@@ -102,60 +105,100 @@ export default function DiagnosticoPage() {
     console.log(values)
   }
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  function handleDiscard() {
+    setIsDialogOpen(true)
+  }
+
   return (
-    <div className="flex flex-col">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-16">
-        <section id="diagnostico">
-          <div id="diagnostico__wrapper" className="flex flex-col w-full gap-8">
-            <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
-              Diagnóstico do <b>projeto</b>
-            </h2>
-            <FormProvider {...form}>
-              <SimpleList listType="input" name="diagnosticos" />
-              <CustomTable />
-            </FormProvider>
+    <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <div className="flex flex-col">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-16"
+        >
+          <section id="diagnostico">
+            <div
+              id="diagnostico__wrapper"
+              className="flex flex-col w-full gap-8"
+            >
+              <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
+                Diagnóstico do <b>projeto</b>
+              </h2>
+              <FormProvider {...form}>
+                <SimpleList
+                  listType="input"
+                  name="diagnosticos"
+                  itemPlaceholder="Diagnostico"
+                />
+                <CustomTable />
+              </FormProvider>
+            </div>
+          </section>
+          <section id="diferenciais">
+            <div
+              id="diferenciais__wrapper"
+              className="flex flex-col w-full gap-8"
+            >
+              <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
+                Diferenciais
+              </h2>
+              <Textarea
+                placeholder="Os principais diferenciais do expert são..."
+                {...form.register('diferencial')}
+              />
+            </div>
+          </section>
+          <section id="objetivos">
+            <div id="objetivos__wrapper" className="flex flex-col w-full gap-8">
+              <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
+                Objetivos do <b>projeto</b>
+              </h2>
+              <FormProvider {...form}>
+                <SimpleList
+                  listType="textArea"
+                  name="objetivos"
+                  itemPlaceholder="Objetivo"
+                />
+              </FormProvider>
+            </div>
+          </section>
+          <section id="analiseConcorrencia">
+            <div
+              id="analiseConcorrencia__wrapper"
+              className="flex flex-col w-full gap-8"
+            >
+              <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
+                Análise de <b>concorrência</b>
+              </h2>
+              <Form {...form}>
+                <ConcorrenteAccordeon />
+              </Form>
+            </div>
+          </section>
+          <div className="w-full flex justify-end items-center gap-8">
+            <Button
+              variant={'ghost'}
+              type="button"
+              className="font-semibold text-lg"
+              size={'lg'}
+              onClick={handleDiscard}
+            >
+              Descartar
+            </Button>
+            <Button
+              data-formid="apresentacaoForm"
+              form="apresentacaoForm"
+              type="submit"
+              size={'lg'}
+            >
+              Próxima Etapa
+            </Button>
           </div>
-        </section>
-        <section id="diferenciais">
-          <div
-            id="diferenciais__wrapper"
-            className="flex flex-col w-full gap-8"
-          >
-            <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
-              Diferenciais
-            </h2>
-            <Textarea
-              placeholder="Os principais diferenciais do expert são..."
-              {...form.register('diferencial')}
-            />
-          </div>
-        </section>
-        <section id="objetivos">
-          <div id="objetivos__wrapper" className="flex flex-col w-full gap-8">
-            <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
-              Objetivos do <b>projeto</b>
-            </h2>
-            <FormProvider {...form}>
-              <SimpleList listType="textArea" name="objetivos" />
-            </FormProvider>
-          </div>
-        </section>
-        <section id="analiseConcorrencia">
-          <div
-            id="analiseConcorrencia__wrapper"
-            className="flex flex-col w-full gap-8"
-          >
-            <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
-              Análise de <b>concorrência</b>
-            </h2>
-            <Form {...form}>
-              <ConcorrenteAccordeon />
-            </Form>
-          </div>
-        </section>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+        </form>
+      </div>
+      <DiscardDialog />
+    </AlertDialog>
   )
 }
 

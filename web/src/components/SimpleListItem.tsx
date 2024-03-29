@@ -16,6 +16,7 @@ export default function SimpleListItem({
   index,
   name = 'diagnostico',
   variant = 'input',
+  placeholder,
   ...props
 }: SimpleListItemProps) {
   const { register } = useFormContext()
@@ -25,14 +26,14 @@ export default function SimpleListItem({
       case 'input':
         return (
           <Input
-            placeholder="O expert possui uma técnica única que..."
+            placeholder={placeholder}
             {...register(`${name}.${index}.value`)}
           />
         )
       case 'textArea':
         return (
           <Textarea
-            placeholder="O expert possui uma técnica única que..."
+            placeholder={placeholder}
             {...register(`${name}.${index}.value`)}
           />
         )

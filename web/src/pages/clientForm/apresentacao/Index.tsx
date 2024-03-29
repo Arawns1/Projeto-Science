@@ -1,13 +1,7 @@
+import DiscardDialog from '@/components/DiscardDialog'
 import { PasswordInput } from '@/components/PasswordInput'
 import UserPhoto from '@/components/UserPhoto'
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
+import { AlertDialog } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -21,7 +15,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { normalizePhoneNumber } from '@/lib/masks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Envelope, Phone, User, Warning } from '@phosphor-icons/react'
+import { Envelope, Phone, User } from '@phosphor-icons/react'
 import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -212,39 +206,5 @@ export default function ApresentacaoPage() {
       </div>
       <DiscardDialog />
     </AlertDialog>
-  )
-}
-
-const DiscardDialog = () => {
-  const navigate = useNavigate()
-
-  const handleModalDiscard = () => {
-    navigate('/dashboard')
-  }
-
-  return (
-    <AlertDialogContent className="flex flex-col gap-8">
-      <AlertDialogHeader className="flex flex-col w-full items-center justify-items-center gap-2">
-        <div className="w-16 h-16 rounded-full bg-primaryScale-200 text-primaryScale-700 flex items-center justify-center">
-          <Warning size={36} />
-        </div>
-        <AlertDialogTitle className="font-semibold text-xl text-center">
-          Você possui alterações não salvas. Tem certeza que deseja sair e
-          descartar as alterações?
-        </AlertDialogTitle>
-      </AlertDialogHeader>
-      <AlertDialogFooter className="w-full flex flex-row items-center justify-center gap-8">
-        <AlertDialogCancel className="w-full h-14 text-base">
-          Ficar
-        </AlertDialogCancel>
-        <Button
-          type="button"
-          className="w-full h-14 text-base"
-          onClick={handleModalDiscard}
-        >
-          Descartar e Sair
-        </Button>
-      </AlertDialogFooter>
-    </AlertDialogContent>
   )
 }

@@ -7,11 +7,13 @@ import { Button } from './ui/button'
 interface SimpleListProps extends React.InputHTMLAttributes<HTMLUListElement> {
   listType?: 'input' | 'textArea' | 'both'
   name: string
+  itemPlaceholder?: string
 }
 
 export default function SimpleList({
   listType = 'input',
   name = 'diagnostico',
+  itemPlaceholder = 'Item',
 }: SimpleListProps) {
   const {
     control,
@@ -36,7 +38,14 @@ export default function SimpleList({
         {fields.map((field, index) => {
           return (
             <li key={field.id} className="flex flex-row gap-8">
-              <SimpleListItem index={index} variant={listType} name={name} />
+              <SimpleListItem
+                index={index}
+                variant={listType}
+                name={name}
+                placeholder={`${itemPlaceholder} ${(index + 1)
+                  .toString()
+                  .padStart(2, '0')}`}
+              />
               {index >= 1 && (
                 <Button
                   title="Excluir item da lista"
@@ -56,7 +65,6 @@ export default function SimpleList({
           )
         })}
       </ul>
-
       <div className="w-full flex items-center justify-start">
         <AddNewButton onClick={addNew} />
       </div>

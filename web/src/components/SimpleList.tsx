@@ -6,9 +6,13 @@ import { Button } from './ui/button'
 
 interface SimpleListProps extends React.InputHTMLAttributes<HTMLUListElement> {
   listType?: 'input' | 'textArea' | 'both'
+  name: string
 }
 
-export default function SimpleList({ listType = 'input' }: SimpleListProps) {
+export default function SimpleList({
+  listType = 'input',
+  name = 'diagnostico',
+}: SimpleListProps) {
   const {
     control,
     formState: { errors },
@@ -16,7 +20,7 @@ export default function SimpleList({ listType = 'input' }: SimpleListProps) {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'diagnostico',
+    name: name,
   })
 
   function addNew() {
@@ -32,7 +36,7 @@ export default function SimpleList({ listType = 'input' }: SimpleListProps) {
         {fields.map((field, index) => {
           return (
             <li key={field.id} className="flex flex-row gap-8">
-              <SimpleListItem index={index} variant={listType} />
+              <SimpleListItem index={index} variant={listType} name={name} />
               {index >= 1 && (
                 <Button
                   title="Excluir item da lista"

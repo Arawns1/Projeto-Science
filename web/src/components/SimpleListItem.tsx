@@ -8,11 +8,13 @@ interface SimpleListItemProps
   extends React.InputHTMLAttributes<HTMLDivElement> {
   index: number
   variant?: 'input' | 'textArea' | 'both'
+  name: string
 }
 
 export default function SimpleListItem({
   className,
   index,
+  name = 'diagnostico',
   variant = 'input',
   ...props
 }: SimpleListItemProps) {
@@ -24,14 +26,14 @@ export default function SimpleListItem({
         return (
           <Input
             placeholder="O expert possui uma técnica única que..."
-            {...register(`diagnostico.${index}.value`)}
+            {...register(`${name}.${index}.value`)}
           />
         )
       case 'textArea':
         return (
           <Textarea
             placeholder="O expert possui uma técnica única que..."
-            {...register(`diagnostico.${index}.value`)}
+            {...register(`${name}.${index}.value`)}
           />
         )
       case 'both':
@@ -39,11 +41,11 @@ export default function SimpleListItem({
           <div className="w-full flex flex-col gap-4">
             <Input
               placeholder="O expert possui uma técnica única que..."
-              {...register(`diagnostico.${index}.title`)}
+              {...register(`${name}.${index}.title`)}
             />
             <Textarea
               placeholder="O expert possui uma técnica única que..."
-              {...register(`diagnostico.${index}.value`)}
+              {...register(`${name}.${index}.value`)}
             />
           </div>
         )

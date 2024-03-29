@@ -3,16 +3,23 @@ import { Control, useFieldArray, useFormContext } from 'react-hook-form'
 import { AddNewButton } from './AddNewButton'
 import { Button } from './ui/button'
 
-export default function CustomTable() {
+interface CustomTableProps {
+  pontosFortesName?: string
+  pontosFracosName?: string
+}
+export default function CustomTable({
+  pontosFortesName = 'pontosFortes',
+  pontosFracosName = 'pontosFracos',
+}: CustomTableProps) {
   const { control } = useFormContext()
 
   return (
     <section className="flex flex-row w-full justify-start items-start gap-4">
       <div id="customTable__column_1" className="flex-1 flex flex-col gap-4">
-        <PontosFortes control={control} />
+        <PontosFortes control={control} name={pontosFortesName} />
       </div>
       <div id="customTable__column_2" className="flex-1 flex flex-col gap-4">
-        <PontosFracos control={control} />
+        <PontosFracos control={control} name={pontosFracosName} />
       </div>
     </section>
   )
@@ -20,10 +27,11 @@ export default function CustomTable() {
 
 interface PontosListProps {
   control: Control<any>
+  name: string
 }
 
-const PontosFracos = ({ control }: PontosListProps) => {
-  const fieldArray = useFieldArray({ control, name: 'pontosFracos' })
+const PontosFracos = ({ control, name }: PontosListProps) => {
+  const fieldArray = useFieldArray({ control, name: name })
 
   const { register } = useFormContext()
 
@@ -39,7 +47,7 @@ const PontosFracos = ({ control }: PontosListProps) => {
     <div>
       <div
         id="customTable__header_PontosFracos"
-        className=" bg-zinc-600 text-zinc-50 font-semibold text-xl h-14 text-center flex items-center justify-center"
+        className=" bg-zinc-600 text-zinc-50 font-semibold text-lg h-14 text-center flex items-center justify-center"
       >
         <h3>Pontos a Melhorar</h3>
       </div>
@@ -52,8 +60,8 @@ const PontosFracos = ({ control }: PontosListProps) => {
             <input
               placeholder="Adicione um ponto a melhorar..."
               type="text"
-              className="bg-transparent w-full h-full text-center  text-black  text-xl flex items-center justify-center ml-20"
-              {...register(`pontosFracos.${index}.value`)}
+              className="bg-transparent w-full h-full text-center  text-black  text-lg flex items-center justify-center ml-20"
+              {...register(`${name}.${index}.value`)}
             />
             <div className="h-full flex items-center justify-center gap-px w-20">
               <Button
@@ -79,8 +87,8 @@ const PontosFracos = ({ control }: PontosListProps) => {
   )
 }
 
-const PontosFortes = ({ control }: PontosListProps) => {
-  const fieldArray = useFieldArray({ control, name: 'pontosFortes' })
+const PontosFortes = ({ control, name }: PontosListProps) => {
+  const fieldArray = useFieldArray({ control, name: name })
 
   const { register } = useFormContext()
 
@@ -96,7 +104,7 @@ const PontosFortes = ({ control }: PontosListProps) => {
     <div>
       <div
         id="customTable__header_PontosForte"
-        className=" bg-zinc-600 text-zinc-50 font-semibold text-xl h-14 text-center flex items-center justify-center"
+        className=" bg-zinc-600 text-zinc-50 font-semibold text-lg h-14 text-center flex items-center justify-center"
       >
         <h3>Pontos Fortes</h3>
       </div>
@@ -109,8 +117,8 @@ const PontosFortes = ({ control }: PontosListProps) => {
             <input
               placeholder="Adicione um ponto forte..."
               type="text"
-              className="bg-transparent w-full h-full text-center  text-black  text-xl flex items-center justify-center ml-20"
-              {...register(`pontosFortes.${index}.value`)}
+              className="bg-transparent w-full h-full text-center  text-black  text-lg flex items-center justify-center ml-20"
+              {...register(`${name}.${index}.value`)}
             />
             <div className="h-full flex items-center justify-center gap-px w-20">
               <Button

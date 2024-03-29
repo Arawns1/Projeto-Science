@@ -25,6 +25,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { AddNewButton } from '@/components/AddNewButton'
+import { Trash } from '@phosphor-icons/react'
+import { Button } from '@/components/ui/button'
 
 const testSchema = z.object({
   diagnosticos: z.array(
@@ -52,18 +54,22 @@ const testSchema = z.object({
     z.object({
       nome: z.string(),
       redeSocial: z.string(),
-      linkRedeSocial: z.string(),
+      linkRedeSocial: z.string().optional(),
       descricao: z.string(),
-      pontosFortes: z.array(
-        z.object({
-          value: z.string(),
-        })
-      ),
-      pontosFracos: z.array(
-        z.object({
-          value: z.string(),
-        })
-      ),
+      pontosFortes: z
+        .array(
+          z.object({
+            value: z.string(),
+          })
+        )
+        .optional(),
+      pontosFracos: z
+        .array(
+          z.object({
+            value: z.string(),
+          })
+        )
+        .optional(),
     })
   ),
 })
@@ -86,14 +92,6 @@ export default function DiagnosticoPage() {
           pontosFortes: [{ value: '' }],
           pontosFracos: [{ value: '' }],
         },
-        {
-          nome: '',
-          redeSocial: '',
-          linkRedeSocial: '',
-          descricao: '',
-          pontosFortes: [{ value: '' }],
-          pontosFracos: [{ value: '' }],
-        },
       ],
     },
   })
@@ -108,7 +106,7 @@ export default function DiagnosticoPage() {
     <div className="flex flex-col">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-16">
         <section id="diagnostico">
-          <div id="diagnostico__title" className="flex flex-col w-full gap-8">
+          <div id="diagnostico__wrapper" className="flex flex-col w-full gap-8">
             <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
               Diagnóstico do <b>projeto</b>
             </h2>
@@ -119,7 +117,10 @@ export default function DiagnosticoPage() {
           </div>
         </section>
         <section id="diferenciais">
-          <div id="diferenciais__title" className="flex flex-col w-full gap-8">
+          <div
+            id="diferenciais__wrapper"
+            className="flex flex-col w-full gap-8"
+          >
             <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
               Diferenciais
             </h2>
@@ -130,7 +131,7 @@ export default function DiagnosticoPage() {
           </div>
         </section>
         <section id="objetivos">
-          <div id="objetivos__title" className="flex flex-col w-full gap-8">
+          <div id="objetivos__wrapper" className="flex flex-col w-full gap-8">
             <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
               Objetivos do <b>projeto</b>
             </h2>
@@ -140,12 +141,17 @@ export default function DiagnosticoPage() {
           </div>
         </section>
         <section id="analiseConcorrencia">
-          <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
-            Análise de <b>concorrência</b>
-          </h2>
-          <Form {...form}>
-            <ConcorrenteAccordeon />
-          </Form>
+          <div
+            id="analiseConcorrencia__wrapper"
+            className="flex flex-col w-full gap-8"
+          >
+            <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
+              Análise de <b>concorrência</b>
+            </h2>
+            <Form {...form}>
+              <ConcorrenteAccordeon />
+            </Form>
+          </div>
         </section>
         <button type="submit">Submit</button>
       </form>
@@ -155,50 +161,98 @@ export default function DiagnosticoPage() {
 
 const ConcorrenteAccordeon = () => {
   const { control } = useFormContext()
-  const { fields } = useFieldArray({ control, name: 'concorrentes' })
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'concorrentes',
+  })
+
+  const handleNewConcorrente = () => {
+    append({
+      nome: '',
+      redeSocial: '',
+      linkRedeSocial: '',
+      descricao: '',
+      pontosFortes: [{ value: '' }],
+      pontosFracos: [{ value: '' }],
+    })
+  }
+
+  const handleDeleteConcorrente = (index: number) => {
+    remove(index)
+  }
 
   return (
-    <>
-      <Accordion type="multiple" className="w-full">
+    <div className="flex flex-col gap-4 items-start justify-start">
+      <Accordion type="multiple" className="w-full flex flex-col gap-4">
         {fields.map((field, index) => (
-          <AccordionItem value={`item-${index}`}>
-            <AccordionTrigger>Concorrente {index + 1}</AccordionTrigger>
-            <AccordionContent>
-              <form className="flex-1 w-full xl:h-auto sm:h-full flex flex-col gap-4 ">
-                <div className="w-full flex flex-row gap-8">
+          <div
+            key={field.id}
+            className="w-full flex flex-row gap-2 items-start justify-center"
+          >
+            <AccordionItem
+              className="flex-1 bg-zinc-100 px-2 rounded-lg shadow-sm space-y-4"
+              value={`item-${index}`}
+            >
+              <AccordionTrigger className="border-b-2 border-zinc-200 hover:cursor-pointer text-zinc-700 text-base px-2">
+                Concorrente {index + 1}
+              </AccordionTrigger>
+              <AccordionContent className="px-2">
+                <div className="flex-1 w-full xl:h-auto sm:h-full flex flex-col gap-8 ">
+                  <div className="w-full flex flex-row gap-8">
+                    <FormField
+                      name={`concorrentes.${index}.nome`}
+                      control={control}
+                      render={({ field, formState }) => (
+                        <FormItem className="w-full">
+                          <FormLabel htmlFor="nameInput">Nome</FormLabel>
+                          <FormControl>
+                            <Input
+                              id="nameInput"
+                              type="text"
+                              autoComplete="name"
+                              placeholder="Nome do Cliente"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      name={`concorrentes.${index}.redeSocial`}
+                      control={control}
+                      render={({ field, formState }) => (
+                        <FormItem className="w-full">
+                          <FormLabel htmlFor="nameInput">
+                            Rede Social do concorrente
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              id="nameInput"
+                              type="text"
+                              autoComplete="name"
+                              placeholder="@Concorrente"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   <FormField
-                    name="nome"
-                    control={control}
-                    render={({ field, formState }) => (
-                      <FormItem className="w-full">
-                        <FormLabel htmlFor="nameInput">Nome</FormLabel>
-                        <FormControl>
-                          <Input
-                            id="nameInput"
-                            type="text"
-                            autoComplete="name"
-                            placeholder="Nome do Cliente"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    name="nome"
+                    name={`concorrentes.${index}.linkRedeSocial`}
                     control={control}
                     render={({ field, formState }) => (
                       <FormItem className="w-full">
                         <FormLabel htmlFor="nameInput">
-                          Rede Social do concorrente
+                          Link da rede social do concorrente
                         </FormLabel>
                         <FormControl>
                           <Input
                             id="nameInput"
-                            type="text"
                             autoComplete="name"
-                            placeholder="@concorrente"
+                            placeholder="http://url.com"
                             {...field}
                           />
                         </FormControl>
@@ -206,53 +260,49 @@ const ConcorrenteAccordeon = () => {
                       </FormItem>
                     )}
                   />
+                  <FormField
+                    name={`concorrentes.${index}.descricao`}
+                    control={control}
+                    render={({ field, formState }) => (
+                      <FormItem className="w-full">
+                        <FormLabel htmlFor="nameInput">Descrição</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            id="nameInput"
+                            placeholder="Descrição do Concorrente"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <CustomTable
+                    pontosFortesName={`concorrentes.${index}.pontosFortes`}
+                    pontosFracosName={`concorrentes.${index}.pontosFracos`}
+                  />
                 </div>
-                <FormField
-                  name="nome"
-                  control={control}
-                  render={({ field, formState }) => (
-                    <FormItem className="w-full">
-                      <FormLabel htmlFor="nameInput">
-                        Rede Social do concorrente
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          id="nameInput"
-                          autoComplete="name"
-                          placeholder="http://url.com"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name="nome"
-                  control={control}
-                  render={({ field, formState }) => (
-                    <FormItem className="w-full">
-                      <FormLabel htmlFor="nameInput">
-                        Rede Social do concorrente
-                      </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          id="nameInput"
-                          placeholder="Descrição do Concorrente"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <CustomTable />
-              </form>
-            </AccordionContent>
-          </AccordionItem>
+              </AccordionContent>
+            </AccordionItem>
+            {index > 0 && (
+              <div className="flex items-center justify-center py-1">
+                <Button
+                  size="icon"
+                  variant={'ghost'}
+                  onClick={() => handleDeleteConcorrente(index)}
+                >
+                  <Trash
+                    size={24}
+                    weight="bold"
+                    className="text-destructive "
+                  />
+                </Button>
+              </div>
+            )}
+          </div>
         ))}
       </Accordion>
-      <AddNewButton />
-    </>
+      <AddNewButton onClick={handleNewConcorrente} />
+    </div>
   )
 }

@@ -60,7 +60,7 @@ const PontosFracos = ({ control, name }: PontosListProps) => {
             <input
               placeholder="Adicione um ponto a melhorar..."
               type="text"
-              className="bg-transparent w-full h-full text-center  text-black  text-lg flex items-center justify-center ml-20"
+              className="bg-transparent w-full h-full text-left text-black text-lg flex items-center justify-center pl-2"
               {...register(`${name}.${index}.value`)}
             />
             <div className="h-full flex items-center justify-center gap-px w-20">
@@ -117,7 +117,7 @@ const PontosFortes = ({ control, name }: PontosListProps) => {
             <input
               placeholder="Adicione um ponto forte..."
               type="text"
-              className="bg-transparent w-full h-full text-center  text-black  text-lg flex items-center justify-center ml-20"
+              className="bg-transparent w-full h-full text-left text-black text-lg flex items-center justify-center pl-2"
               {...register(`${name}.${index}.value`)}
             />
             <div className="h-full flex items-center justify-center gap-px w-20">

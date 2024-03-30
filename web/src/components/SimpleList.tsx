@@ -12,7 +12,7 @@ interface SimpleListProps extends React.InputHTMLAttributes<HTMLUListElement> {
 
 export default function SimpleList({
   listType = 'input',
-  name = 'diagnostico',
+  name = 'diagnosticos',
   itemPlaceholder = 'Item',
 }: SimpleListProps) {
   const {

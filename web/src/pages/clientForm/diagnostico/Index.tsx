@@ -1,21 +1,15 @@
-import SimpleList from '@/components/SimpleList'
-import {
-  FormProvider,
-  useFieldArray,
-  useForm,
-  useFormContext,
-} from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import { AddNewButton } from '@/components/AddNewButton'
 import CustomTable from '@/components/CustomTable'
-import { Textarea } from '@/components/ui/textarea'
+import DiscardDialog from '@/components/DiscardDialog'
+import SimpleList from '@/components/SimpleList'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { Input } from '@/components/ui/input'
+import { AlertDialog } from '@/components/ui/alert-dialog'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -24,62 +18,23 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { AddNewButton } from '@/components/AddNewButton'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Trash } from '@phosphor-icons/react'
-import { Button } from '@/components/ui/button'
-import DiscardDialog from '@/components/DiscardDialog'
-import { AlertDialog } from '@/components/ui/alert-dialog'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import {
+  FormProvider,
+  useFieldArray,
+  useFormContext,
+  useForm,
+} from 'react-hook-form'
+import { diagnosticoFormData, diagnosticoSchema } from './DiagnosticoSchema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from 'react-router-dom'
 
-const testSchema = z.object({
-  diagnosticos: z.array(
-    z.object({
-      value: z.string().min(1, 'O diagnóstico não pode estar vazio'),
-    })
-  ),
-  pontosFortes: z.array(
-    z.object({
-      value: z.string().min(1, 'Adicione pelo menos um ponto forte'),
-    })
-  ),
-  pontosFracos: z.array(
-    z.object({
-      value: z.string().min(1, 'Adicione pelo menos um ponto fraco'),
-    })
-  ),
-  diferencial: z.string(),
-  objetivos: z.array(
-    z.object({
-      value: z.string(),
-    })
-  ),
-  concorrentes: z.array(
-    z.object({
-      nome: z.string(),
-      redeSocial: z.string(),
-      linkRedeSocial: z.string().optional(),
-      descricao: z.string(),
-      pontosFortes: z
-        .array(
-          z.object({
-            value: z.string(),
-          })
-        )
-        .optional(),
-      pontosFracos: z
-        .array(
-          z.object({
-            value: z.string(),
-          })
-        )
-        .optional(),
-    })
-  ),
-})
-export type testForm = z.infer<typeof testSchema>
 export default function DiagnosticoPage() {
-  const form = useForm<testForm>({
-    resolver: zodResolver(testSchema),
+  const form = useForm<diagnosticoFormData>({
+    resolver: zodResolver(diagnosticoSchema),
     defaultValues: {
       diagnosticos: [{ value: '' }],
       pontosFortes: [{ value: '' }],
@@ -99,10 +54,13 @@ export default function DiagnosticoPage() {
     },
   })
 
+  const navigate = useNavigate()
+
   const { handleSubmit } = form
 
-  function onSubmit(values: testForm) {
+  function onSubmit(values: diagnosticoFormData) {
     console.log(values)
+    // navigate('/novo-cliente/projeto')
   }
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -114,6 +72,7 @@ export default function DiagnosticoPage() {
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <div className="flex flex-col">
         <form
+          id="diagnosticoForm"
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-16"
         >
@@ -127,7 +86,7 @@ export default function DiagnosticoPage() {
               </h2>
               <FormProvider {...form}>
                 <SimpleList
-                  listType="input"
+                  listType="textArea"
                   name="diagnosticos"
                   itemPlaceholder="Diagnostico"
                 />
@@ -172,7 +131,7 @@ export default function DiagnosticoPage() {
                 Análise de <b>concorrência</b>
               </h2>
               <Form {...form}>
-                <ConcorrenteAccordeon />
+                <ConcorrenteAccordion />
               </Form>
             </div>
           </section>
@@ -187,8 +146,8 @@ export default function DiagnosticoPage() {
               Descartar
             </Button>
             <Button
-              data-formid="apresentacaoForm"
-              form="apresentacaoForm"
+              data-formid="diagnosticoForm"
+              form="diagnosticoForm"
               type="submit"
               size={'lg'}
             >
@@ -202,7 +161,7 @@ export default function DiagnosticoPage() {
   )
 }
 
-const ConcorrenteAccordeon = () => {
+const ConcorrenteAccordion = () => {
   const { control } = useFormContext()
   const { fields, append, remove } = useFieldArray({
     control,
@@ -266,14 +225,13 @@ const ConcorrenteAccordeon = () => {
                       control={control}
                       render={({ field, formState }) => (
                         <FormItem className="w-full">
-                          <FormLabel htmlFor="nameInput">
+                          <FormLabel htmlFor="redeSocialInput">
                             Rede Social do concorrente
                           </FormLabel>
                           <FormControl>
                             <Input
-                              id="nameInput"
+                              id="redeSocialInput"
                               type="text"
-                              autoComplete="name"
                               placeholder="@Concorrente"
                               {...field}
                             />
@@ -288,13 +246,12 @@ const ConcorrenteAccordeon = () => {
                     control={control}
                     render={({ field, formState }) => (
                       <FormItem className="w-full">
-                        <FormLabel htmlFor="nameInput">
+                        <FormLabel htmlFor="linkRedeSocialInput">
                           Link da rede social do concorrente
                         </FormLabel>
                         <FormControl>
                           <Input
-                            id="nameInput"
-                            autoComplete="name"
+                            id="linkRedeSocialInput"
                             placeholder="http://url.com"
                             {...field}
                           />
@@ -308,10 +265,12 @@ const ConcorrenteAccordeon = () => {
                     control={control}
                     render={({ field, formState }) => (
                       <FormItem className="w-full">
-                        <FormLabel htmlFor="nameInput">Descrição</FormLabel>
+                        <FormLabel htmlFor="descricaoInput">
+                          Descrição
+                        </FormLabel>
                         <FormControl>
                           <Textarea
-                            id="nameInput"
+                            id="descricaoInput"
                             placeholder="Descrição do Concorrente"
                             {...field}
                           />

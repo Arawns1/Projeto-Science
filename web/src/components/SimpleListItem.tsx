@@ -19,7 +19,10 @@ export default function SimpleListItem({
   placeholder,
   ...props
 }: SimpleListItemProps) {
-  const { register } = useFormContext()
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext()
 
   const getItemType = () => {
     switch (variant) {
@@ -32,10 +35,12 @@ export default function SimpleListItem({
         )
       case 'textArea':
         return (
-          <Textarea
-            placeholder={placeholder}
-            {...register(`${name}.${index}.value`)}
-          />
+          <>
+            <Textarea
+              placeholder={placeholder}
+              {...register(`${name}.${index}.value`)}
+            />
+          </>
         )
       case 'both':
         return (

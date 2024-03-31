@@ -25,6 +25,10 @@ export const router = createBrowserRouter(
             element={<ClientForm.Diagnostico />}
             path="/novo-cliente/diagnostico"
           />
+          <Route
+            element={<ClientForm.Projeto />}
+            path="/novo-cliente/projeto"
+          />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

@@ -20,21 +20,22 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Trash } from '@phosphor-icons/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   FormProvider,
   useFieldArray,
-  useFormContext,
   useForm,
+  useFormContext,
 } from 'react-hook-form'
-import { diagnosticoFormData, diagnosticoSchema } from './DiagnosticoSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
+import { diagnosticoFormData, diagnosticoSchema } from './DiagnosticoSchema'
 
 export default function DiagnosticoPage() {
   const form = useForm<diagnosticoFormData>({
     resolver: zodResolver(diagnosticoSchema),
+    mode: 'all',
     defaultValues: {
       diagnosticos: [{ value: '' }],
       pontosFortes: [{ value: '' }],
@@ -102,10 +103,17 @@ export default function DiagnosticoPage() {
               <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
                 Diferenciais
               </h2>
-              <Textarea
-                placeholder="Os principais diferenciais do expert são..."
-                {...form.register('diferencial')}
-              />
+              <div className="flex flex-col gap-2">
+                <Textarea
+                  placeholder="Os principais diferenciais do expert são..."
+                  {...form.register('diferencial')}
+                />
+                {form.formState.errors.diferencial && (
+                  <span className="text-destructive">
+                    {form.formState.errors.diferencial.message}
+                  </span>
+                )}
+              </div>
             </div>
           </section>
           <section id="objetivos">
@@ -280,8 +288,8 @@ const ConcorrenteAccordion = () => {
                     )}
                   />
                   <CustomTable
-                    pontosFortesName={`concorrentes.${index}.pontosFortes`}
-                    pontosFracosName={`concorrentes.${index}.pontosFracos`}
+                    pontosFortesName={`concorrentes.[${index}].pontosFortes`}
+                    pontosFracosName={`concorrentes.[${index}].pontosFracos`}
                   />
                 </div>
               </AccordionContent>

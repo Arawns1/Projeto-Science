@@ -36,30 +36,39 @@ export default function SimpleList({
     <div className="flex flex-col gap-2">
       <ul className="flex flex-col gap-6">
         {fields.map((field, index) => {
+          const errorAtIndex = (errors[name] as any)?.[index]
           return (
-            <li key={field.id} className="flex flex-row gap-8">
-              <SimpleListItem
-                index={index}
-                variant={listType}
-                name={name}
-                placeholder={`${itemPlaceholder} ${(index + 1)
-                  .toString()
-                  .padStart(2, '0')}`}
-              />
-              {index >= 1 && (
-                <Button
-                  title="Excluir item da lista"
-                  type="button"
-                  variant={'ghost'}
-                  size={'icon'}
-                  onClick={() => handleDeleteItem(index)}
-                >
-                  <Trash
-                    size={24}
-                    weight="bold"
-                    className="text-destructive "
-                  />
-                </Button>
+            <li key={field.id} className="flex flex-col gap-2">
+              <div className="flex flex-row gap-8">
+                <SimpleListItem
+                  index={index}
+                  variant={listType}
+                  name={name}
+                  placeholder={`${itemPlaceholder} ${(index + 1)
+                    .toString()
+                    .padStart(2, '0')}`}
+                />
+
+                {index >= 1 && (
+                  <Button
+                    title="Excluir item da lista"
+                    type="button"
+                    variant={'ghost'}
+                    size={'icon'}
+                    onClick={() => handleDeleteItem(index)}
+                  >
+                    <Trash
+                      size={24}
+                      weight="bold"
+                      className="text-destructive "
+                    />
+                  </Button>
+                )}
+              </div>
+              {errorAtIndex?.value && (
+                <span className="text-destructive">
+                  {errorAtIndex?.value?.message}
+                </span>
               )}
             </li>
           )

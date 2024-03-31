@@ -9,6 +9,7 @@ interface SimpleListItemProps
   index: number
   variant?: 'input' | 'textArea' | 'both'
   name: string
+  bothTextAreaPlaceholder?: string
 }
 
 export default function SimpleListItem({
@@ -17,6 +18,7 @@ export default function SimpleListItem({
   name = 'diagnostico',
   variant = 'input',
   placeholder,
+  bothTextAreaPlaceholder,
   ...props
 }: SimpleListItemProps) {
   const {
@@ -46,11 +48,11 @@ export default function SimpleListItem({
         return (
           <div className="w-full flex flex-col gap-4">
             <Input
-              placeholder="O expert possui uma técnica única que..."
+              placeholder={placeholder}
               {...register(`${name}.${index}.title`)}
             />
             <Textarea
-              placeholder="O expert possui uma técnica única que..."
+              placeholder={bothTextAreaPlaceholder}
               {...register(`${name}.${index}.value`)}
             />
           </div>

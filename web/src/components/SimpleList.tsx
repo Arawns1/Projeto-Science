@@ -8,12 +8,14 @@ interface SimpleListProps extends React.InputHTMLAttributes<HTMLUListElement> {
   listType?: 'input' | 'textArea' | 'both'
   name: string
   itemPlaceholder?: string
+  bothTextAreaPlaceholder?: string
 }
 
 export default function SimpleList({
   listType = 'input',
   name = 'diagnosticos',
   itemPlaceholder = 'Item',
+  bothTextAreaPlaceholder,
 }: SimpleListProps) {
   const {
     control,
@@ -44,6 +46,7 @@ export default function SimpleList({
                   index={index}
                   variant={listType}
                   name={name}
+                  bothTextAreaPlaceholder={bothTextAreaPlaceholder}
                   placeholder={`${itemPlaceholder} ${(index + 1)
                     .toString()
                     .padStart(2, '0')}`}

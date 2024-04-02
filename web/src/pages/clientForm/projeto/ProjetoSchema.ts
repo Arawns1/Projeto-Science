@@ -22,6 +22,7 @@ const setupDeConteudo = z.object({
 })
 
 const objetivoRede = z.object({
+  nome: z.string(),
   objetivo: z.string(),
   frequencia: z.string(),
   estruturaLinguagem: z.string(),
@@ -39,7 +40,7 @@ export const projetoSchema = z.object({
   conteudos: z.array(setupDeConteudo),
   palavrasChave: z.array(z.object({ value: z.string() })),
   linkPlanilhaPalavras: z.string(),
-  objetivosRedesSociais: z.array(objetivoRede),
+  redesSociais: z.array(objetivoRede),
 })
 
 export type projetoFormData = z.infer<typeof projetoSchema>

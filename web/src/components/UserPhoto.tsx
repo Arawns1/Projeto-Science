@@ -9,11 +9,15 @@ import userImagePlaceholder from '../assets/images/img_placeholder.png'
 interface UserPhotoProps extends HtmlHTMLAttributes<HTMLImageElement> {
   client?: Client
   editable?: boolean
+  hasRecommendedSize?: boolean
+  name?: string
 }
 export default function UserPhoto({
   client,
   className,
   editable = false,
+  hasRecommendedSize = true,
+  name = 'userPhoto',
   ...props
 }: UserPhotoProps) {
   const [userImage, setUserImage] = useState(userImagePlaceholder)
@@ -29,7 +33,7 @@ export default function UserPhoto({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target?.files?.[0]
-    formContext.setValue('userPhoto', file)
+    formContext.setValue(name, file)
     if (file) {
       const newImage = URL.createObjectURL(file)
       setUserImage(newImage)
@@ -86,7 +90,7 @@ export default function UserPhoto({
         ref={fileInput}
         style={{ display: 'none' }}
       />
-      {editable && (
+      {editable && hasRecommendedSize && (
         <span className="text-sm text-center text-zinc-400">
           Tamanho Recomendado: 500x500
         </span>

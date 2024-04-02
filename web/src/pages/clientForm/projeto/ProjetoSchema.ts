@@ -5,11 +5,14 @@ const proposito = z.object({
   value: z.string(),
 })
 
-const persona = z.object({
-  image: z.instanceof(FileList),
-  nome: z.string(),
-  idade: z.number(),
-  profissao: z.string(),
+export const personaSchema = z.object({
+  userPhoto: z.instanceof(Blob).optional(),
+  nome: z.string().min(1, 'Adicione um nome válido'),
+  idade: z.coerce
+    .number()
+    .min(1, 'Adicione uma idade entre 1 e 100')
+    .max(100, 'Adicione uma idade entre 1 e 100'),
+  profissao: z.string().min(1, 'Adicione uma profisão válida'),
   sobre: z.string(),
 })
 
@@ -32,7 +35,7 @@ export const projetoSchema = z.object({
     comunicação: z.string(),
   }),
   propositos: z.array(proposito),
-  personas: z.array(persona),
+  personas: z.array(personaSchema),
   conteudos: z.array(setupDeConteudo),
   palavrasChave: z.array(z.object({ value: z.string() })),
   linkPlanilhaPalavras: z.string(),
@@ -40,3 +43,4 @@ export const projetoSchema = z.object({
 })
 
 export type projetoFormData = z.infer<typeof projetoSchema>
+export type personaFormData = z.infer<typeof personaSchema>

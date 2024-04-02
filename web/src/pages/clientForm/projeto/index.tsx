@@ -1,11 +1,9 @@
 import DiscardDialog from '@/components/DiscardDialog'
+import PalavraChaveInput from '@/components/PalavraChaveInput'
+import PersonasList from '@/components/PersonasList'
+import SimpleList from '@/components/SimpleList'
 import { AlertDialog } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { projetoFormData, projetoSchema } from './ProjetoSchema'
-import { Input } from '@/components/ui/input'
 import {
   Form,
   FormControl,
@@ -14,9 +12,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import SimpleList from '@/components/SimpleList'
+import { Input } from '@/components/ui/input'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@phosphor-icons/react'
-import { PalavraChaveInput } from '@/components/PalavraChaveInput'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { projetoFormData, projetoSchema } from './ProjetoSchema'
 
 export default function ProjetoPage() {
   const form = useForm<projetoFormData>({
@@ -30,7 +31,6 @@ export default function ProjetoPage() {
       },
       propositos: [{ title: '', value: '' }],
       conteudos: [{ title: '', value: '' }],
-      palavrasChave: [{ value: '' }],
       linkPlanilhaPalavras: '',
       objetivosRedesSociais: [
         { objetivo: '', frequencia: '', estruturaLinguagem: '' },
@@ -187,6 +187,11 @@ export default function ProjetoPage() {
               <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
                 personas
               </h2>
+              <div>
+                <Form {...form}>
+                  <PersonasList />
+                </Form>
+              </div>
             </div>
           </section>
           <section id="setupDeConteudo">

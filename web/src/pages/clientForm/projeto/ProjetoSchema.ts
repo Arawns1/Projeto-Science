@@ -28,6 +28,31 @@ const objetivoRede = z.object({
   estruturaLinguagem: z.string(),
 })
 
+const funilFormato = z.object({
+  formato: z.string(),
+  titulo: z.string(),
+})
+
+const funil = z.object({
+  nome: z.array(
+    z.object({
+      title: z.string(),
+      value: z.string(),
+    })
+  ),
+  formatos: z.array(funilFormato),
+  tipos: z.array(
+    z.object({
+      value: z.string(),
+    })
+  ),
+  faseTambem: z.array(
+    z.object({
+      value: z.string(),
+    })
+  ),
+})
+
 export const projetoSchema = z.object({
   dna: z.object({
     estilo: z.string(),
@@ -41,6 +66,7 @@ export const projetoSchema = z.object({
   palavrasChave: z.array(z.object({ value: z.string() })),
   linkPlanilhaPalavras: z.string(),
   redesSociais: z.array(objetivoRede),
+  funis: z.array(funil),
 })
 
 export type projetoFormData = z.infer<typeof projetoSchema>

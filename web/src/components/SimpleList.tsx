@@ -9,6 +9,9 @@ interface SimpleListProps extends React.InputHTMLAttributes<HTMLUListElement> {
   name: string
   itemPlaceholder?: string
   bothTextAreaPlaceholder?: string
+  hasAddNewButton?: boolean
+  hasDeleteIcon?: boolean
+  customIndex?: number
 }
 
 export default function SimpleList({
@@ -16,6 +19,9 @@ export default function SimpleList({
   name = 'diagnosticos',
   itemPlaceholder = 'Item',
   bothTextAreaPlaceholder,
+  hasAddNewButton = true,
+  hasDeleteIcon = true,
+  customIndex,
 }: SimpleListProps) {
   const {
     control,
@@ -38,6 +44,9 @@ export default function SimpleList({
     <div className="flex flex-col gap-2">
       <ul className="flex flex-col gap-6">
         {fields.map((field, index) => {
+          if (customIndex) {
+            index = customIndex
+          }
           const errorAtIndex = (errors[name] as any)?.[index]
           return (
             <li key={field.id} className="flex flex-col gap-2">
@@ -52,7 +61,7 @@ export default function SimpleList({
                     .padStart(2, '0')}`}
                 />
 
-                {index >= 1 && (
+                {hasDeleteIcon && index >= 1 && (
                   <Button
                     title="Excluir item da lista"
                     type="button"
@@ -77,9 +86,11 @@ export default function SimpleList({
           )
         })}
       </ul>
-      <div className="w-full flex items-center justify-start">
-        <AddNewButton onClick={addNew} />
-      </div>
+      {hasAddNewButton && (
+        <div className="w-full flex items-center justify-start">
+          <AddNewButton onClick={addNew} />
+        </div>
+      )}
     </div>
   )
 }

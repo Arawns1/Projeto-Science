@@ -19,6 +19,7 @@ import { Link } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { projetoFormData, projetoSchema } from './ProjetoSchema'
+import FunilList from '@/components/FunilList'
 
 export default function ProjetoPage() {
   const form = useForm<projetoFormData>({
@@ -35,6 +36,14 @@ export default function ProjetoPage() {
       linkPlanilhaPalavras: '',
       redesSociais: [
         { nome: '', objetivo: '', frequencia: '', estruturaLinguagem: '' },
+      ],
+      funis: [
+        {
+          nome: [{ title: '', value: '' }],
+          formatos: [{ formato: '', titulo: '' }],
+          tipos: [{ value: '' }],
+          faseTambem: [{ value: '' }],
+        },
       ],
     },
   })
@@ -274,6 +283,9 @@ export default function ProjetoPage() {
               <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
                 funil de <b>conteúdos</b>
               </h2>
+              <Form {...form}>
+                <FunilList />
+              </Form>
             </div>
           </section>
           <section id="camposGenericos">

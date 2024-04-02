@@ -10,6 +10,7 @@ interface SimpleListItemProps
   variant?: 'input' | 'textArea' | 'both'
   name: string
   bothTextAreaPlaceholder?: string
+  customIndex?: number
 }
 
 export default function SimpleListItem({
@@ -21,10 +22,7 @@ export default function SimpleListItem({
   bothTextAreaPlaceholder,
   ...props
 }: SimpleListItemProps) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext()
+  const { register } = useFormContext()
 
   const getItemType = () => {
     switch (variant) {

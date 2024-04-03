@@ -45,7 +45,6 @@ export default function PersonasList() {
   const personaForm = useForm<personaFormData>({
     resolver: zodResolver(personaSchema),
     defaultValues: {
-      userPhoto: new Blob(),
       nome: '',
       idade: 0,
       profissao: '',
@@ -83,7 +82,7 @@ export default function PersonasList() {
                   <div className="flex flex-col gap-2 items-center justify-center">
                     <img
                       src={
-                        item.userPhoto
+                        item.userPhoto && item.userPhoto?.size > 0
                           ? URL.createObjectURL(item.userPhoto)
                           : userImagePlaceholder
                       }

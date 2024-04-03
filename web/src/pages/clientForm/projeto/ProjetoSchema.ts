@@ -34,12 +34,10 @@ const funilFormato = z.object({
 })
 
 const funil = z.object({
-  nome: z.array(
-    z.object({
-      title: z.string(),
-      value: z.string(),
-    })
-  ),
+  nome: z.object({
+    title: z.string(),
+    value: z.string(),
+  }),
   formatos: z.array(funilFormato),
   tipos: z.array(
     z.object({

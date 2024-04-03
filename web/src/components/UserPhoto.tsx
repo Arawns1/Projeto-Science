@@ -33,8 +33,8 @@ export default function UserPhoto({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target?.files?.[0]
-    formContext.setValue(name, file)
     if (file) {
+      formContext.setValue(name, file)
       const newImage = URL.createObjectURL(file)
       setUserImage(newImage)
     }

@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@phosphor-icons/react'
-import { useState } from 'react'
+import { FormEvent, KeyboardEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { projetoFormData, projetoSchema } from './ProjetoSchema'
 import FunilList from '@/components/FunilList'
@@ -39,7 +39,7 @@ export default function ProjetoPage() {
       ],
       funis: [
         {
-          nome: [{ title: '', value: '' }],
+          nome: { title: '', value: '' },
           formatos: [{ formato: '', titulo: '' }],
           tipos: [{ value: '' }],
           faseTambem: [{ value: '' }],
@@ -58,12 +58,16 @@ export default function ProjetoPage() {
   function handleDiscard() {
     setIsDialogOpen(true)
   }
+  const checkKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') e.preventDefault()
+  }
   return (
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <div className="flex flex-col">
         <form
           id="projetoForm"
           onSubmit={handleSubmit(onSubmit)}
+          onKeyDown={(e) => checkKeyDown(e)}
           className="flex flex-col gap-16"
         >
           <section id="dnaDoProjeto">

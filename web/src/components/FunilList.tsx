@@ -4,6 +4,9 @@ import FunilItem from './FunilItem'
 import { Button } from './ui/button'
 import { Trash } from '@phosphor-icons/react'
 import { AddNewButton } from './AddNewButton'
+import SimpleList from './SimpleList'
+import { Input } from './ui/input'
+import { Textarea } from './ui/textarea'
 
 export default function FunilList() {
   const form = useFormContext<projetoFormData>()
@@ -14,7 +17,7 @@ export default function FunilList() {
 
   function addNewFunil() {
     append({
-      nome: [{ title: '', value: '' }],
+      nome: { title: '', value: '' },
       formatos: [{ formato: '', titulo: '' }],
       tipos: [{ value: '' }],
       faseTambem: [{ value: '' }],
@@ -32,7 +35,25 @@ export default function FunilList() {
             key={field.id}
             className="flex flex-row gap-4 items-start w-full border-[1px] border-zinc-300 rounded-lg p-4 py-8"
           >
-            <FunilItem name={`funis.${index}`} index={index} />
+            <div className="w-full flex flex-col gap-8">
+              <div className="w-full flex flex-row gap-6 ">
+                <div className="w-12 h-12 rounded-full gradient-button flex flex-row items-center justify-center text-white font-semibold text-xl">
+                  {index + 1}
+                </div>
+
+                <div className="w-full flex flex-col gap-4">
+                  <Input
+                    {...form.register(`funis.${index}.nome.title`)}
+                    placeholder={`Ex.: Funil de atração`}
+                  />
+                  <Textarea
+                    {...form.register(`funis.${index}.nome.value`)}
+                    placeholder="Sobre o funil"
+                  />
+                </div>
+              </div>
+              <FunilItem name={`funis.${index}`} />
+            </div>
             {index >= 1 && (
               <Button
                 title="Excluir funil"

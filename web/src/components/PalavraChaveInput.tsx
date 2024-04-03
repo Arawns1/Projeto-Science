@@ -21,6 +21,12 @@ export default function PalavraChaveInput({
 
   const inputRef = useRef<HTMLInputElement>(null)
 
+  if (inputRef && inputRef.current) {
+    inputRef.current.onkeydown = (e) => {
+      if (e.key === 'Enter') handleAddNew()
+    }
+  }
+
   const handleAddNew = () => {
     const palavraChave = inputRef.current?.value
     if (palavraChave) {

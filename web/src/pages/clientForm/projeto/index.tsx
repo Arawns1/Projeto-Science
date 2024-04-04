@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@phosphor-icons/react'
-import { FormEvent, KeyboardEvent, useState } from 'react'
+import { KeyboardEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { projetoFormData, projetoSchema } from './ProjetoSchema'
 import FunilList from '@/components/FunilList'

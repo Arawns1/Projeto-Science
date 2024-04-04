@@ -45,6 +45,7 @@ export default function ApresentacaoPage() {
   }, [contatoValue])
 
   function onSubmit(values: ApresentacaoSchemaType) {
+    console.log(values)
     navigate('/novo-cliente/diagnostico')
   }
   const [isDialogOpen, setIsDialogOpen] = useState(false)

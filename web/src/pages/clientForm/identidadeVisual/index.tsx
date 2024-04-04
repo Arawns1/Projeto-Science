@@ -9,13 +9,13 @@ import {
   IdentidadeVisualFormData,
   IdentidadeVisualSchema,
 } from './IdentidadeVisualSchema'
-
-const MAX_NUM_FOTOS = 5
+import { useToast } from '@/components/ui/use-toast'
 
 export default function IdentidadeVisualPage() {
   const form = useForm<IdentidadeVisualFormData>({
     resolver: zodResolver(IdentidadeVisualSchema),
   })
+  const { toast } = useToast()
 
   const { control } = form
 
@@ -24,7 +24,7 @@ export default function IdentidadeVisualPage() {
     name: 'images',
   })
 
-  function onSubmit(values: any) {
+  function onSubmit(values: IdentidadeVisualFormData) {
     console.log(values)
     // navigate('/novo-cliente/diagnostico')
   }
@@ -43,13 +43,18 @@ export default function IdentidadeVisualPage() {
     }
   }
 
-  let arq = MAX_NUM_FOTOS
   async function appendNewPhoto(file: File) {
-    arq = arq - 1
-    const checkValidate = arq >= 0
-    return checkValidate && imagesList.append({ file: file })
+    const imagesListLength = form.getValues('images').length
+    if (imagesListLength < 5) {
+      imagesList.append({ file: file })
+    } else {
+      toast({
+        variant: 'destructive',
+        title: 'Atenção!',
+        description: 'Limite de 5 imagens alcançado',
+      })
+    }
   }
-
   function handleInputFileChange(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
 
@@ -60,7 +65,6 @@ export default function IdentidadeVisualPage() {
   }
 
   function handleDeletePhoto(index: number) {
-    arq = arq + 1
     imagesList.remove(index)
   }
 
@@ -97,9 +101,18 @@ export default function IdentidadeVisualPage() {
         </h2>
         <div className="flex flex-row py-12 w-full ">
           <FormProvider {...form}>
-            <form id="identidadeVisualForm" className="w-full min-h-[420px]">
+            <form
+              id="identidadeVisualForm"
+              className="w-full min-h-[420px]"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
               {imagesList.fields.length > 0 ? (
-                <div className="flex flex-col gap-4">
+                <div
+                  className="flex flex-col gap-4"
+                  onDrop={(e) => e.preventDefault()}
+                  onDragEnter={handleDragEnter}
+                  onDragOver={handleDragOver}
+                >
                   {imagesList.fields.map((field, index) => {
                     return (
                       <div

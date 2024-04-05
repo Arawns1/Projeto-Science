@@ -15,9 +15,8 @@ export default function IdentidadeVisualPage() {
   const form = useForm<IdentidadeVisualFormData>({
     resolver: zodResolver(IdentidadeVisualSchema),
   })
-  const { toast } = useToast()
-
   const { control } = form
+  const { toast } = useToast()
 
   const imagesList = useFieldArray<IdentidadeVisualFormData>({
     control: control,
@@ -28,6 +27,7 @@ export default function IdentidadeVisualPage() {
     console.log(values)
     // navigate('/novo-cliente/diagnostico')
   }
+
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   function handleDiscard() {

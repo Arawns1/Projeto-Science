@@ -91,9 +91,9 @@ export default function CronogramaPage() {
                             control={form.control}
                             name="dob"
                             render={({ field }) => (
-                              <FormItem className="flex flex-col">
+                              <FormItem className="flex flex-col w-full">
                                 <FormLabel>Período</FormLabel>
-                                <DatePickerWithRange />
+                                <DatePickerWithRange className="w-full" />
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -102,14 +102,14 @@ export default function CronogramaPage() {
                             control={form.control}
                             name={`eventos.${index}.status`}
                             render={({ field }) => (
-                              <FormItem className="w-60">
+                              <FormItem className="w-full">
                                 <FormLabel>Status</FormLabel>
                                 <Select
                                   onValueChange={field.onChange}
                                   defaultValue={field.value}
                                 >
                                   <FormControl>
-                                    <SelectTrigger className="h-12 w-60">
+                                    <SelectTrigger className="h-12 w-full">
                                       <SelectValue placeholder="Selecione um status" />
                                     </SelectTrigger>
                                   </FormControl>

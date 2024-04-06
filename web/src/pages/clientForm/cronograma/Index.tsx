@@ -23,6 +23,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { addDays } from 'date-fns'
+import { AddNewButton } from '@/components/AddNewButton'
+import { Trash } from '@phosphor-icons/react'
 
 export default function CronogramaPage() {
   const form = useForm<CronogramaFormData>({
@@ -32,7 +35,10 @@ export default function CronogramaPage() {
         {
           title: '',
           value: '',
-          periodo: '',
+          periodo: {
+            from: new Date(),
+            to: addDays(new Date(), 20),
+          },
           status: '',
         },
       ],
@@ -50,6 +56,22 @@ export default function CronogramaPage() {
     console.log(values)
   }
 
+  const handleAddNew = () => {
+    append({
+      title: '',
+      value: '',
+      periodo: {
+        from: new Date(),
+        to: addDays(new Date(), 20),
+      },
+      status: '',
+    })
+  }
+
+  const handleDeleteItem = (index: number) => {
+    remove(index)
+  }
+
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   function handleDiscard() {
@@ -65,8 +87,8 @@ export default function CronogramaPage() {
         <div className="flex flex-row py-12 w-full ">
           <FormProvider {...form}>
             <form
-              id="identidadeVisualForm"
-              className="w-full min-h-[420px]"
+              id="cronogramaForm"
+              className="w-full min-h-[420px] flex flex-col gap-8 items-start"
               onSubmit={form.handleSubmit(onSubmit)}
             >
               {fields.map((field, index) => {
@@ -79,7 +101,9 @@ export default function CronogramaPage() {
                     <div className="w-full flex flex-col gap-4">
                       <Input
                         {...register(`eventos.${index}.title`)}
-                        placeholder="Evento 01"
+                        placeholder={`Evento ${(index + 1)
+                          .toString()
+                          .padStart(2, '0')}`}
                       />
                       <Textarea
                         {...register(`eventos.${index}.value`)}
@@ -89,11 +113,15 @@ export default function CronogramaPage() {
                         <Form {...form}>
                           <FormField
                             control={form.control}
-                            name="dob"
+                            name={`eventos.${index}.periodo`}
                             render={({ field }) => (
                               <FormItem className="flex flex-col w-full">
                                 <FormLabel>Período</FormLabel>
-                                <DatePickerWithRange className="w-full" />
+                                <DatePickerWithRange
+                                  className="w-full"
+                                  value={field.value}
+                                  onDateChange={field.onChange}
+                                />
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -132,9 +160,25 @@ export default function CronogramaPage() {
                         </Form>
                       </div>
                     </div>
+                    {index >= 1 && (
+                      <Button
+                        title="Excluir item da lista"
+                        type="button"
+                        variant={'ghost'}
+                        size={'icon'}
+                        onClick={() => handleDeleteItem(index)}
+                      >
+                        <Trash
+                          size={24}
+                          weight="bold"
+                          className="text-destructive "
+                        />
+                      </Button>
+                    )}
                   </div>
                 )
               })}
+              <AddNewButton onClick={handleAddNew} />
             </form>
           </FormProvider>
         </div>
@@ -149,8 +193,8 @@ export default function CronogramaPage() {
             Descartar
           </Button>
           <Button
-            data-formid="identidadeVisualForm"
-            form="identidadeVisualForm"
+            data-formid="cronogramaForm"
+            form="cronogramaForm"
             type="submit"
             size={'lg'}
           >

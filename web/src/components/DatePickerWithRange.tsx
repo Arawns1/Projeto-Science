@@ -1,9 +1,3 @@
-import * as React from 'react'
-import { addDays, format } from 'date-fns'
-import { Calendar as CalendarIcon } from 'lucide-react'
-import { DateRange } from 'react-day-picker'
-import { ptBR } from 'date-fns/locale'
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import {
@@ -11,24 +5,48 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { cn } from '@/lib/utils'
+import { format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
+import { Calendar as CalendarIcon } from 'lucide-react'
+import { HTMLAttributes, useState } from 'react'
+import { DateRange } from 'react-day-picker'
+
+interface DatePickerWithRangeProps extends HTMLAttributes<HTMLDivElement> {
+  value: {
+    from: Date
+    to: Date
+  }
+  onDateChange: (date: DateRange) => void
+}
 
 export function DatePickerWithRange({
   className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 20),
+  value,
+  onDateChange,
+  ...rest
+}: DatePickerWithRangeProps) {
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: value.from,
+    to: value.to,
   })
 
+  const handleDateSelected = (date: DateRange) => {
+    if (date) {
+      onDateChange(date)
+    }
+    setDate(date)
+  }
+
   return (
-    <div className={cn('grid gap-2', className)}>
+    <div className={cn('grid gap-2', className)} {...rest}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
             id="date"
             variant={'outline'}
             className={cn(
-              'w-full h-12 justify-start text-left font-normal border-zinc-300 text-muted-foreground'
+              'w-full h-12 justify-start text-left font-normal border-zinc-300 text-muted-foreground text-base'
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -62,8 +80,8 @@ export function DatePickerWithRange({
             initialFocus
             mode="range"
             defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
+            selected={value}
+            onSelect={handleDateSelected}
             numberOfMonths={2}
           />
         </PopoverContent>

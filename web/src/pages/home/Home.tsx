@@ -9,7 +9,7 @@ import { Loader2 } from 'lucide-react'
 import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 export default function Home() {
-  const { data, fetchNextPage, isLoading, isFetchingNextPage } =
+  const { data, fetchNextPage, isLoading, isError, isFetchingNextPage } =
     useFetchClients()
   const { ref, inView } = useInView()
   const { ref: headerRef, inView: isHeaderVisible } = useInView()
@@ -45,7 +45,7 @@ export default function Home() {
               className="  border-none text-right text-lg font-medium focus-visible:outline-none focus-visible:ring-0 caret-black placeholder:text-zinc-400 px-12"
             />
           </div>
-          {isLoading ? (
+          {isLoading || isError ? (
             <div className="grid grid-cols-3 gap-y-16 gap-24">
               <ClientCard isLoading />
               <ClientCard isLoading />

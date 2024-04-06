@@ -48,9 +48,9 @@ export default function ClientCard({ client, isLoading }: ClientCardProps) {
 
   if (isLoading) {
     return (
-      <div className="  border-2 border-gray-200 rounded-lg w-full h-72 relative">
+      <div className="border-2 border-gray-200 rounded-lg w-full h-72 relative">
         <div className="bg-zinc-200 w-full h-20"></div>
-        <div className="flex flex-col justify-center items-center space-y-3 absolute -top- w-full h-full ">
+        <div className="flex flex-col justify-center items-center space-y-3 absolute -top-8 w-full h-full ">
           <Skeleton className="w-24 h-24 rounded-full  border-4 border-white" />
           <div className="space-y-4 flex flex-col justify-center items-center  w-full">
             <Skeleton className="h-4 w-32" />

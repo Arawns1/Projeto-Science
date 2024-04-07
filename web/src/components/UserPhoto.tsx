@@ -26,8 +26,8 @@ export default function UserPhoto({
   const fileInput = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (client?.photoURL) {
-      setUserImage(client.photoURL)
+    if (client?.userPhoto) {
+      setUserImage(client.userPhoto)
     }
   }, [client, userImage])
 
@@ -66,7 +66,7 @@ export default function UserPhoto({
             } border-white bg-zinc-200 rounded-full `
           )}
           src={userImage}
-          alt={`Imagem do cliente ${client?.fullName ?? ''}`}
+          alt={`Imagem do cliente ${client?.nome ?? ''}`}
           {...props}
         />
 

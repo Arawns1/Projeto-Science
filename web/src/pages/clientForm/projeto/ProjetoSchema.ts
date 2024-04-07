@@ -51,6 +51,24 @@ const funil = z.object({
   ),
 })
 
+const field = z.object({
+  type: z.string().optional(),
+  title: z.string().optional(),
+  data: z
+    .object({
+      file: z.instanceof(File).optional(),
+      content: z
+        .array(
+          z.object({
+            title: z.string().optional(),
+            value: z.string().optional(),
+          })
+        )
+        .optional(),
+    })
+    .optional(),
+})
+
 export const projetoSchema = z.object({
   dna: z.object({
     estilo: z.string(),
@@ -65,7 +83,9 @@ export const projetoSchema = z.object({
   linkPlanilhaPalavras: z.string(),
   redesSociais: z.array(objetivoRede),
   funis: z.array(funil),
+  genericFields: z.array(field).optional(),
 })
 
 export type projetoFormData = z.infer<typeof projetoSchema>
 export type personaFormData = z.infer<typeof personaSchema>
+export type fieldFormData = z.infer<typeof field>

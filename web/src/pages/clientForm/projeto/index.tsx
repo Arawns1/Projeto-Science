@@ -20,6 +20,7 @@ import { KeyboardEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { projetoFormData, projetoSchema } from './ProjetoSchema'
 import FunilList from '@/components/FunilList'
+import GenericFields from '@/components/GenericFields'
 
 export default function ProjetoPage() {
   const form = useForm<projetoFormData>({
@@ -300,6 +301,9 @@ export default function ProjetoPage() {
               <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
                 campos <b>genéricos</b>
               </h2>
+              <Form {...form}>
+                <GenericFields />
+              </Form>
             </div>
           </section>
           <div className="w-full flex justify-end items-center gap-8">

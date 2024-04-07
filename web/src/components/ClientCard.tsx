@@ -76,10 +76,10 @@ export default function ClientCard({ client, isLoading }: ClientCardProps) {
               <UserPhoto client={client} />
               <div className="flex flex-col gap-2">
                 <CardTitle className="font-semibold text-xl capitalize">
-                  {client?.fullName}
+                  {client?.nome}
                 </CardTitle>
                 <CardDescription className="text-center text-ellipsis line-clamp-2 h-10">
-                  {client?.description}
+                  {client?.sobre}
                 </CardDescription>
               </div>
             </CardHeader>

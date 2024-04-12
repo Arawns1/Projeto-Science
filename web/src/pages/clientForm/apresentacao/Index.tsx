@@ -1,8 +1,9 @@
-import DiscardDialog from '@/components/DiscardDialog'
-import { PasswordInput } from '@/components/PasswordInput'
-import UserPhoto from '@/components/UserPhoto'
-import { AlertDialog } from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
+/* eslint-disable jsx-a11y/no-autofocus */
+import DiscardDialog from "@/components/DiscardDialog"
+import { PasswordInput } from "@/components/PasswordInput"
+import UserPhoto from "@/components/UserPhoto"
+import { AlertDialog } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -10,43 +11,43 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { normalizePhoneNumber } from '@/lib/masks'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Envelope, Phone, User } from '@phosphor-icons/react'
-import { useEffect, useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { normalizePhoneNumber } from "@/lib/masks"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Envelope, Phone, User } from "@phosphor-icons/react"
+import { useEffect, useState } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 import {
   ApresentacaoSchemaType,
   apresentacaoSchema,
-} from './ApresentacaoSchema'
+} from "./ApresentacaoSchema"
 
 export default function ApresentacaoPage() {
   const form = useForm<ApresentacaoSchemaType>({
     resolver: zodResolver(apresentacaoSchema),
-    mode: 'onTouched',
+    mode: "onTouched",
     defaultValues: {
-      nome: '',
-      contato: '',
-      email: '',
-      senha: '',
-      sobre: '',
+      nome: "",
+      contato: "",
+      email: "",
+      senha: "",
+      sobre: "",
     },
   })
 
-  const contatoValue = form.watch('contato')
+  const contatoValue = form.watch("contato")
   const navigate = useNavigate()
 
   useEffect(() => {
-    form.setValue('contato', normalizePhoneNumber(contatoValue))
-  }, [contatoValue])
+    form.setValue("contato", normalizePhoneNumber(contatoValue))
+  }, [contatoValue, form])
 
   function onSubmit(values: ApresentacaoSchemaType) {
     console.log(values)
-    navigate('/novo-cliente/diagnostico')
+    navigate("/novo-cliente/diagnostico")
   }
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   function handleDiscard() {
@@ -187,10 +188,10 @@ export default function ApresentacaoPage() {
         </div>
         <div className="w-full flex justify-end items-center gap-8">
           <Button
-            variant={'ghost'}
+            variant={"ghost"}
             type="button"
             className="font-semibold text-lg"
-            size={'lg'}
+            size={"lg"}
             onClick={handleDiscard}
           >
             Descartar
@@ -199,7 +200,7 @@ export default function ApresentacaoPage() {
             data-formid="apresentacaoForm"
             form="apresentacaoForm"
             type="submit"
-            size={'lg'}
+            size={"lg"}
           >
             Próxima Etapa
           </Button>

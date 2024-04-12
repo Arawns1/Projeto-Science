@@ -1,16 +1,17 @@
-import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
+/* eslint-disable no-unused-vars */
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
-import { format } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
-import { Calendar as CalendarIcon } from 'lucide-react'
-import { HTMLAttributes, useState } from 'react'
-import { DateRange } from 'react-day-picker'
+} from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+import { format } from "date-fns"
+import { ptBR } from "date-fns/locale"
+import { Calendar as CalendarIcon } from "lucide-react"
+import { HTMLAttributes, useState } from "react"
+import { DateRange } from "react-day-picker"
 
 interface DatePickerWithRangeProps extends HTMLAttributes<HTMLDivElement> {
   value: {
@@ -31,7 +32,7 @@ export function DatePickerWithRange({
     to: value.to,
   })
 
-  const handleDateSelected = (date: DateRange) => {
+  const handleDateSelected = (date: DateRange | undefined) => {
     if (date) {
       onDateChange(date)
     }
@@ -39,30 +40,30 @@ export function DatePickerWithRange({
   }
 
   return (
-    <div className={cn('grid gap-2', className)} {...rest}>
+    <div className={cn("grid gap-2", className)} {...rest}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
             id="date"
-            variant={'outline'}
+            variant={"outline"}
             className={cn(
-              'w-full h-12 justify-start text-left font-normal border-zinc-300 text-muted-foreground text-base'
+              "w-full h-12 justify-start text-left font-normal border-zinc-300 text-muted-foreground text-base",
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {date?.from ? (
               date.to ? (
                 <>
-                  {format(date.from, 'dd LLL, y', {
+                  {format(date.from, "dd LLL, y", {
                     locale: ptBR,
-                  })}{' '}
-                  -{' '}
-                  {format(date.to, ' dd LLL, y', {
+                  })}{" "}
+                  -{" "}
+                  {format(date.to, " dd LLL, y", {
                     locale: ptBR,
                   })}
                 </>
               ) : (
-                format(date.from, 'dd LLL, y', {
+                format(date.from, "dd LLL, y", {
                   locale: ptBR,
                 })
               )

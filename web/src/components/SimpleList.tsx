@@ -1,11 +1,11 @@
-import { Trash } from '@phosphor-icons/react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
-import { AddNewButton } from './AddNewButton'
-import SimpleListItem from './SimpleListItem'
-import { Button } from './ui/button'
+import { Trash } from "@phosphor-icons/react"
+import { useFieldArray, useFormContext } from "react-hook-form"
+import { AddNewButton } from "./AddNewButton"
+import SimpleListItem from "./SimpleListItem"
+import { Button } from "./ui/button"
 
 interface SimpleListProps extends React.InputHTMLAttributes<HTMLUListElement> {
-  listType?: 'input' | 'textArea' | 'both'
+  listType?: "input" | "textArea" | "both"
   name: string
   itemPlaceholder?: string
   bothTextAreaPlaceholder?: string
@@ -15,9 +15,9 @@ interface SimpleListProps extends React.InputHTMLAttributes<HTMLUListElement> {
 }
 
 export default function SimpleList({
-  listType = 'input',
-  name = 'diagnosticos',
-  itemPlaceholder = 'Item',
+  listType = "input",
+  name = "diagnosticos",
+  itemPlaceholder = "Item",
   bothTextAreaPlaceholder,
   hasAddNewButton = true,
   hasDeleteIcon = true,
@@ -34,7 +34,7 @@ export default function SimpleList({
   })
 
   function addNew() {
-    append({ value: '' })
+    append({ value: "" })
   }
   const handleDeleteItem = (index: number) => {
     remove(index)
@@ -58,15 +58,15 @@ export default function SimpleList({
                   bothTextAreaPlaceholder={bothTextAreaPlaceholder}
                   placeholder={`${itemPlaceholder} ${(index + 1)
                     .toString()
-                    .padStart(2, '0')}`}
+                    .padStart(2, "0")}`}
                 />
 
                 {hasDeleteIcon && index >= 1 && (
                   <Button
                     title="Excluir item da lista"
                     type="button"
-                    variant={'ghost'}
-                    size={'icon'}
+                    variant={"ghost"}
+                    size={"icon"}
                     onClick={() => handleDeleteItem(index)}
                   >
                     <Trash

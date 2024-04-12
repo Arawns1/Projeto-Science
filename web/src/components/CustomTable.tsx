@@ -1,15 +1,15 @@
-import { Trash } from '@phosphor-icons/react'
-import { Control, useFieldArray, useFormContext } from 'react-hook-form'
-import { AddNewButton } from './AddNewButton'
-import { Button } from './ui/button'
+import { Trash } from "@phosphor-icons/react"
+import { Control, useFieldArray, useFormContext } from "react-hook-form"
+import { AddNewButton } from "./AddNewButton"
+import { Button } from "./ui/button"
 
 interface CustomTableProps {
   pontosFortesName?: string
   pontosFracosName?: string
 }
 export default function CustomTable({
-  pontosFortesName = 'pontosFortes',
-  pontosFracosName = 'pontosFracos',
+  pontosFortesName = "pontosFortes",
+  pontosFracosName = "pontosFracos",
 }: CustomTableProps) {
   const { control } = useFormContext()
 
@@ -44,7 +44,7 @@ const PontosFracos = ({ control, name }: PontosListProps) => {
   }
 
   const addNewPontoForteCell = () => {
-    fieldArray.append({ value: '' })
+    fieldArray.append({ value: "" })
   }
 
   return (
@@ -79,7 +79,7 @@ const PontosFracos = ({ control, name }: PontosListProps) => {
                     title="Excluir item da lista"
                     type="button"
                     size="icon"
-                    variant={'ghost'}
+                    variant={"ghost"}
                     onClick={() => handleDeleteCell(index)}
                   >
                     <Trash
@@ -119,7 +119,7 @@ const PontosFortes = ({ control, name }: PontosListProps) => {
   }
 
   const addNewPontoForteCell = () => {
-    fieldArray.append({ value: '' })
+    fieldArray.append({ value: "" })
   }
 
   return (
@@ -154,7 +154,7 @@ const PontosFortes = ({ control, name }: PontosListProps) => {
                     title="Excluir item da lista"
                     type="button"
                     size="icon"
-                    variant={'ghost'}
+                    variant={"ghost"}
                     onClick={() => handleDeleteCell(index)}
                   >
                     <Trash

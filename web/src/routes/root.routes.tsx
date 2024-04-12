@@ -3,12 +3,12 @@ import {
   createRoutesFromElements,
   Navigate,
   Route,
-} from 'react-router-dom'
-import ProtectedRoutes from './ProtectedRoutes'
-import Home from '@/pages/home/Home'
-import FormLayout from '@/pages/clientForm/FormLayout'
-import { ClientForm } from '@/pages/clientForm'
-import Login from '@/pages/auth/Login'
+} from "react-router-dom"
+import ProtectedRoutes from "./ProtectedRoutes"
+import Home from "@/pages/home/Home"
+import FormLayout from "@/pages/clientForm/FormLayout"
+import { ClientForm } from "@/pages/clientForm"
+import Login from "@/pages/auth/Login"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +40,6 @@ export const router = createBrowserRouter(
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
-    </Route>
-  )
+    </Route>,
+  ),
 )

@@ -1,19 +1,19 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom"
 import {
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from './ui/alert-dialog'
-import { Warning } from '@phosphor-icons/react'
-import { Button } from './ui/button'
+} from "./ui/alert-dialog"
+import { Warning } from "@phosphor-icons/react"
+import { Button } from "./ui/button"
 
 export default function DiscardDialog() {
   const navigate = useNavigate()
 
   const handleModalDiscard = () => {
-    navigate('/dashboard')
+    navigate("/dashboard")
   }
 
   return (

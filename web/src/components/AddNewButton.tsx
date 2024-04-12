@@ -1,7 +1,7 @@
-import { cn } from '@/lib/utils'
-import { Plus } from '@phosphor-icons/react'
-import React from 'react'
-import { Button, ButtonProps } from './ui/button'
+import { cn } from "@/lib/utils"
+import { Plus } from "@phosphor-icons/react"
+import React from "react"
+import { Button, ButtonProps } from "./ui/button"
 
 interface AddNewButtonProps
   extends ButtonProps,
@@ -12,8 +12,8 @@ const AddNewButton = React.forwardRef<HTMLButtonElement, AddNewButtonProps>(
     return (
       <Button
         type="button"
-        variant={'ghost'}
-        className={cn('gap-4 px-3', className)}
+        variant={"ghost"}
+        className={cn("gap-4 px-3", className)}
         ref={ref}
         {...props}
       >
@@ -21,6 +21,6 @@ const AddNewButton = React.forwardRef<HTMLButtonElement, AddNewButtonProps>(
         <span>Adicionar novo</span>
       </Button>
     )
-  }
+  },
 )
 export { AddNewButton }

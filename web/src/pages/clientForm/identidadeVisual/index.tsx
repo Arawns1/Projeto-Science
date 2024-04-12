@@ -1,15 +1,15 @@
-import DiscardDialog from '@/components/DiscardDialog'
-import { AlertDialog } from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { FilePlus, Trash } from '@phosphor-icons/react'
-import { ChangeEvent, DragEvent, MouseEvent, useRef, useState } from 'react'
-import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
+import DiscardDialog from "@/components/DiscardDialog"
+import { AlertDialog } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { FilePlus, Trash } from "@phosphor-icons/react"
+import { ChangeEvent, DragEvent, MouseEvent, useRef, useState } from "react"
+import { FormProvider, useFieldArray, useForm } from "react-hook-form"
 import {
   IdentidadeVisualFormData,
   IdentidadeVisualSchema,
-} from './IdentidadeVisualSchema'
-import { useToast } from '@/components/ui/use-toast'
+} from "./IdentidadeVisualSchema"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function IdentidadeVisualPage() {
   const form = useForm<IdentidadeVisualFormData>({
@@ -20,7 +20,7 @@ export default function IdentidadeVisualPage() {
 
   const imagesList = useFieldArray<IdentidadeVisualFormData>({
     control: control,
-    name: 'images',
+    name: "images",
   })
 
   function onSubmit(values: IdentidadeVisualFormData) {
@@ -44,14 +44,14 @@ export default function IdentidadeVisualPage() {
   }
 
   async function appendNewPhoto(file: File) {
-    const imagesListLength = form.getValues('images').length
+    const imagesListLength = form.getValues("images").length
     if (imagesListLength < 5) {
       imagesList.append({ file: file })
     } else {
       toast({
-        variant: 'destructive',
-        title: 'Atenção!',
-        description: 'Limite de 5 imagens alcançado',
+        variant: "destructive",
+        title: "Atenção!",
+        description: "Limite de 5 imagens alcançado",
       })
     }
   }
@@ -72,7 +72,7 @@ export default function IdentidadeVisualPage() {
     e.preventDefault()
     if (e.dataTransfer.items) {
       ;[...e.dataTransfer.items].forEach((item) => {
-        if (item.kind === 'file') {
+        if (item.kind === "file") {
           const file = item.getAsFile()
           if (file) {
             appendNewPhoto(file)
@@ -133,8 +133,8 @@ export default function IdentidadeVisualPage() {
                               <b>Tamanho: </b>
                               {field.file &&
                                 (field.file.size / (1024 * 1024)).toFixed(
-                                  2
-                                )}{' '}
+                                  2,
+                                )}{" "}
                               MB
                             </span>
                           </div>
@@ -143,8 +143,8 @@ export default function IdentidadeVisualPage() {
                         <Button
                           title="Excluir item da lista"
                           type="button"
-                          variant={'ghost'}
-                          size={'icon'}
+                          variant={"ghost"}
+                          size={"icon"}
                           onClick={() => handleDeletePhoto(index)}
                         >
                           <Trash
@@ -159,7 +159,7 @@ export default function IdentidadeVisualPage() {
                   {imagesList.fields.length < 5 && (
                     <div className="w-full flex justify-end items-center">
                       <Button
-                        variant={'outline'}
+                        variant={"outline"}
                         onClick={handleAddFile}
                         className="gap-2"
                       >
@@ -204,10 +204,10 @@ export default function IdentidadeVisualPage() {
         </div>
         <div className="w-full flex justify-end items-center gap-8">
           <Button
-            variant={'ghost'}
+            variant={"ghost"}
             type="button"
             className="font-semibold text-lg"
-            size={'lg'}
+            size={"lg"}
             onClick={handleDiscard}
           >
             Descartar
@@ -216,7 +216,7 @@ export default function IdentidadeVisualPage() {
             data-formid="identidadeVisualForm"
             form="identidadeVisualForm"
             type="submit"
-            size={'lg'}
+            size={"lg"}
           >
             Próxima Etapa
           </Button>

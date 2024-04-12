@@ -1,6 +1,6 @@
-import { Eye, EyeSlash, LockKey } from '@phosphor-icons/react'
-import React, { cloneElement, forwardRef, useState } from 'react'
-import { Input, InputProps } from './ui/input'
+import { Eye, EyeSlash, LockKey } from "@phosphor-icons/react"
+import React, { cloneElement, forwardRef, useState } from "react"
+import { Input, InputProps } from "./ui/input"
 
 interface PasswordInput extends InputProps {
   error?: boolean
@@ -22,18 +22,18 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInput>(
       )
 
       return cloneElement(passwordIcon, {
-        key: 'passwordIcon',
+        key: "passwordIcon",
         onClick: handleShowPassword,
-        className: 'text-zinc-400 cursor-pointer hover:brightness-90',
+        className: "text-zinc-400 cursor-pointer hover:brightness-90",
         size: 24,
         tabIndex: 0,
         onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => {
-          if (e.key === 'Enter' || e.key === ' ') {
+          if (e.key === "Enter" || e.key === " ") {
             e.preventDefault()
           }
         },
         onKeyUp: (e: React.KeyboardEvent<HTMLButtonElement>) => {
-          if (e.key === 'Enter' || e.key === ' ') {
+          if (e.key === "Enter" || e.key === " ") {
             handleShowPassword()
             e.preventDefault()
           }
@@ -43,7 +43,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInput>(
 
     return (
       <Input
-        type={showPassword ? 'text' : 'password'}
+        type={showPassword ? "text" : "password"}
         error={error}
         className="caret-accent "
         leftIcon={<LockKey size={28} className="text-zinc-600" />}
@@ -52,6 +52,6 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInput>(
         {...props}
       />
     )
-  }
+  },
 )
 export { PasswordInput }

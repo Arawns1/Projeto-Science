@@ -1,10 +1,10 @@
-import HeaderUser from './HeaderUser'
+import HeaderUser from "./HeaderUser"
 
 export const HeaderRightMenu = {
   Root: HeaderRightMenuRoot,
   User: HeaderUser,
 }
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from "react"
 
 interface HeaderRightMenuRootProps
   extends React.HTMLAttributes<HTMLDivElement> {

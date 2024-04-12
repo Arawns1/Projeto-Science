@@ -4,34 +4,33 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+} from "@/components/ui/dialog"
 import {
   personaFormData,
   personaSchema,
   projetoFormData,
-} from '@/pages/clientForm/projeto/ProjetoSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Trash } from '@phosphor-icons/react'
-import { useState } from 'react'
+} from "@/pages/clientForm/projeto/ProjetoSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Trash } from "@phosphor-icons/react"
+import { useState } from "react"
 import {
   FormProvider,
   useFieldArray,
   useForm,
   useFormContext,
-} from 'react-hook-form'
-import userImagePlaceholder from '../assets/images/img_placeholder.png'
-import UserPhoto from './UserPhoto'
-import { Button } from './ui/button'
+} from "react-hook-form"
+import userImagePlaceholder from "../assets/images/img_placeholder.png"
+import UserPhoto from "./UserPhoto"
+import { Button } from "./ui/button"
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from './ui/form'
-import { Input } from './ui/input'
-import { Textarea } from './ui/textarea'
+} from "./ui/form"
+import { Input } from "./ui/input"
+import { Textarea } from "./ui/textarea"
 
 export default function PersonasList() {
   const contextForm = useFormContext<projetoFormData>()
@@ -39,16 +38,16 @@ export default function PersonasList() {
   const { control } = contextForm
   const { append, remove, fields } = useFieldArray({
     control,
-    name: 'personas',
+    name: "personas",
   })
 
   const personaForm = useForm<personaFormData>({
     resolver: zodResolver(personaSchema),
     defaultValues: {
-      nome: '',
+      nome: "",
       idade: 0,
-      profissao: '',
-      sobre: '',
+      profissao: "",
+      sobre: "",
     },
   })
 
@@ -86,6 +85,7 @@ export default function PersonasList() {
                           ? URL.createObjectURL(item.userPhoto)
                           : userImagePlaceholder
                       }
+                      alt="Imagem do usuário"
                       className="rounded-full w-24 h-24 border-2 border-primaryScale-500"
                     />
                     <div className="flex flex-col items-center justify-center">
@@ -105,8 +105,8 @@ export default function PersonasList() {
                 </DialogTrigger>
                 <div className="absolute top-1 right-1">
                   <Button
-                    size={'icon'}
-                    variant={'ghost'}
+                    size={"icon"}
+                    variant={"ghost"}
                     onClick={() => handleRemove(index)}
                   >
                     <Trash size={24} className="text-zinc-400" />
@@ -155,7 +155,7 @@ export default function PersonasList() {
                   <FormField
                     control={personaForm.control}
                     name="nome"
-                    render={({ field, formState }) => (
+                    render={({ field }) => (
                       <FormItem>
                         <FormLabel
                           htmlFor="nomeInput"
@@ -168,6 +168,7 @@ export default function PersonasList() {
                             type="text"
                             id="nomeInput"
                             placeholder="Nome"
+                            // eslint-disable-next-line jsx-a11y/no-autofocus
                             autoFocus
                             className="w-80"
                             {...field}
@@ -180,7 +181,7 @@ export default function PersonasList() {
                   <FormField
                     control={personaForm.control}
                     name="idade"
-                    render={({ field, formState }) => (
+                    render={({ field }) => (
                       <FormItem className="w-full">
                         <FormLabel
                           htmlFor="idadeInput"
@@ -206,7 +207,7 @@ export default function PersonasList() {
                 <FormField
                   control={personaForm.control}
                   name="profissao"
-                  render={({ field, formState }) => (
+                  render={({ field }) => (
                     <FormItem>
                       <FormLabel
                         htmlFor="profissaoInput"
@@ -229,7 +230,7 @@ export default function PersonasList() {
                 <FormField
                   control={personaForm.control}
                   name="sobre"
-                  render={({ field, formState }) => (
+                  render={({ field }) => (
                     <FormItem>
                       <FormLabel
                         htmlFor="sobreInput"
@@ -251,7 +252,7 @@ export default function PersonasList() {
               </div>
               <div className="flex flex-row gap-4">
                 <Button
-                  variant={'outline'}
+                  variant={"outline"}
                   className="w-full h-12"
                   onClick={handleDiscard}
                   type="button"

@@ -1,38 +1,38 @@
-import { AddNewButton } from '@/components/AddNewButton'
-import CustomTable from '@/components/CustomTable'
+import { AddNewButton } from "@/components/AddNewButton"
+import CustomTable from "@/components/CustomTable"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Trash } from '@phosphor-icons/react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Trash } from "@phosphor-icons/react"
+import { useFieldArray, useFormContext } from "react-hook-form"
 export default function ConcorrenteAccordion() {
   const { control } = useFormContext()
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'concorrentes',
+    name: "concorrentes",
   })
 
   const handleNewConcorrente = () => {
     append({
-      nome: '',
-      redeSocial: '',
-      linkRedeSocial: '',
-      descricao: '',
-      pontosFortes: [{ value: '' }],
-      pontosFracos: [{ value: '' }],
+      nome: "",
+      redeSocial: "",
+      linkRedeSocial: "",
+      descricao: "",
+      pontosFortes: [{ value: "" }],
+      pontosFracos: [{ value: "" }],
     })
   }
 
@@ -147,7 +147,7 @@ export default function ConcorrenteAccordion() {
               <div className="flex items-center justify-center py-1">
                 <Button
                   size="icon"
-                  variant={'ghost'}
+                  variant={"ghost"}
                   onClick={() => handleDeleteConcorrente(index)}
                 >
                   <Trash

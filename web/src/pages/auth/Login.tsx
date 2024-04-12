@@ -1,5 +1,8 @@
-import Logo from '@/assets/science-logo.svg'
-import { Button } from '@/components/ui/button'
+/* eslint-disable jsx-a11y/no-autofocus */
+import Logo from "@/assets/science-logo.svg"
+import { PasswordInput } from "@/components/PasswordInput"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -7,72 +10,41 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { User, LockKey, Eye, EyeSlash } from '@phosphor-icons/react'
-import { loginSchema, LoginSchemaType } from './LoginSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import React, { useState } from 'react'
-import { Checkbox } from '@/components/ui/checkbox'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { User } from "@phosphor-icons/react"
+import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
+import { LoginSchemaType, loginSchema } from "./LoginSchema"
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
-    mode: 'onTouched',
+    mode: "onTouched",
     defaultValues: {
-      username: '',
-      password: '',
+      username: "",
+      password: "",
       rememberMe: false,
     },
   })
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   function onSubmit(values: LoginSchemaType) {
-    console.log(values)
-    alert("You're logged in!")
+    navigate("/dashboard")
   }
 
-  function handleShowPassword() {
-    setShowPassword(!showPassword)
-  }
-
-  const getPasswordIcon = () => {
-    const passwordIcon = showPassword ? (
-      <EyeSlash aria-label="Ocultar senha" />
-    ) : (
-      <Eye aria-label="Mostrar senha" />
-    )
-
-    return React.cloneElement(passwordIcon, {
-      key: 'passwordIcon',
-      onClick: handleShowPassword,
-      className: 'text-zinc-400 cursor-pointer hover:brightness-90',
-      size: 24,
-      tabIndex: 0,
-      onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-        }
-      },
-      onKeyUp: (e: React.KeyboardEvent<HTMLButtonElement>) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          handleShowPassword()
-          e.preventDefault()
-        }
-      },
-    })
-  }
   return (
-    <div className="w-screen sm:w-full h-screen xl:h-screen md:h-full bg-gradient-to-tl from-Light-primary to-Light-accent flex xl:justify-start justify-center ">
-      <main className="bg-Light-background w-full md:w-5/6 xl:w-1/2 h-full flex flex-col items-start px-4 md:px-8 xl:px-16 py-12 md:py-4 xl:gap-6 gap-8  ">
+    <div className="w-full min-h-screen flex flex-row " autoFocus>
+      <main className="w-5/6 bg-Light-background  h-full flex flex-col items-start px-4 md:px-8 xl:px-16 py-2 xl:py-12 md:py-4 xl:gap-6 gap-8  ">
         <header className="w-full flex justify-center sm:justify-start items-center ">
           <img
             src={Logo}
-            width={160}
+            width={150}
             alt="Logo gradiente do azul para o verde da Science - marketing inteligente"
           />
         </header>
-        <section className="flex flex-col w-full h-full justify-start  xl:pt-4 pt-0 ">
+        <section className="flex flex-col w-full h-full justify-start  xl:pt-10 pt-0 ">
           <div>
             <h1 className="text-2xl xl:text-3xl font-bold sm:text-left text-center">
               Bem-vindo de volta!
@@ -85,7 +57,7 @@ export default function Login() {
             <form
               id="loginForm"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full xl:h-auto sm:h-full flex flex-col gap-4 pt-6"
+              className="w-full xl:h-[400px] sm:h-full flex flex-col gap-4 pt-16"
               autoComplete="on"
             >
               <fieldset>
@@ -133,17 +105,12 @@ export default function Login() {
                           Senha
                         </FormLabel>
                         <FormControl>
-                          <Input
+                          <PasswordInput
                             id="passwordInput"
-                            type={showPassword ? 'text' : 'password'}
                             autoComplete="current-password"
                             placeholder="Sua senha"
                             error={!!formState.errors.password}
                             className="caret-accent "
-                            leftIcon={
-                              <LockKey size={28} className="text-zinc-600" />
-                            }
-                            rightIcon={getPasswordIcon()}
                             {...field}
                           />
                         </FormControl>
@@ -175,7 +142,7 @@ export default function Login() {
                   )}
                 />
                 <Button
-                  variant={'link'}
+                  variant={"link"}
                   type="button"
                   className="font-semibold text-base p-0"
                 >
@@ -188,13 +155,14 @@ export default function Login() {
             data-formid="loginForm"
             form="loginForm"
             type="submit"
-            variant={'animation'}
-            className="h-16 mt-10 md:mt-4 xl:mt-6 font-semibold text-lg text-primaryScale-50"
+            variant={"animation"}
+            className="h-16 mt-12 md:mt-4 xl:mt-6 text-primaryScale-50"
           >
             Entrar
           </Button>
         </section>
       </main>
+      <div className="w-full bg-gradient-to-tl from-Light-primary to-Light-accent"></div>
     </div>
   )
 }

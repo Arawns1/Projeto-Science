@@ -1,4 +1,4 @@
-import { Client } from './ClientDTO'
+import { Client } from "./ClientDTO"
 
 export interface ClientPagination {
   data: Client[]

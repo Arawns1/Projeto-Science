@@ -1,26 +1,25 @@
-import { projetoFormData } from '@/pages/clientForm/projeto/ProjetoSchema'
-import { useFieldArray, useFormContext } from 'react-hook-form'
-import FunilItem from './FunilItem'
-import { Button } from './ui/button'
-import { Trash } from '@phosphor-icons/react'
-import { AddNewButton } from './AddNewButton'
-import SimpleList from './SimpleList'
-import { Input } from './ui/input'
-import { Textarea } from './ui/textarea'
+import { projetoFormData } from "@/pages/clientForm/projeto/ProjetoSchema"
+import { Trash } from "@phosphor-icons/react"
+import { useFieldArray, useFormContext } from "react-hook-form"
+import { AddNewButton } from "./AddNewButton"
+import FunilItem from "./FunilItem"
+import { Button } from "./ui/button"
+import { Input } from "./ui/input"
+import { Textarea } from "./ui/textarea"
 
 export default function FunilList() {
   const form = useFormContext<projetoFormData>()
   const { fields, append, remove } = useFieldArray<projetoFormData>({
     control: form.control,
-    name: 'funis',
+    name: "funis",
   })
 
   function addNewFunil() {
     append({
-      nome: { title: '', value: '' },
-      formatos: [{ formato: '', titulo: '' }],
-      tipos: [{ value: '' }],
-      faseTambem: [{ value: '' }],
+      nome: { title: "", value: "" },
+      formatos: [{ formato: "", titulo: "" }],
+      tipos: [{ value: "" }],
+      faseTambem: [{ value: "" }],
     })
   }
   const handleDeleteItem = (index: number) => {
@@ -58,8 +57,8 @@ export default function FunilList() {
               <Button
                 title="Excluir funil"
                 type="button"
-                variant={'ghost'}
-                size={'icon'}
+                variant={"ghost"}
+                size={"icon"}
                 onClick={() => handleDeleteItem(index)}
               >
                 <Trash size={28} weight="bold" className="text-destructive " />

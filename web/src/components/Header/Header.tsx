@@ -1,7 +1,7 @@
-import Logo from '@/assets/science-logo-2.svg'
-import { HeaderRightMenu } from './RightMenu'
-import { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import Logo from "@/assets/science-logo-2.svg"
+import { HeaderRightMenu } from "./RightMenu"
+import { ReactNode } from "react"
+import { Link } from "react-router-dom"
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode

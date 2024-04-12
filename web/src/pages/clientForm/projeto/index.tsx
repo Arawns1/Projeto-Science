@@ -1,10 +1,11 @@
-import DiscardDialog from '@/components/DiscardDialog'
-import PalavraChaveInput from '@/components/PalavraChaveInput'
-import PersonasList from '@/components/PersonasList'
-import RedeSocialAccordion from '@/components/RedeSocialAccordion'
-import SimpleList from '@/components/SimpleList'
-import { AlertDialog } from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
+/* eslint-disable jsx-a11y/no-autofocus */
+import DiscardDialog from "@/components/DiscardDialog"
+import PalavraChaveInput from "@/components/PalavraChaveInput"
+import PersonasList from "@/components/PersonasList"
+import RedeSocialAccordion from "@/components/RedeSocialAccordion"
+import SimpleList from "@/components/SimpleList"
+import { AlertDialog } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -12,38 +13,38 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Link } from '@phosphor-icons/react'
-import { KeyboardEvent, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { projetoFormData, projetoSchema } from './ProjetoSchema'
-import FunilList from '@/components/FunilList'
-import GenericFields from '@/components/GenericFields'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Link } from "@phosphor-icons/react"
+import { KeyboardEvent, useState } from "react"
+import { useForm } from "react-hook-form"
+import { projetoFormData, projetoSchema } from "./ProjetoSchema"
+import FunilList from "@/components/FunilList"
+import GenericFields from "@/components/GenericFields"
 
 export default function ProjetoPage() {
   const form = useForm<projetoFormData>({
     resolver: zodResolver(projetoSchema),
     defaultValues: {
       dna: {
-        estilo: '',
-        valores: '',
-        personalidade: '',
-        comunicação: '',
+        estilo: "",
+        valores: "",
+        personalidade: "",
+        comunicação: "",
       },
-      propositos: [{ title: '', value: '' }],
-      conteudos: [{ title: '', value: '' }],
-      linkPlanilhaPalavras: '',
+      propositos: [{ title: "", value: "" }],
+      conteudos: [{ title: "", value: "" }],
+      linkPlanilhaPalavras: "",
       redesSociais: [
-        { nome: '', objetivo: '', frequencia: '', estruturaLinguagem: '' },
+        { nome: "", objetivo: "", frequencia: "", estruturaLinguagem: "" },
       ],
       funis: [
         {
-          nome: { title: '', value: '' },
-          formatos: [{ formato: '', titulo: '' }],
-          tipos: [{ value: '' }],
-          faseTambem: [{ value: '' }],
+          nome: { title: "", value: "" },
+          formatos: [{ formato: "", titulo: "" }],
+          tipos: [{ value: "" }],
+          faseTambem: [{ value: "" }],
         },
       ],
     },
@@ -60,13 +61,14 @@ export default function ProjetoPage() {
     setIsDialogOpen(true)
   }
   const checkKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') e.preventDefault()
+    if (e.key === "Enter") e.preventDefault()
   }
   return (
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <div className="flex flex-col">
         <form
           id="projetoForm"
+          aria-hidden="true"
           onSubmit={handleSubmit(onSubmit)}
           onKeyDown={(e) => checkKeyDown(e)}
           className="flex flex-col gap-16"
@@ -308,10 +310,10 @@ export default function ProjetoPage() {
           </section>
           <div className="w-full flex justify-end items-center gap-8">
             <Button
-              variant={'ghost'}
+              variant={"ghost"}
               type="button"
               className="font-semibold text-lg"
-              size={'lg'}
+              size={"lg"}
               onClick={handleDiscard}
             >
               Descartar
@@ -320,7 +322,7 @@ export default function ProjetoPage() {
               data-formid="projetoForm"
               form="projetoForm"
               type="submit"
-              size={'lg'}
+              size={"lg"}
             >
               Próxima Etapa
             </Button>

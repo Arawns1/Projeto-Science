@@ -1,23 +1,23 @@
-import { Trash } from '@phosphor-icons/react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
-import { AddNewButton } from './AddNewButton'
-import SimpleList from './SimpleList'
-import { Button } from './ui/button'
+import { Trash } from "@phosphor-icons/react"
+import { useFieldArray, useFormContext } from "react-hook-form"
+import { AddNewButton } from "./AddNewButton"
+import SimpleList from "./SimpleList"
+import { Button } from "./ui/button"
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from './ui/form'
-import { Input } from './ui/input'
+} from "./ui/form"
+import { Input } from "./ui/input"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select'
+} from "./ui/select"
 
 interface FunilItemProps {
   name: string
@@ -32,7 +32,7 @@ export default function FunilItem({ name }: FunilItemProps) {
   })
 
   const addNewFormato = () => {
-    formatosArray.append({ formato: '', titulo: '' })
+    formatosArray.append({ formato: "", titulo: "" })
   }
 
   const deleteFormato = (index: number) => {
@@ -114,8 +114,8 @@ export default function FunilItem({ name }: FunilItemProps) {
                   <Button
                     title="Excluir item da lista"
                     type="button"
-                    variant={'ghost'}
-                    size={'icon'}
+                    variant={"ghost"}
+                    size={"icon"}
                     onClick={() => deleteFormato(index)}
                   >
                     <Trash

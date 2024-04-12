@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 export const CronogramaSchema = z.object({
   eventos: z.array(
@@ -10,7 +10,7 @@ export const CronogramaSchema = z.object({
         to: z.date(),
       }),
       status: z.string(),
-    })
+    }),
   ),
 })
 export type CronogramaFormData = z.infer<typeof CronogramaSchema>

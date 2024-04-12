@@ -1,36 +1,36 @@
-import { AddNewButton } from '@/components/AddNewButton'
+import { AddNewButton } from "@/components/AddNewButton"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { projetoFormData } from '@/pages/clientForm/projeto/ProjetoSchema'
-import { Trash } from '@phosphor-icons/react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { projetoFormData } from "@/pages/clientForm/projeto/ProjetoSchema"
+import { Trash } from "@phosphor-icons/react"
+import { useFieldArray, useFormContext } from "react-hook-form"
 export default function RedeSocialAccordion() {
   const { control } = useFormContext<projetoFormData>()
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'redesSociais',
+    name: "redesSociais",
   })
 
   const handleNewRede = () => {
     append({
-      nome: '',
-      objetivo: '',
-      frequencia: '',
-      estruturaLinguagem: '',
+      nome: "",
+      objetivo: "",
+      frequencia: "",
+      estruturaLinguagem: "",
     })
   }
 
@@ -137,7 +137,7 @@ export default function RedeSocialAccordion() {
               <div className="flex items-center justify-center py-1">
                 <Button
                   size="icon"
-                  variant={'ghost'}
+                  variant={"ghost"}
                   onClick={() => handleDeleteRede(index)}
                 >
                   <Trash

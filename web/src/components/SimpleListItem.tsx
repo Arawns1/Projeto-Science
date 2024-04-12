@@ -1,13 +1,13 @@
-import { cn } from '@/lib/utils'
-import React from 'react'
-import { useFormContext } from 'react-hook-form'
-import { Input } from './ui/input'
-import { Textarea } from './ui/textarea'
+import { cn } from "@/lib/utils"
+import React from "react"
+import { useFormContext } from "react-hook-form"
+import { Input } from "./ui/input"
+import { Textarea } from "./ui/textarea"
 
 interface SimpleListItemProps
   extends React.InputHTMLAttributes<HTMLDivElement> {
   index: number
-  variant?: 'input' | 'textArea' | 'both'
+  variant?: "input" | "textArea" | "both"
   name: string
   bothTextAreaPlaceholder?: string
   customIndex?: number
@@ -16,8 +16,8 @@ interface SimpleListItemProps
 export default function SimpleListItem({
   className,
   index,
-  name = 'diagnostico',
-  variant = 'input',
+  name = "diagnostico",
+  variant = "input",
   placeholder,
   bothTextAreaPlaceholder,
   ...props
@@ -26,14 +26,14 @@ export default function SimpleListItem({
 
   const getItemType = () => {
     switch (variant) {
-      case 'input':
+      case "input":
         return (
           <Input
             placeholder={placeholder}
             {...register(`${name}.${index}.value`)}
           />
         )
-      case 'textArea':
+      case "textArea":
         return (
           <>
             <Textarea
@@ -42,7 +42,7 @@ export default function SimpleListItem({
             />
           </>
         )
-      case 'both':
+      case "both":
         return (
           <div className="w-full flex flex-col gap-4">
             <Input
@@ -59,7 +59,7 @@ export default function SimpleListItem({
   }
 
   return (
-    <div className={cn('w-full flex flex-row gap-6 ', className)} {...props}>
+    <div className={cn("w-full flex flex-row gap-6 ", className)} {...props}>
       <div className="w-12 h-12 rounded-full gradient-button flex flex-row items-center justify-center text-white font-semibold text-xl">
         {index + 1}
       </div>

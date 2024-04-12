@@ -1,7 +1,8 @@
-import Logo from '@/assets/science-logo.svg'
-import { PasswordInput } from '@/components/PasswordInput'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
+/* eslint-disable jsx-a11y/no-autofocus */
+import Logo from "@/assets/science-logo.svg"
+import { PasswordInput } from "@/components/PasswordInput"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -9,27 +10,28 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { User } from '@phosphor-icons/react'
-import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
-import { LoginSchemaType, loginSchema } from './LoginSchema'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { User } from "@phosphor-icons/react"
+import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
+import { LoginSchemaType, loginSchema } from "./LoginSchema"
 export default function Login() {
   const navigate = useNavigate()
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
-    mode: 'onTouched',
+    mode: "onTouched",
     defaultValues: {
-      username: '',
-      password: '',
+      username: "",
+      password: "",
       rememberMe: false,
     },
   })
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   function onSubmit(values: LoginSchemaType) {
-    navigate('/dashboard')
+    navigate("/dashboard")
   }
 
   return (
@@ -140,7 +142,7 @@ export default function Login() {
                   )}
                 />
                 <Button
-                  variant={'link'}
+                  variant={"link"}
                   type="button"
                   className="font-semibold text-base p-0"
                 >
@@ -153,7 +155,7 @@ export default function Login() {
             data-formid="loginForm"
             form="loginForm"
             type="submit"
-            variant={'animation'}
+            variant={"animation"}
             className="h-16 mt-12 md:mt-4 xl:mt-6 text-primaryScale-50"
           >
             Entrar

@@ -1,10 +1,10 @@
-import { cn } from '@/lib/utils'
-import { projetoFormData } from '@/pages/clientForm/projeto/ProjetoSchema'
-import { Plus, X } from '@phosphor-icons/react'
-import { useRef } from 'react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
-import { Button } from './ui/button'
-import { Input, InputProps } from './ui/input'
+import { cn } from "@/lib/utils"
+import { projetoFormData } from "@/pages/clientForm/projeto/ProjetoSchema"
+import { Plus, X } from "@phosphor-icons/react"
+import { useRef } from "react"
+import { useFieldArray, useFormContext } from "react-hook-form"
+import { Button } from "./ui/button"
+import { Input, InputProps } from "./ui/input"
 
 interface PalavraChaveInputProps extends InputProps {}
 
@@ -16,14 +16,14 @@ export default function PalavraChaveInput({
 
   const { append, remove, fields } = useFieldArray({
     control,
-    name: 'palavrasChave',
+    name: "palavrasChave",
   })
 
   const inputRef = useRef<HTMLInputElement>(null)
 
   if (inputRef && inputRef.current) {
     inputRef.current.onkeydown = (e) => {
-      if (e.key === 'Enter') handleAddNew()
+      if (e.key === "Enter") handleAddNew()
     }
   }
 
@@ -31,7 +31,7 @@ export default function PalavraChaveInput({
     const palavraChave = inputRef.current?.value
     if (palavraChave) {
       append({ value: palavraChave })
-      inputRef.current.value = ''
+      inputRef.current.value = ""
     }
   }
 
@@ -43,7 +43,7 @@ export default function PalavraChaveInput({
     <div className="flex flex-col gap-4">
       <div className="flex flex-row gap-8">
         <Input
-          className={cn('caret-accent h-12', className)}
+          className={cn("caret-accent h-12", className)}
           type="text"
           placeholder="Palavra-chave"
           ref={inputRef}
@@ -67,7 +67,7 @@ export default function PalavraChaveInput({
               <span>{item.value}</span>
               <Button
                 size="icon"
-                variant={'ghost'}
+                variant={"ghost"}
                 onClick={() => handleRemove(index)}
               >
                 <X size={20} className="text-white" weight="bold" />

@@ -1,7 +1,7 @@
-import { DatePickerWithRange } from '@/components/DatePickerWithRange'
-import DiscardDialog from '@/components/DiscardDialog'
-import { AlertDialog } from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
+import { DatePickerWithRange } from "@/components/DatePickerWithRange"
+import DiscardDialog from "@/components/DiscardDialog"
+import { AlertDialog } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -9,23 +9,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
-import { CronogramaFormData, CronogramaSchema } from './CronogramaSchema'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { FormProvider, useFieldArray, useForm } from "react-hook-form"
+import { CronogramaFormData, CronogramaSchema } from "./CronogramaSchema"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { addDays } from 'date-fns'
-import { AddNewButton } from '@/components/AddNewButton'
-import { Trash } from '@phosphor-icons/react'
+} from "@/components/ui/select"
+import { addDays } from "date-fns"
+import { AddNewButton } from "@/components/AddNewButton"
+import { Trash } from "@phosphor-icons/react"
 
 export default function CronogramaPage() {
   const form = useForm<CronogramaFormData>({
@@ -33,13 +33,13 @@ export default function CronogramaPage() {
     defaultValues: {
       eventos: [
         {
-          title: '',
-          value: '',
+          title: "",
+          value: "",
           periodo: {
             from: new Date(),
             to: addDays(new Date(), 20),
           },
-          status: '',
+          status: "",
         },
       ],
     },
@@ -49,7 +49,7 @@ export default function CronogramaPage() {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'eventos',
+    name: "eventos",
   })
 
   function onSubmit(values: CronogramaFormData) {
@@ -58,13 +58,13 @@ export default function CronogramaPage() {
 
   const handleAddNew = () => {
     append({
-      title: '',
-      value: '',
+      title: "",
+      value: "",
       periodo: {
         from: new Date(),
         to: addDays(new Date(), 20),
       },
-      status: '',
+      status: "",
     })
   }
 
@@ -93,7 +93,7 @@ export default function CronogramaPage() {
             >
               {fields.map((field, index) => {
                 return (
-                  <div className={'w-full flex flex-row gap-6'} key={field.id}>
+                  <div className={"w-full flex flex-row gap-6"} key={field.id}>
                     <div className="w-12 h-12 rounded-full gradient-button flex flex-row items-center justify-center text-white font-semibold text-xl">
                       {index + 1}
                     </div>
@@ -103,7 +103,7 @@ export default function CronogramaPage() {
                         {...register(`eventos.${index}.title`)}
                         placeholder={`Evento ${(index + 1)
                           .toString()
-                          .padStart(2, '0')}`}
+                          .padStart(2, "0")}`}
                       />
                       <Textarea
                         {...register(`eventos.${index}.value`)}
@@ -164,8 +164,8 @@ export default function CronogramaPage() {
                       <Button
                         title="Excluir item da lista"
                         type="button"
-                        variant={'ghost'}
-                        size={'icon'}
+                        variant={"ghost"}
+                        size={"icon"}
                         onClick={() => handleDeleteItem(index)}
                       >
                         <Trash
@@ -184,10 +184,10 @@ export default function CronogramaPage() {
         </div>
         <div className="w-full flex justify-end items-center gap-8">
           <Button
-            variant={'ghost'}
+            variant={"ghost"}
             type="button"
             className="font-semibold text-lg"
-            size={'lg'}
+            size={"lg"}
             onClick={handleDiscard}
           >
             Descartar
@@ -196,7 +196,7 @@ export default function CronogramaPage() {
             data-formid="cronogramaForm"
             form="cronogramaForm"
             type="submit"
-            size={'lg'}
+            size={"lg"}
           >
             Próxima Etapa
           </Button>

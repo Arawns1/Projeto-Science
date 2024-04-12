@@ -1,10 +1,10 @@
-import { Client } from '@/dtos/ClientDTO'
-import { cn } from '@/lib/utils'
-import { CameraPlus } from '@phosphor-icons/react'
-import { HtmlHTMLAttributes, useEffect, useRef, useState } from 'react'
-import { Button } from './ui/button'
-import { useFormContext } from 'react-hook-form'
-import userImagePlaceholder from '../assets/images/img_placeholder.png'
+import { Client } from "@/dtos/ClientDTO"
+import { cn } from "@/lib/utils"
+import { CameraPlus } from "@phosphor-icons/react"
+import { HtmlHTMLAttributes, useEffect, useRef, useState } from "react"
+import { useFormContext } from "react-hook-form"
+import userImagePlaceholder from "../assets/images/img_placeholder.png"
+import { Button } from "./ui/button"
 
 interface UserPhotoProps extends HtmlHTMLAttributes<HTMLImageElement> {
   client?: Client
@@ -17,7 +17,7 @@ export default function UserPhoto({
   className,
   editable = false,
   hasRecommendedSize = true,
-  name = 'userPhoto',
+  name = "userPhoto",
   ...props
 }: UserPhotoProps) {
   const [userImage, setUserImage] = useState(userImagePlaceholder)
@@ -51,32 +51,34 @@ export default function UserPhoto({
     <div className="flex flex-col gap-2 items-center justify-center">
       <div
         onClick={handleClick}
-        title={editable ? 'Clique para adicionar uma foto' : ''}
+        aria-hidden="true"
+        title={editable ? "Clique para adicionar uma foto" : ""}
+        role="button"
         className={cn(
           `w-24 h-24 border-4 border-white bg-zinc-200 rounded-full flex items-center justify-center text-gray-400 relative ${
-            editable ? 'hover:brightness-95 cursor-pointer' : ''
+            editable ? "hover:brightness-95 cursor-pointer" : ""
           }`,
-          className
+          className,
         )}
       >
         <img
           className={cn(
             `w-full h-full aspect-square object-cover ${
-              editable ? 'border-4' : 'border-1'
-            } border-white bg-zinc-200 rounded-full `
+              editable ? "border-4" : "border-1"
+            } border-white bg-zinc-200 rounded-full `,
           )}
           src={userImage}
-          alt={`Imagem do cliente ${client?.nome ?? ''}`}
+          alt={`Imagem do cliente ${client?.nome ?? ""}`}
           {...props}
         />
 
         {editable && (
           <Button
             type="button"
-            size={'icon'}
+            size={"icon"}
             className="absolute bottom-0 right-3 rounded-full"
           >
-            <CameraPlus weight={'regular'} size={'70%'} />
+            <CameraPlus weight={"regular"} size={"70%"} />
           </Button>
         )}
       </div>
@@ -88,7 +90,7 @@ export default function UserPhoto({
         accept="image/*"
         onChange={handleFileChange}
         ref={fileInput}
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
       />
       {editable && hasRecommendedSize && (
         <span className="text-sm text-center text-zinc-400">

@@ -1,8 +1,8 @@
-import { Header } from '@/components/Header/Header'
-import { MultiStep } from '@/components/MultiStep'
-import { useEffect, useState } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { stepsPaths } from './Paths'
+import { Header } from "@/components/Header/Header"
+import { MultiStep } from "@/components/MultiStep"
+import { useEffect, useState } from "react"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import { stepsPaths } from "./Paths"
 
 export default function FormLayout() {
   const { pathname } = useLocation()
@@ -12,11 +12,11 @@ export default function FormLayout() {
 
   useEffect(() => {
     const activeStepIndex = stepsPaths.findIndex(
-      (stepPath) => stepPath.path === pathname
+      (stepPath) => stepPath.path === pathname,
     )
 
     if (activeStepIndex === -1) {
-      navigate('/novo-cliente/apresentacao')
+      navigate("/novo-cliente/apresentacao")
     } else {
       setActiveStep(activeStepIndex)
     }

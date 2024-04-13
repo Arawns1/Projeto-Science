@@ -35,14 +35,13 @@ export default function DiagnosticoPage() {
     },
   })
 
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const navigate = useNavigate()
 
   const { handleSubmit } = form
 
   function onSubmit(values: diagnosticoFormData) {
     console.log(values)
-    // navigate('/novo-cliente/projeto')
+    navigate("/novo-cliente/projeto")
   }
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)

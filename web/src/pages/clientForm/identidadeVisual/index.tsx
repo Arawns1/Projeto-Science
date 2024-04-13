@@ -10,6 +10,7 @@ import {
   IdentidadeVisualSchema,
 } from "./IdentidadeVisualSchema"
 import { useToast } from "@/components/ui/use-toast"
+import { useNavigate } from "react-router-dom"
 
 export default function IdentidadeVisualPage() {
   const form = useForm<IdentidadeVisualFormData>({
@@ -17,6 +18,7 @@ export default function IdentidadeVisualPage() {
   })
   const { control } = form
   const { toast } = useToast()
+  const navigate = useNavigate()
 
   const imagesList = useFieldArray<IdentidadeVisualFormData>({
     control: control,
@@ -25,7 +27,7 @@ export default function IdentidadeVisualPage() {
 
   function onSubmit(values: IdentidadeVisualFormData) {
     console.log(values)
-    // navigate('/novo-cliente/diagnostico')
+    navigate("/novo-cliente/cronograma")
   }
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)

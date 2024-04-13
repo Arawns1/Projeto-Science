@@ -14,6 +14,10 @@ export default function FunilList() {
     name: "funis",
   })
 
+  const {
+    formState: { errors },
+  } = form
+
   function addNewFunil() {
     append({
       nome: { title: "", value: "" },
@@ -49,6 +53,11 @@ export default function FunilList() {
                     {...form.register(`funis.${index}.nome.value`)}
                     placeholder="Sobre o funil"
                   />
+                  {errors.funis?.[index]?.nome?.value && (
+                    <span className="text-destructive">
+                      {errors.funis?.[index]?.nome?.value?.message}
+                    </span>
+                  )}
                 </div>
               </div>
               <FunilItem name={`funis.${index}`} />

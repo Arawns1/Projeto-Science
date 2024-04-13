@@ -48,7 +48,7 @@ export const diagnosticoSchema = z.object({
   diferencial: z.string().min(1, "O diferencial não pode estar vazio"),
   objetivos: z.array(
     z.object({
-      value: z.string().min(1, "O objetivo não pode estar vazio"),
+      value: z.string(),
     }),
   ),
   concorrentes: z.array(concorrenteSchema),

@@ -26,6 +26,8 @@ import {
 import { addDays } from "date-fns"
 import { AddNewButton } from "@/components/AddNewButton"
 import { Trash } from "@phosphor-icons/react"
+import { useNavigate } from "react-router-dom"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function CronogramaPage() {
   const form = useForm<CronogramaFormData>({
@@ -45,7 +47,13 @@ export default function CronogramaPage() {
     },
   })
 
-  const { control, register } = form
+  const {
+    control,
+    register,
+    formState: { errors },
+  } = form
+  const navigate = useNavigate()
+  const { toast } = useToast()
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -54,6 +62,11 @@ export default function CronogramaPage() {
 
   function onSubmit(values: CronogramaFormData) {
     console.log(values)
+    toast({
+      variant: "success",
+      title: "Cliente cadastrado com sucesso!",
+    })
+    navigate("/dashboard")
   }
 
   const handleAddNew = () => {
@@ -109,6 +122,12 @@ export default function CronogramaPage() {
                         {...register(`eventos.${index}.value`)}
                         placeholder="Descrição do evento"
                       />
+                      {errors.eventos?.[index]?.value && (
+                        <span className="text-destructive">
+                          {errors.eventos[0]?.value?.message}
+                        </span>
+                      )}
+
                       <div className="flex flex-row gap-8">
                         <Form {...form}>
                           <FormField

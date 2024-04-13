@@ -1,8 +1,8 @@
 import { z } from "zod"
 
 const proposito = z.object({
-  title: z.string(),
-  value: z.string(),
+  title: z.string().min(1),
+  value: z.string().min(1, "O propósito não pode estar vazio"),
 })
 
 export const personaSchema = z.object({
@@ -17,26 +17,28 @@ export const personaSchema = z.object({
 })
 
 const setupDeConteudo = z.object({
-  title: z.string(),
-  value: z.string(),
+  title: z.string().min(1),
+  value: z.string().min(1, "O setup de conteúdo não pode estar vazio"),
 })
 
 const objetivoRede = z.object({
-  nome: z.string(),
-  objetivo: z.string(),
-  frequencia: z.string(),
-  estruturaLinguagem: z.string(),
+  nome: z.string().min(1, "Adicione o nome da rede social"),
+  objetivo: z.string().min(1, "Adicione o objetivo da rede social"),
+  frequencia: z.string().min(1, "Adicione a frequência da rede social"),
+  estruturaLinguagem: z
+    .string()
+    .min(1, "Adicione a estrutura de linguagem da rede social"),
 })
 
 const funilFormato = z.object({
-  formato: z.string(),
-  titulo: z.string(),
+  formato: z.string().min(1, "Selecione um formato"),
+  titulo: z.string().min(1, "Adicione o título do formato"),
 })
 
 const funil = z.object({
   nome: z.object({
-    title: z.string(),
-    value: z.string(),
+    title: z.string().min(1),
+    value: z.string().min(1, "Adicione o nome e a descrição do funil"),
   }),
   formatos: z.array(funilFormato),
   tipos: z.array(
@@ -71,16 +73,18 @@ const field = z.object({
 
 export const projetoSchema = z.object({
   dna: z.object({
-    estilo: z.string(),
-    valores: z.string(),
-    personalidade: z.string(),
-    comunicação: z.string(),
+    estilo: z.string().min(1, "Adicione o estilo do cliente"),
+    valores: z.string().min(1, "Adicione os valores do cliente"),
+    personalidade: z.string().min(1, "Adicione a personalidade do cliente"),
+    comunicação: z.string().min(1, "Adicione a comunicação do cliente"),
   }),
   propositos: z.array(proposito),
   personas: z.array(personaSchema),
   conteudos: z.array(setupDeConteudo),
-  palavrasChave: z.array(z.object({ value: z.string() })),
-  linkPlanilhaPalavras: z.string(),
+  palavrasChave: z
+    .array(z.object({ value: z.string() }))
+    .min(1, "Adicione pelo menos uma palavra chave"),
+  linkPlanilhaPalavras: z.string().optional(),
   redesSociais: z.array(objetivoRede),
   funis: z.array(funil),
   genericFields: z.array(field).optional(),

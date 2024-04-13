@@ -22,6 +22,7 @@ import { useForm } from "react-hook-form"
 import { projetoFormData, projetoSchema } from "./ProjetoSchema"
 import FunilList from "@/components/FunilList"
 import GenericFields from "@/components/GenericFields"
+import { useNavigate } from "react-router-dom"
 
 export default function ProjetoPage() {
   const form = useForm<projetoFormData>({
@@ -49,11 +50,12 @@ export default function ProjetoPage() {
       ],
     },
   })
-
+  const navigate = useNavigate()
   const { handleSubmit } = form
 
-  function onSubmit(values: any) {
+  function onSubmit(values: projetoFormData) {
     console.log(values)
+    navigate("/novo-cliente/identidade-visual")
   }
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)

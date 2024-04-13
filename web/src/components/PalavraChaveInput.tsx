@@ -12,7 +12,10 @@ export default function PalavraChaveInput({
   className,
   ...props
 }: PalavraChaveInputProps) {
-  const { control } = useFormContext<projetoFormData>()
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<projetoFormData>()
 
   const { append, remove, fields } = useFieldArray({
     control,
@@ -40,7 +43,7 @@ export default function PalavraChaveInput({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full ">
       <div className="flex flex-row gap-8">
         <Input
           className={cn("caret-accent h-12", className)}
@@ -50,6 +53,7 @@ export default function PalavraChaveInput({
           {...props}
         />
         <Button
+          type="button"
           size="icon"
           className="rounded-full w-12 h-12"
           onClick={handleAddNew}
@@ -57,7 +61,13 @@ export default function PalavraChaveInput({
           <Plus size={24} className="text-white" weight="bold" />
         </Button>
       </div>
-      <div className="flex flex-row items-center justify-start gap-4">
+      {errors.palavrasChave?.message && (
+        <span className="text-destructive">
+          {errors.palavrasChave?.message}
+        </span>
+      )}
+
+      <div className="flex flex-row items-center justify-start gap-4 w-full flex-wrap">
         {fields.map((item, index) => {
           return (
             <div
@@ -66,6 +76,7 @@ export default function PalavraChaveInput({
             >
               <span>{item.value}</span>
               <Button
+                type="button"
                 size="icon"
                 variant={"ghost"}
                 onClick={() => handleRemove(index)}

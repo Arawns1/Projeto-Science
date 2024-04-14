@@ -1,0 +1,206 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mongodb"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Client {
+  id           String        @id @default(uuid()) @map("_id")
+  Apresentacao Apresentacao?
+  // Diagnostico      Diagnostico?
+  // Projeto          Projeto?
+  // IdentidadeVisual IdentidadeVisual?
+  // Cronograma       Cronograma?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Apresentacao {
+  id            String   @id @default(uuid()) @map("_id")
+  nome          String
+  contato       String
+  email         String
+  userPhotoPath String?
+  senha         String
+  sobre         String?
+  clientId      String   @unique
+  Client        Client   @relation(fields: [clientId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// model Concorrente {
+//   id             String       @id @default(uuid()) @map("_id")
+//   nome           String
+//   redeSocial     String
+//   linkRedeSocial String?
+//   descricao      String
+//   pontosFortes   String[]
+//   pontosFracos   String[]
+//   createdAt      DateTime     @default(now())
+//   updatedAt      DateTime     @updatedAt
+//   Diagnostico    Diagnostico? @relation(fields: [diagnosticoId], references: [id])
+//   diagnosticoId  String?
+// }
+
+// model Diagnostico {
+//   id           String        @id @default(uuid()) @map("_id")
+//   value        String
+//   pontosFortes String[]
+//   pontosFracos String[]
+//   diferencial  String
+//   objetivos    String[]
+//   concorrentes Concorrente[]
+//   clientId     String        @unique
+//   Client       Client        @relation(fields: [clientId], references: [id])
+//   createdAt    DateTime      @default(now())
+//   updatedAt    DateTime      @updatedAt
+// }
+
+// model Projeto {
+//   id                   String            @id @default(uuid()) @map("_id")
+//   dna_estilo           String
+//   dna_valores          String
+//   dna_personalidade    String
+//   dna_comunicacao      String
+//   propositos           Proposito[]
+//   personas             Persona[]
+//   conteudos            SetupDeConteudo[]
+//   palavrasChave        String[]
+//   linkPlanilhaPalavras String?
+//   redesSociais         ObjetivoRede[]
+//   funis                Funil[]
+//   // genericFields        Field[]
+
+//   clientId  String   @unique
+//   Client    Client   @relation(fields: [clientId], references: [id])
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+// model Proposito {
+//   id    String @id @default(uuid()) @map("_id")
+//   title String
+//   value String
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
+//   projetoId String?
+// }
+
+// model Persona {
+//   id               String  @id @default(uuid()) @map("_id")
+//   personaPhotoPath String?
+//   nome             String
+//   idade            Int
+//   profissao        String
+//   sobre            String
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
+//   projetoId String?
+// }
+
+// model SetupDeConteudo {
+//   id    String @id @default(uuid()) @map("_id")
+//   title String
+//   value String
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
+//   projetoId String?
+// }
+
+// model ObjetivoRede {
+//   id                 String @id @default(uuid()) @map("_id")
+//   nome               String
+//   objetivo           String
+//   frequencia         String
+//   estruturaLinguagem String
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
+//   projetoId String?
+// }
+
+// model Funil {
+//   id         String         @id @default(uuid()) @map("_id")
+//   nome_title String
+//   nome_value String
+//   formatos   FunilFormato[]
+//   tipos      String[]
+//   faseTambem String[]
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
+//   projetoId String?
+// }
+
+// model FunilFormato {
+//   id      String @id @default(uuid()) @map("_id")
+//   formato String
+//   titulo  String
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Funil     Funil?   @relation(fields: [funilId], references: [id])
+//   funilId   String?
+// }
+
+// model Field {
+//   id           String  @id @default(uuid()) @map("_id") 
+//   type         String?
+//   title        String?
+//   data_file    Bytes?
+//   data_content Json?
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
+//   projetoId String?  
+// }
+
+// model IdentidadeVisual {
+//   id                        String   @id @default(uuid()) @map("_id")
+//   identidadeVisualPhotoPath String[]
+//   clientId                  String   @unique
+//   Client                    Client   @relation(fields: [clientId], references: [id])
+//   createdAt                 DateTime @default(now())
+//   updatedAt                 DateTime @updatedAt
+// }
+
+// model Cronograma {
+//   id        String   @id @default(uuid()) @map("_id")
+//   eventos   Evento[]
+//   clientId  String   @unique
+//   Client    Client   @relation(fields: [clientId], references: [id])
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+// model Evento {
+//   id           String     @id @default(uuid()) @map("_id")
+//   value        String
+//   from         DateTime
+//   to           DateTime
+//   status       String
+//   cronogramaId String
+//   cronograma   Cronograma @relation(fields: [cronogramaId], references: [id])
+//   createdAt    DateTime   @default(now())
+//   updatedAt    DateTime   @updatedAt
+// }

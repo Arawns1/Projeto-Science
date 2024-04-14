@@ -4,6 +4,7 @@ import { Apresentacao } from '../domain/Apresentacao';
 import { saveApresentacaoDTO } from '@dtos/saveApresentacao.dto';
 import { Client } from '@domains/Client';
 import { ClientRepository } from '@repositories/client.repository';
+import { genBCryptPassword } from 'src/helpers/genBCryptPassword';
 
 //TODO: Implementar a lógica de salvar caminho da imagem
 
@@ -30,7 +31,7 @@ export class ApresentacaoService {
       contato: apresentacaoDTO.contato,
       email: apresentacaoDTO.email,
       userPhotoPath: '/path/to/photo',
-      senha: apresentacaoDTO.senha,
+      senha: genBCryptPassword(apresentacaoDTO.senha),
       sobre: apresentacaoDTO.sobre,
       clientId: client.id,
     });

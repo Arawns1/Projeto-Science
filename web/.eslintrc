@@ -31,6 +31,13 @@
     "react/prop-types": "off",
     "import/no-unresolved": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "semi": false,
+      },
+    ],
     "no-unused-vars": [
       "error",
       {

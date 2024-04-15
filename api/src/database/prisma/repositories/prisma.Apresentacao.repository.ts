@@ -14,4 +14,25 @@ export class PrismaApresentacaoRepository implements ApresentacaoRepository {
       data: raw,
     });
   }
+
+  async list(): Promise<Apresentacao[]> {
+    const apresentacaoList = await this.prismaService.apresentacao.findMany({
+      orderBy: { createdAt: 'asc' },
+    });
+    const mappedApresentacao: Apresentacao[] = apresentacaoList.map(
+      PrismaApresentacaoMapper.fromPrisma,
+    );
+    return mappedApresentacao;
+  }
+  async paginatedList(page: number, perPage: number): Promise<Apresentacao[]> {
+    const apresentacaoList = await this.prismaService.apresentacao.findMany({
+      skip: page > 0 ? page * perPage : 0,
+      take: page > 0 ? perPage * page : perPage,
+      orderBy: { createdAt: 'asc' },
+    });
+    const mappedApresentacao: Apresentacao[] = apresentacaoList.map(
+      PrismaApresentacaoMapper.fromPrisma,
+    );
+    return mappedApresentacao;
+  }
 }

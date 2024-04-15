@@ -1,18 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
 import { PrismaService } from './database/prisma/prisma.service';
 
-@Controller('clients')
+// @Controller('clients')
 export class AppController {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Get()
-  list() {
-    return this.prisma.client.findMany({
-      include: {
-        Apresentacao: true,
-      },
-    });
-  }
+  // @Get()
+  // list() {
+  //   return this.prisma.client.findMany({
+  //     include: {
+  //       Apresentacao: true,
+  //     },
+  //   });
+  // }
 
   // @Post()
   // async create() {

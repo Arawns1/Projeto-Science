@@ -1,13 +1,13 @@
-import ClientCard from "@/components/ClientCard"
-import Drawer from "@/components/Drawer"
-import { Header } from "@/components/Header/Header"
-import { NewClientButton } from "@/components/NewClientButton"
-import { SearchInput } from "@/components/SearchInput"
-import { Client } from "@/dtos/ClientDTO"
-import { useFetchClients } from "@/queries/clients"
-import { Loader2 } from "lucide-react"
-import { useEffect } from "react"
-import { useInView } from "react-intersection-observer"
+import ClientCard from '@/components/ClientCard'
+import Drawer from '@/components/Drawer'
+import { Header } from '@/components/Header/Header'
+import { NewClientButton } from '@/components/NewClientButton'
+import { SearchInput } from '@/components/SearchInput'
+import { Client } from '@/dtos/ClientDTO'
+import { useFetchClients } from '@/queries/clients'
+import { Loader2 } from 'lucide-react'
+import { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 export default function Home() {
   const { data, fetchNextPage, isLoading, isError, isFetchingNextPage } =
     useFetchClients()
@@ -16,6 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     if (inView) {
+      console.log('Olá')
       fetchNextPage()
     }
   }, [fetchNextPage, inView])
@@ -58,7 +59,7 @@ export default function Home() {
                   className="grid grid-cols-3 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-y-16 gap-16"
                   key={index}
                 >
-                  {page.data?.map((client: Client) => {
+                  {page.data?.apresentacao.map((client: Client) => {
                     return <ClientCard key={client.id} client={client} />
                   })}
                 </div>

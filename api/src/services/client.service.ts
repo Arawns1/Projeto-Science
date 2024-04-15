@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 
 import { Client } from '@domains/Client';
 import { ClientRepository } from '@repositories/client.repository';
-
 //TODO: Implementar a lógica de salvar caminho da imagem
 
 interface ClientResponse {

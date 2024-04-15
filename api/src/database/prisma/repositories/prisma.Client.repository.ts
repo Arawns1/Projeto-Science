@@ -7,6 +7,9 @@ import { PrismaClientMapper } from '../mappers/prisma.client.mapper';
 @Injectable()
 export class PrismaClientRepository implements ClientRepository {
   constructor(private prismaService: PrismaService) {}
+  count(): Promise<number> {
+    return this.prismaService.client.count();
+  }
 
   async save(client: Client): Promise<void> {
     const raw = PrismaClientMapper.toPrisma(client);
@@ -15,7 +18,10 @@ export class PrismaClientRepository implements ClientRepository {
     });
   }
   async list(): Promise<Client[]> {
-    const clientList = await this.prismaService.client.findMany();
+    const clientList = await this.prismaService.client.findMany({
+      orderBy: { createdAt: 'asc' },
+    });
+
     const mappedClients: Client[] = clientList.map(
       PrismaClientMapper.fromPrisma,
     );

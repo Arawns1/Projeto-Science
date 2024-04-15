@@ -14,8 +14,8 @@ async function getAllClients({ queryKey, pageParam = 0 }) {
     const { data } = await api.get(`/clients?fullName_like${searchParam}`)
     return data
   }
-  const { data } = await api.get(`/clients?_page=${pageParam}&_per_page=6`)
-  return data
+  const data = await api.get(`/apresentacao?_page=${pageParam}&_per_page=6`)
+  return { ...data, page: pageParam }
 }
 
 async function getClientById(ctx: QueryFunctionContext) {
@@ -34,9 +34,8 @@ export function useFetchClients(search: string = '') {
     queryKey: ['clients', search],
     queryFn: getAllClients,
     staleTime: 5000,
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.next,
-    getPreviousPageParam: (firstPage) => firstPage.prev,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.page + 1,
   })
 }
 

@@ -6,7 +6,7 @@ export const apresentacaoSchema = z
     nome: z.string().min(1, 'Insira um nome válido'),
     contato: z.string().min(1, 'Insira um contato válido'),
     email: z.string().email('Insira um email válido').min(1, 'Insira um email'),
-    userPhoto: z.instanceof(Object).optional(),
+    userPhoto: z.instanceof(File).optional(),
     senha: z
       .string()
       .min(

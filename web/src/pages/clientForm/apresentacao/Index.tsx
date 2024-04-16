@@ -24,7 +24,10 @@ import {
   ApresentacaoSchemaType,
   apresentacaoSchema,
 } from './ApresentacaoSchema'
-import { useSaveApresentacao } from '@/queries/clients/apresentacao'
+import {
+  useSaveApresentacao,
+  useSaveUserPhoto,
+} from '@/queries/clients/apresentacao'
 import { useToast } from '@/components/ui/use-toast'
 
 export default function ApresentacaoPage() {
@@ -44,13 +47,18 @@ export default function ApresentacaoPage() {
   const navigate = useNavigate()
   const { toast } = useToast()
   const saveApresentacao = useSaveApresentacao()
+  const saveUserPhoto = useSaveUserPhoto()
 
   useEffect(() => {
     form.setValue('contato', normalizePhoneNumber(contatoValue))
   }, [contatoValue, form])
 
   function onSubmit(values: ApresentacaoSchemaType) {
-    console.log(values)
+    const userPhotoForm = new FormData()
+    if (values.userPhoto) {
+      userPhotoForm.append('file', values.userPhoto)
+    }
+
     saveApresentacao.mutate(values, {
       onError: (error) => {
         toast({
@@ -59,8 +67,23 @@ export default function ApresentacaoPage() {
           description: error.message,
         })
       },
-      onSuccess: () => {
-        navigate('/novo-cliente/diagnostico')
+      onSuccess: (data) => {
+        if (values.userPhoto) {
+          const form = {
+            clientId: data.id,
+            formData: userPhotoForm,
+          }
+          saveUserPhoto.mutate(form, {
+            onSuccess: () => {
+              navigate('/novo-cliente/diagnostico')
+            },
+            onError: (error) => {
+              console.error(error)
+            },
+          })
+        } else {
+          navigate('/novo-cliente/diagnostico')
+        }
       },
     })
   }

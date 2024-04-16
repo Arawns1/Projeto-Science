@@ -12,6 +12,19 @@ async function saveApresentacao(apresentacao: saveApresentacaoDTO) {
   const { data } = await api.post('/apresentacao', apresentacao)
   return data
 }
+async function saveUserPhoto({
+  clientId,
+  formData,
+}: {
+  clientId: string
+  formData: FormData
+}) {
+  const { data } = await api.post(
+    `/apresentacao/upload?_clientId=${clientId}`,
+    formData,
+  )
+  return data
+}
 
 async function findApresentacaoByClientId(ctx: QueryFunctionContext) {
   const [, clientId] = ctx.queryKey
@@ -24,6 +37,18 @@ async function findApresentacaoByClientId(ctx: QueryFunctionContext) {
 export function useSaveApresentacao() {
   return useMutation({
     mutationFn: saveApresentacao,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['apresentacao'] })
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+}
+
+export function useSaveUserPhoto() {
+  return useMutation({
+    mutationFn: saveUserPhoto,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['apresentacao'] })
     },

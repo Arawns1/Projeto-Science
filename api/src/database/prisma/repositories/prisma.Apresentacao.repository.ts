@@ -35,4 +35,18 @@ export class PrismaApresentacaoRepository implements ApresentacaoRepository {
     );
     return mappedApresentacao;
   }
+  async searchByName(name: string): Promise<Apresentacao[]> {
+    const apresentacaoList = await this.prismaService.apresentacao.findMany({
+      where: {
+        nome: {
+          contains: name,
+          mode: 'insensitive',
+        },
+      },
+    });
+    const mappedApresentacao: Apresentacao[] = apresentacaoList.map(
+      PrismaApresentacaoMapper.fromPrisma,
+    );
+    return mappedApresentacao;
+  }
 }

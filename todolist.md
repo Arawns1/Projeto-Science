@@ -1,0 +1,10 @@
+- [ ] Implementar busca de cliente
+- [ ] Corrigir/implementar fotos dos clientes
+- [ ] Implementar edição de cliente
+- [ ] Implementar exclusão de cliente
+- [ ] Implementar diagnostico
+- [ ] Implementar projeto
+- [ ] Implementar identidade visual
+- [ ] Implementar cronograma
+- [ ] Implementar envio de email
+- [ ] Implementar frontend customizado

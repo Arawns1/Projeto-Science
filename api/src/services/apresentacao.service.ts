@@ -22,7 +22,7 @@ interface ApresentacaoPaginatedRequest {
 }
 interface ApresentacaoPaginatedResponse {
   apresentacao: PaginatedResponseApresentacaoDTO[];
-  clientsCount: number;
+  clientsCount?: number;
 }
 
 @Injectable()
@@ -80,5 +80,18 @@ export class ApresentacaoService {
 
     const clientsCount = await this.clientRepository.count();
     return { apresentacao, clientsCount };
+  }
+
+  async searchByName(name: string): Promise<ApresentacaoPaginatedResponse> {
+    const raw_apresentacao =
+      await this.apresentacaoRepository.searchByName(name);
+
+    const apresentacao = raw_apresentacao.map(
+      (apresentacao) => new PaginatedResponseApresentacaoDTO(apresentacao),
+    );
+
+    return {
+      apresentacao,
+    };
   }
 }

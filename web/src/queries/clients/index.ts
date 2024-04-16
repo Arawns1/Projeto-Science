@@ -9,9 +9,10 @@ import {
 } from '@tanstack/react-query'
 
 async function getAllClients({ queryKey, pageParam = 0 }) {
-  const searchParam = queryKey[1]
-  if (searchParam) {
-    const { data } = await api.get(`/clients?fullName_like${searchParam}`)
+  const search = queryKey[1]
+  if (search) {
+    const { data } = await api.get(`/apresentacao?_name_like=${search}`)
+
     return data
   }
   const data = await api.get(`/apresentacao?_page=${pageParam}&_per_page=6`)
@@ -33,7 +34,6 @@ export function useFetchClients(search: string = '') {
   return useInfiniteQuery({
     queryKey: ['clients', search],
     queryFn: getAllClients,
-    staleTime: 5000,
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.page + 1,
   })

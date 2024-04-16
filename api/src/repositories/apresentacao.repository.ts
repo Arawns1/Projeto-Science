@@ -7,4 +7,5 @@ export abstract class ApresentacaoRepository {
     page: number,
     perPage: number,
   ): Promise<Apresentacao[]>;
+  abstract searchByName(name: string): Promise<Apresentacao[]>;
 }

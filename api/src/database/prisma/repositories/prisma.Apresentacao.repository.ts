@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Apresentacao } from '@domains/Apresentacao';
 import { ApresentacaoRepository } from '@repositories/apresentacao.repository';
 import { PrismaService } from '../prisma.service';
@@ -6,13 +6,44 @@ import { PrismaApresentacaoMapper } from '../mappers/prisma.apresentacao.mapper'
 
 @Injectable()
 export class PrismaApresentacaoRepository implements ApresentacaoRepository {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
+
+
+  async findByClientId(clientId: string): Promise<Apresentacao> {
+    const apresentacao = await this.prismaService.apresentacao.findFirst({
+      where: {
+        clientId: clientId,
+      },
+    });
+
+    if (!apresentacao) {
+      throw new Error('Apresentacao not found');
+    }
+
+    return PrismaApresentacaoMapper.fromPrisma(apresentacao);
+  }
 
   async save(apresentacao: Apresentacao): Promise<void> {
     const raw = PrismaApresentacaoMapper.toPrisma(apresentacao);
     await this.prismaService.apresentacao.create({
       data: raw,
     });
+  }
+
+  async update(apresentacao: Apresentacao): Promise<Apresentacao> {
+    const updatedApresentacao = await this.prismaService.apresentacao.update({
+      where: {
+        clientId: apresentacao.clientId,
+      },
+      data: {
+        nome: apresentacao.nome,
+        contato: apresentacao.contato,
+        email: apresentacao.email,
+        sobre: apresentacao.sobre,
+        userPhotoPath: apresentacao.userPhotoPath,
+      },
+    });
+    return PrismaApresentacaoMapper.fromPrisma(updatedApresentacao);
   }
 
   async list(): Promise<Apresentacao[]> {

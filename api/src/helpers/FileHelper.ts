@@ -8,7 +8,11 @@ export class FileHelper {
     } else if (file.mimetype.indexOf('png') > -1) {
       fileExtension = 'png';
     }
-    cb(null, clientId + '-' + uniqueSuffix + '.' + fileExtension);
+    const name = clientId + '-' + uniqueSuffix + '.' + fileExtension;
+    req.body = {
+      __filename: name,
+    };
+    cb(null, name);
   }
 
   static destinationUserPath(req, file, cb) {

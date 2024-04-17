@@ -1,21 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { saveApresentacaoDTO } from '@dtos/saveApresentacao.dto';
-import {
-  Body,
-  Controller,
-  FileTypeValidator,
-  Get,
-  ParseFilePipe,
-  Post,
-  Query,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApresentacaoService } from '../services/apresentacao.service';
 import { ApresentacaoViewModel } from './viewModels/apresentacao.viewmodel';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { FileHelper } from '../helpers/FileHelper';
+
 @Controller('apresentacao')
 export class ApresentacaoController {
   constructor(private apresentacaoService: ApresentacaoService) {}
@@ -26,24 +14,6 @@ export class ApresentacaoController {
     return ApresentacaoViewModel.toHTTP(apresentacao);
   }
 
-  @Post('upload')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: FileHelper.destinationUserPath,
-        filename: FileHelper.customUserFileName,
-      }),
-    }),
-  )
-  uploadFile(
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [new FileTypeValidator({ fileType: 'image/*' })],
-      }),
-    )
-    file: Express.Multer.File,
-    @Query('_clientId') clientId: string,
-  ) {}
   @Get()
   async list(
     @Query('_page') page: string,

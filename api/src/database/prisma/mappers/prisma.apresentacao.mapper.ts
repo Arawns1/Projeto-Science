@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { Apresentacao } from 'src/domain/Apresentacao';
 export class PrismaApresentacaoMapper {
   static toPrisma(apresentacao: Apresentacao) {
@@ -22,6 +23,7 @@ export class PrismaApresentacaoMapper {
       sobre: apresentacao.sobre,
       userPhotoPath: apresentacao.userPhotoPath,
       clientId: apresentacao.clientId,
+      updatedAt: apresentacao.updatedAt,
     });
   }
 }

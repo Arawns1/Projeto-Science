@@ -11,10 +11,20 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 export default function Home() {
   const [search, setSearch] = useState<string>('')
-  const { data, fetchNextPage, isLoading, isError, isFetchingNextPage } =
-    useFetchClients(search)
+  const {
+    data,
+    fetchNextPage,
+    isLoading,
+    isError,
+    isFetchingNextPage,
+    refetch,
+  } = useFetchClients(search)
   const { ref, inView } = useInView()
   const { ref: headerRef, inView: isHeaderVisible } = useInView()
+
+  useEffect(() => {
+    refetch()
+  }, [])
 
   useEffect(() => {
     if (inView && search === '') {

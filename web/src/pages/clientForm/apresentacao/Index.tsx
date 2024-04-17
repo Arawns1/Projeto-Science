@@ -53,39 +53,43 @@ export default function ApresentacaoPage() {
     form.setValue('contato', normalizePhoneNumber(contatoValue))
   }, [contatoValue, form])
 
-  function onSubmit(values: ApresentacaoSchemaType) {
+  async function onSubmit(values: ApresentacaoSchemaType) {
     const userPhotoForm = new FormData()
     if (values.userPhoto) {
       userPhotoForm.append('file', values.userPhoto)
     }
 
-    saveApresentacao.mutate(values, {
-      onError: (error) => {
-        toast({
-          variant: 'destructive',
-          title: 'Erro ao salvar apresentação',
-          description: error.message,
-        })
-      },
-      onSuccess: (data) => {
-        if (values.userPhoto) {
-          const form = {
-            clientId: data.id,
-            formData: userPhotoForm,
-          }
-          saveUserPhoto.mutate(form, {
-            onSuccess: () => {
-              navigate('/novo-cliente/diagnostico')
-            },
-            onError: (error) => {
-              console.error(error)
-            },
+    try {
+      const data = await saveApresentacao.mutate(values, {
+        onError: (error) => {
+          toast({
+            variant: 'destructive',
+            title: 'Erro ao salvar apresentação',
+            description: error.message,
           })
-        } else {
-          navigate('/novo-cliente/diagnostico')
-        }
-      },
-    })
+        },
+        onSuccess: (data) => {
+          if (values.userPhoto) {
+            const form = {
+              clientId: data.clientId,
+              formData: userPhotoForm,
+            }
+            saveUserPhoto.mutate(form, {
+              onSuccess: () => {
+                navigate('/novo-cliente/diagnostico')
+              },
+              onError: (error) => {
+                console.error(error)
+              },
+            })
+          } else {
+            navigate('/novo-cliente/diagnostico')
+          }
+        },
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   function handleDiscard() {

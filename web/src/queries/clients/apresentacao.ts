@@ -20,7 +20,7 @@ async function saveUserPhoto({
   formData: FormData
 }) {
   const { data } = await api.post(
-    `/apresentacao/upload?_clientId=${clientId}`,
+    `/images/clientPhoto/upload?_clientId=${clientId}`,
     formData,
   )
   return data

@@ -8,6 +8,7 @@ export class ApresentacaoViewModel {
       email: apresentacao.email,
       sobre: apresentacao.sobre,
       userPhotoPath: apresentacao.userPhotoPath,
+      clientId: apresentacao.clientId,
     };
   }
 }

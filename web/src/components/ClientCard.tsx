@@ -46,6 +46,10 @@ interface ClientCardProps {
 export default function ClientCard({ client, isLoading }: ClientCardProps) {
   const [isOpen, setIsOpen] = useState(false)
 
+  const handleDeleteClient = () => {
+    setIsOpen(true)
+  }
+
   if (isLoading) {
     return (
       <div className="border-2 border-gray-200 rounded-lg w-full h-72 relative">
@@ -100,7 +104,10 @@ export default function ClientCard({ client, isLoading }: ClientCardProps) {
           <DropdownMenuContent className="border-none opacity-95 absolute -right-4 w-max">
             <CopyLinkButton />
             <AlertDialogTrigger asChild>
-              <DropdownMenuItem className=" text-destructive gap-2 focus:bg-destructive hover:text-destructive cursor-pointer">
+              <DropdownMenuItem
+                className=" text-destructive gap-2 focus:bg-destructive hover:text-destructive cursor-pointer"
+                onClick={handleDeleteClient}
+              >
                 <Trash size={24} />
                 Excluir
               </DropdownMenuItem>
@@ -208,18 +215,26 @@ const ConfirmExclusionDialog = ({
   clientId,
   setIsOpen,
 }: ConfirmExclusionDialogProps) => {
-  const { mutate, isPending, isError } = useDeleteClientById()
+  const { mutate, isPending } = useDeleteClientById()
   const { toast } = useToast()
   function handleDeleteClient() {
     if (clientId) {
-      mutate(clientId)
-    }
-    if (isError) {
-      setIsOpen(true)
-      toast({
-        variant: 'destructive',
-        title: 'Erro ao excluir cliente',
-        description: 'Tente novamente mais tarde',
+      mutate(clientId, {
+        onSuccess: () => {
+          setIsOpen(false)
+          toast({
+            variant: 'success',
+            title: 'Cliente excluído com sucesso!',
+          })
+        },
+        onError: () => {
+          setIsOpen(true)
+          toast({
+            variant: 'destructive',
+            title: 'Erro ao excluir cliente',
+            description: 'Tente novamente mais tarde',
+          })
+        },
       })
     }
   }

@@ -1,4 +1,4 @@
-- [ x] Implementar busca de cliente
+- [x] Implementar busca de cliente
 - [x] Corrigir/implementar fotos dos clientes
 - [x] Puxar fotos dos clientes
 - [x] Corrigir service de imagem que invés de atualizar esta´criando nova apresentação

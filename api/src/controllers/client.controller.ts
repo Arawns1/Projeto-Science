@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Delete, Get, Logger, Param, Query } from '@nestjs/common';
 import { ClientService } from '@services/client.service';
 
 @Controller('clients')
@@ -9,5 +9,10 @@ export class ClientController {
   async list() {
     const { clients } = await this.clientService.list();
     return clients;
+  }
+
+  @Delete(':apresentacaoId')
+  async deleteByApresentacaoId(@Param('apresentacaoId') id: string) {
+    await this.clientService.deleteByApresentacaoId(id);
   }
 }

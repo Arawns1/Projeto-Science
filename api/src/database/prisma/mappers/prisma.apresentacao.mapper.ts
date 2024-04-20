@@ -14,7 +14,8 @@ export class PrismaApresentacaoMapper {
     };
   }
   static fromPrisma(apresentacao: any): Apresentacao {
-    return new Apresentacao({
+    Logger.log(apresentacao);
+    const teste = new Apresentacao({
       id: apresentacao.id,
       nome: apresentacao.nome,
       contato: apresentacao.contato,
@@ -25,5 +26,7 @@ export class PrismaApresentacaoMapper {
       clientId: apresentacao.clientId,
       updatedAt: apresentacao.updatedAt,
     });
+    Logger.error(JSON.stringify(teste));
+    return teste;
   }
 }

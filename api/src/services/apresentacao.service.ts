@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ApresentacaoRepository } from '../repositories/apresentacao.repository';
 import { Apresentacao } from '../domain/Apresentacao';
 import { saveApresentacaoDTO } from '@dtos/saveApresentacao.dto';
@@ -43,7 +43,7 @@ export class ApresentacaoService {
       nome: apresentacaoDTO.nome,
       contato: apresentacaoDTO.contato,
       email: apresentacaoDTO.email,
-      userPhotoPath: '/path/to/photo',
+      userPhotoPath: apresentacaoDTO.userPhotoBinary || null,
       senha: genBCryptPassword(apresentacaoDTO.senha),
       sobre: apresentacaoDTO.sobre,
       clientId: client.id,
@@ -73,7 +73,6 @@ export class ApresentacaoService {
       parseInt(page),
       parseInt(perPage),
     );
-
     const apresentacao = raw_apresentacao.map(
       (apresentacao) => new PaginatedResponseApresentacaoDTO(apresentacao),
     );
@@ -94,5 +93,4 @@ export class ApresentacaoService {
       apresentacao,
     };
   }
-
 }

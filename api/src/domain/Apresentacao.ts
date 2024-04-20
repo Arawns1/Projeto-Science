@@ -1,6 +1,8 @@
-import { BaseEntity, BaseEntityProps } from './BaseEntity';
+import { randomUUID } from 'crypto';
+import { Replace } from 'src/helpers/replace';
 
-export interface ApresentacaoProps extends BaseEntityProps {
+export interface ApresentacaoProps {
+  id: string;
   nome: string;
   contato: string;
   email: string;
@@ -8,14 +10,31 @@ export interface ApresentacaoProps extends BaseEntityProps {
   senha: string;
   sobre?: string | null;
   clientId: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export class Apresentacao extends BaseEntity {
+export class Apresentacao {
   private props: ApresentacaoProps;
+  private _id: string;
 
-  constructor(props: ApresentacaoProps) {
-    super({ createdAt: props.createdAt, updatedAt: props.updatedAt });
-    this.props = props;
+  constructor(
+    props: Replace<
+      ApresentacaoProps,
+      { id?: string; createdAt?: Date; updatedAt?: Date }
+    >,
+  ) {
+    this._id = randomUUID();
+    this.props = {
+      ...props,
+      id: props.id ?? this._id,
+      createdAt: props.createdAt ?? new Date(),
+      updatedAt: props.updatedAt ?? new Date(),
+    };
+  }
+
+  public get id() {
+    return this._id;
   }
 
   public set nome(nome: string) {
@@ -61,5 +80,13 @@ export class Apresentacao extends BaseEntity {
   }
   public get clientId(): string {
     return this.props.clientId;
+  }
+
+  public get createdAt(): Date {
+    return this.props.createdAt;
+  }
+
+  public get updatedAt(): Date {
+    return this.props.updatedAt;
   }
 }

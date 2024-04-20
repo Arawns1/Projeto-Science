@@ -41,7 +41,7 @@ model Apresentacao {
   senha         String
   sobre         String?
   clientId      String   @unique
-  Client        Client   @relation(fields: [clientId], references: [id])
+  Client        Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }

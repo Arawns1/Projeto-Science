@@ -10,4 +10,5 @@ export abstract class ApresentacaoRepository {
   ): Promise<Apresentacao[]>;
   abstract searchByName(name: string): Promise<Apresentacao[]>;
   abstract findByClientId(clientId: string): Promise<Apresentacao>;
+  abstract findById(id: string): Promise<Apresentacao>;
 }

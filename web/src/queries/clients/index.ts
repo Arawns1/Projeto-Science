@@ -25,8 +25,8 @@ async function getClientById(ctx: QueryFunctionContext) {
   return data
 }
 
-async function deleteClientById(clientId: string) {
-  const { data } = await api.delete(`/clients/${clientId}`)
+async function deleteByApresentacaoId(apresentacaoId: string) {
+  const { data } = await api.delete(`/clients/${apresentacaoId}`)
   return data
 }
 
@@ -45,7 +45,7 @@ export function useFetchClientById(clientId: string) {
 
 export function useDeleteClientById() {
   return useMutation({
-    mutationFn: deleteClientById,
+    mutationFn: deleteByApresentacaoId,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clients'] })
     },

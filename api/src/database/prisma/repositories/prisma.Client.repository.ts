@@ -7,6 +7,7 @@ import { PrismaClientMapper } from '../mappers/prisma.client.mapper';
 @Injectable()
 export class PrismaClientRepository implements ClientRepository {
   constructor(private prismaService: PrismaService) {}
+
   count(): Promise<number> {
     return this.prismaService.client.count();
   }
@@ -26,5 +27,13 @@ export class PrismaClientRepository implements ClientRepository {
       PrismaClientMapper.fromPrisma,
     );
     return mappedClients;
+  }
+
+  async delete(clientId: string): Promise<void> {
+    await this.prismaService.client.delete({
+      where: {
+        id: clientId,
+      },
+    });
   }
 }

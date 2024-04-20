@@ -6,8 +6,21 @@ import { PrismaApresentacaoMapper } from '../mappers/prisma.apresentacao.mapper'
 
 @Injectable()
 export class PrismaApresentacaoRepository implements ApresentacaoRepository {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
 
+  async findById(id: string): Promise<Apresentacao> {
+    const apresentacao = await this.prismaService.apresentacao.findFirst({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!apresentacao) {
+      throw new Error('Apresentacao not found');
+    }
+
+    return apresentacao as Apresentacao;
+  }
 
   async findByClientId(clientId: string): Promise<Apresentacao> {
     const apresentacao = await this.prismaService.apresentacao.findFirst({
@@ -20,7 +33,7 @@ export class PrismaApresentacaoRepository implements ApresentacaoRepository {
       throw new Error('Apresentacao not found');
     }
 
-    return PrismaApresentacaoMapper.fromPrisma(apresentacao);
+    return apresentacao as Apresentacao;
   }
 
   async save(apresentacao: Apresentacao): Promise<void> {
@@ -43,17 +56,15 @@ export class PrismaApresentacaoRepository implements ApresentacaoRepository {
         userPhotoPath: apresentacao.userPhotoPath,
       },
     });
-    return PrismaApresentacaoMapper.fromPrisma(updatedApresentacao);
+    return updatedApresentacao as Apresentacao;
   }
 
   async list(): Promise<Apresentacao[]> {
     const apresentacaoList = await this.prismaService.apresentacao.findMany({
       orderBy: { createdAt: 'asc' },
     });
-    const mappedApresentacao: Apresentacao[] = apresentacaoList.map(
-      PrismaApresentacaoMapper.fromPrisma,
-    );
-    return mappedApresentacao;
+
+    return apresentacaoList as Apresentacao[];
   }
   async paginatedList(page: number, perPage: number): Promise<Apresentacao[]> {
     const apresentacaoList = await this.prismaService.apresentacao.findMany({
@@ -61,10 +72,8 @@ export class PrismaApresentacaoRepository implements ApresentacaoRepository {
       take: page > 0 ? perPage * page : perPage,
       orderBy: { createdAt: 'asc' },
     });
-    const mappedApresentacao: Apresentacao[] = apresentacaoList.map(
-      PrismaApresentacaoMapper.fromPrisma,
-    );
-    return mappedApresentacao;
+
+    return apresentacaoList as Apresentacao[];
   }
   async searchByName(name: string): Promise<Apresentacao[]> {
     const apresentacaoList = await this.prismaService.apresentacao.findMany({
@@ -75,9 +84,7 @@ export class PrismaApresentacaoRepository implements ApresentacaoRepository {
         },
       },
     });
-    const mappedApresentacao: Apresentacao[] = apresentacaoList.map(
-      PrismaApresentacaoMapper.fromPrisma,
-    );
-    return mappedApresentacao;
+
+    return apresentacaoList as Apresentacao[];
   }
 }

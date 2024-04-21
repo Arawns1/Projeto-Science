@@ -2,11 +2,11 @@
 - [x] Corrigir/implementar fotos dos clientes
 - [x] Puxar fotos dos clientes
 - [x] Corrigir service de imagem que invés de atualizar esta´criando nova apresentação
-- [ ] Implementar exclusão de cliente
-- [ ] Implementar edição de cliente
+- [x] Implementar exclusão de cliente
 - [ ] Implementar diagnostico
 - [ ] Implementar projeto
 - [ ] Implementar identidade visual
 - [ ] Implementar cronograma
+- [ ] Implementar edição de cliente
 - [ ] Implementar envio de email
 - [ ] Implementar frontend customizado

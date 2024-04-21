@@ -26,7 +26,6 @@ export class PrismaApresentacaoMapper {
       clientId: apresentacao.clientId,
       updatedAt: apresentacao.updatedAt,
     });
-    Logger.error(JSON.stringify(teste));
     return teste;
   }
 }

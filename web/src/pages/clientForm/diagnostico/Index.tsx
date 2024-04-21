@@ -1,35 +1,37 @@
-import ConcorrenteAccordion from "@/components/ConcorrenteAccordion"
-import CustomTable from "@/components/CustomTable"
-import DiscardDialog from "@/components/DiscardDialog"
-import SimpleList from "@/components/SimpleList"
-import { AlertDialog } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
-import { Form } from "@/components/ui/form"
-import { Textarea } from "@/components/ui/textarea"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useState } from "react"
-import { FormProvider, useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
-import { diagnosticoFormData, diagnosticoSchema } from "./DiagnosticoSchema"
+import ConcorrenteAccordion from '@/components/ConcorrenteAccordion'
+import CustomTable from '@/components/CustomTable'
+import DiscardDialog from '@/components/DiscardDialog'
+import SimpleList from '@/components/SimpleList'
+import { AlertDialog } from '@/components/ui/alert-dialog'
+import { Button } from '@/components/ui/button'
+import { Form } from '@/components/ui/form'
+import { Textarea } from '@/components/ui/textarea'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { diagnosticoFormData, diagnosticoSchema } from './DiagnosticoSchema'
+import { useSaveDiagnostico } from '@/queries/clients/diagnostico'
 
 export default function DiagnosticoPage() {
+  const saveDiagnostico = useSaveDiagnostico()
   const form = useForm<diagnosticoFormData>({
     resolver: zodResolver(diagnosticoSchema),
-    mode: "all",
+    mode: 'all',
     defaultValues: {
-      diagnosticos: [{ value: "" }],
-      pontosFortes: [{ value: "" }],
-      pontosFracos: [{ value: "" }],
-      diferencial: "",
-      objetivos: [{ value: "" }],
+      diagnosticos: [{ value: '' }],
+      pontosFortes: [{ value: '' }],
+      pontosFracos: [{ value: '' }],
+      diferencial: '',
+      objetivos: [{ value: '' }],
       concorrentes: [
         {
-          nome: "",
-          redeSocial: "",
-          linkRedeSocial: "",
-          descricao: "",
-          pontosFortes: [{ value: "" }],
-          pontosFracos: [{ value: "" }],
+          nome: '',
+          redeSocial: '',
+          linkRedeSocial: '',
+          descricao: '',
+          pontosFortes: [{ value: '' }],
+          pontosFracos: [{ value: '' }],
         },
       ],
     },
@@ -42,6 +44,8 @@ export default function DiagnosticoPage() {
 
   function onSubmit(values: diagnosticoFormData) {
     console.log(values)
+    // saveDiagnostico.mutate(values)
+
     // navigate('/novo-cliente/projeto')
   }
 
@@ -87,7 +91,7 @@ export default function DiagnosticoPage() {
               <div className="flex flex-col gap-2">
                 <Textarea
                   placeholder="Os principais diferenciais do expert são..."
-                  {...form.register("diferencial")}
+                  {...form.register('diferencial')}
                 />
                 {form.formState.errors.diferencial && (
                   <span className="text-destructive">
@@ -126,10 +130,10 @@ export default function DiagnosticoPage() {
           </section>
           <div className="w-full flex justify-end items-center gap-8">
             <Button
-              variant={"ghost"}
+              variant={'ghost'}
               type="button"
               className="font-semibold text-lg"
-              size={"lg"}
+              size={'lg'}
               onClick={handleDiscard}
             >
               Descartar
@@ -138,7 +142,7 @@ export default function DiagnosticoPage() {
               data-formid="diagnosticoForm"
               form="diagnosticoForm"
               type="submit"
-              size={"lg"}
+              size={'lg'}
             >
               Próxima Etapa
             </Button>

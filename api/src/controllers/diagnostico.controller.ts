@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { DiagnosticoService } from '../services/diagnostico.service';
 import { DiagnosticoViewModel } from './viewModels/diagnostico.viewmodel';
 import { saveDiagnosticoDTO } from '@dtos/saveDiagnostico.dto';
@@ -17,6 +17,13 @@ export class DiagnosticoController {
   @Get()
   async list() {
     const { diagnostico } = await this.diagnosticoService.list();
+    return diagnostico;
+  }
+
+  @Get('client/:clientId')
+  async findDiagnosticoByClientId(@Param('clientId') clientId: string) {
+    const { diagnostico } =
+      await this.diagnosticoService.findDiagnosticoByClientId(clientId);
     return diagnostico;
   }
 }

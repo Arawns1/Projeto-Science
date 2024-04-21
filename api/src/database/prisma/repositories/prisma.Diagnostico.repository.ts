@@ -7,6 +7,15 @@ import { PrismaDiagnosticoMapper } from '../mappers/prisma.diagnostico.mapper';
 @Injectable()
 export class PrismaDiagnosticoRepository implements DiagnosticoRepository {
   constructor(private prismaService: PrismaService) {}
+
+  async findDiagnosticoByClientId(clientId: string): Promise<Diagnostico> {
+    const diagnostico = await this.prismaService.diagnostico.findFirst({
+      where: { clientId },
+      include: { concorrentes: true },
+    });
+    return diagnostico as Diagnostico;
+  }
+
   async save(diagnostico: Diagnostico): Promise<Diagnostico> {
     const raw = PrismaDiagnosticoMapper.toPrisma(diagnostico);
     const savedDiagnostico = await this.prismaService.diagnostico.create({

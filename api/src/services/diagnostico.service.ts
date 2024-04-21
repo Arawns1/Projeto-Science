@@ -58,4 +58,11 @@ export class DiagnosticoService {
       diagnostico,
     };
   }
+
+  async findDiagnosticoByClientId(clientId: string) {
+    const diagnostico =
+      await this.diagnosticoRepository.findDiagnosticoByClientId(clientId);
+
+    return { diagnostico };
+  }
 }

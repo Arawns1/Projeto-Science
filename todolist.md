@@ -5,6 +5,8 @@
 - [x] Implementar exclusão de cliente
 - [x] Implementar diagnostico
 - [ ] Implementar projeto
+- [ ] Corrigir GenericFields
+- [ ] Corrigir salvamento de fotos do projeto
 - [ ] Corrigir não apagamento de fotos da pasta userPhotos
 - [ ] Implementar identidade visual
 - [ ] Implementar cronograma

@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { ProjetoRepository } from '@repositories/projeto.repository';
 import { PrismaService } from '../prisma.service';
 import { PrismaProjetoMapper } from '../mappers/prisma.projeto.mapper';
-import { Prisma } from '@prisma/client';
 import { PrismaFunilMapper } from '../mappers/prisma.funil.mapper';
 
 @Injectable()
@@ -100,12 +99,45 @@ export class PrismaProjetoRepository implements ProjetoRepository {
     return projetoSalvo as Projeto;
   }
   async list(): Promise<Projeto[]> {
-    const projeto = await this.prismaService.projeto.findMany({});
+    const projeto = await this.prismaService.projeto.findMany({
+      include: {
+        propositos: true,
+        personas: true,
+        conteudos: true,
+        redesSociais: true,
+        funis: {
+          include: {
+            formatos: true,
+          },
+        },
+        genericFields: {
+          include: {
+            FieldContent: true,
+          },
+        },
+      },
+    });
     return projeto as Projeto[];
   }
 
   async findByClientId(clientId: string): Promise<Projeto> {
     const projeto = await this.prismaService.projeto.findFirst({
+      include: {
+        propositos: true,
+        personas: true,
+        conteudos: true,
+        redesSociais: true,
+        funis: {
+          include: {
+            formatos: true,
+          },
+        },
+        genericFields: {
+          include: {
+            FieldContent: true,
+          },
+        },
+      },
       where: {
         clientId: clientId,
       },
@@ -119,6 +151,22 @@ export class PrismaProjetoRepository implements ProjetoRepository {
   }
   async findById(id: string): Promise<Projeto> {
     const projeto = await this.prismaService.projeto.findFirst({
+      include: {
+        propositos: true,
+        personas: true,
+        conteudos: true,
+        redesSociais: true,
+        funis: {
+          include: {
+            formatos: true,
+          },
+        },
+        genericFields: {
+          include: {
+            FieldContent: true,
+          },
+        },
+      },
       where: {
         id: id,
       },

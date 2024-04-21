@@ -74,7 +74,7 @@ export const projetoSchema = z.object({
     estilo: z.string(),
     valores: z.string(),
     personalidade: z.string(),
-    comunicação: z.string(),
+    comunicacao: z.string(),
   }),
   propositos: z.array(proposito),
   personas: z.array(personaSchema),

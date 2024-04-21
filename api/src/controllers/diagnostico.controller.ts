@@ -17,7 +17,7 @@ export class DiagnosticoController {
   @Get()
   async list() {
     const { diagnostico } = await this.diagnosticoService.list();
-    return diagnostico.forEach((diagnostico) =>
+    return diagnostico.map((diagnostico) =>
       DiagnosticoViewModel.toHTTP(diagnostico),
     );
   }

@@ -47,33 +47,31 @@ export class ProjetoService {
     return { projeto };
   }
 
-  private fromSaveProjetoDTOtoProjeto(dianosticoDTO: saveProjetoDTO): Projeto {
+  private fromSaveProjetoDTOtoProjeto(projetoDTO: saveProjetoDTO): Projeto {
     return new Projeto({
-      dna_comunicacao: dianosticoDTO.dna.comunicacao,
-      dna_estilo: dianosticoDTO.dna.estilo,
-      dna_personalidade: dianosticoDTO.dna.personalidade,
-      dna_valores: dianosticoDTO.dna.valores,
-      linkPlanilhaPalavras: dianosticoDTO.linkPlanilhaPalavras,
-      clientId: dianosticoDTO.clientId,
-      palavrasChave: dianosticoDTO.palavrasChave.map(
+      dna_comunicacao: projetoDTO.dna.comunicacao,
+      dna_estilo: projetoDTO.dna.estilo,
+      dna_personalidade: projetoDTO.dna.personalidade,
+      dna_valores: projetoDTO.dna.valores,
+      linkPlanilhaPalavras: projetoDTO.linkPlanilhaPalavras,
+      clientId: projetoDTO.clientId,
+      palavrasChave: projetoDTO.palavrasChave.map(
         (palavraChave) => palavraChave.value,
       ),
-      propositos: dianosticoDTO.propositos.map((proposito) =>
+      propositos: projetoDTO.propositos.map((proposito) =>
         this.propositoFromProjetoDTO(proposito),
       ),
-      personas: dianosticoDTO.personas.map((persona) =>
+      personas: projetoDTO.personas.map((persona) =>
         this.personaFromProjetoDTO(persona),
       ),
-      conteudos: dianosticoDTO.conteudos.map((conteudo) =>
+      conteudos: projetoDTO.conteudos.map((conteudo) =>
         this.conteudosFromProjetoDTO(conteudo),
       ),
-      redesSociais: dianosticoDTO.redesSociais.map((redeSocial) =>
+      redesSociais: projetoDTO.redesSociais.map((redeSocial) =>
         this.redesSociaisFromProjetoDTO(redeSocial),
       ),
-      funis: dianosticoDTO.funis.map((funil) =>
-        this.funisFromProjetoDTO(funil),
-      ),
-      genericFields: dianosticoDTO.genericFields.map((genericField) =>
+      funis: projetoDTO.funis.map((funil) => this.funisFromProjetoDTO(funil)),
+      genericFields: projetoDTO.genericFields.map((genericField) =>
         this.genericFieldFromProjetoDTO(genericField),
       ),
     });

@@ -6,7 +6,7 @@ export interface FunilProps {
   id: string;
   title: string;
   value: string;
-  formatos?: FunilFormatoProps[];
+  formatos: FunilFormatoProps[];
   tipos: string[];
   faseTambem: string[];
   projetoId?: string;
@@ -21,7 +21,12 @@ export class Funil {
   constructor(
     props: Replace<
       FunilProps,
-      { id?: string; createdAt?: Date; updatedAt?: Date }
+      {
+        id?: string;
+        createdAt?: Date;
+        updatedAt?: Date;
+        formatos?: FunilFormatoProps[];
+      }
     >,
   ) {
     this._id = props.id ?? randomUUID();
@@ -30,6 +35,7 @@ export class Funil {
       id: this._id,
       createdAt: props.createdAt ?? new Date(),
       updatedAt: props.updatedAt ?? new Date(),
+      formatos: props.formatos ?? [],
     };
   }
 
@@ -53,7 +59,7 @@ export class Funil {
     this.props.value = value;
   }
 
-  public get formatos(): FunilFormatoProps[] | undefined {
+  public get formatos(): FunilFormatoProps[] {
     return this.props.formatos;
   }
 

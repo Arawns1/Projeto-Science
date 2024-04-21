@@ -63,7 +63,7 @@ model Concorrente {
 
 model Diagnostico {
   id           String        @id @default(uuid()) @map("_id")
-  value        String
+  diagnosticos String[]
   pontosFortes String[]
   pontosFracos String[]
   diferencial  String

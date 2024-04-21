@@ -21,7 +21,7 @@ export class DiagnosticoService {
 
   async save(diagnosticoDTO: saveDiagnosticoDTO): Promise<DiagnosticoResponse> {
     const mappedDiagnostico = new Diagnostico({
-      value: diagnosticoDTO.value,
+      diagnosticos: diagnosticoDTO.diagnosticos,
       pontosFortes: diagnosticoDTO.pontosFortes,
       pontosFracos: diagnosticoDTO.pontosFracos,
       diferencial: diagnosticoDTO.diferencial,

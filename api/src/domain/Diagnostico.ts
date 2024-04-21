@@ -4,7 +4,7 @@ import { Replace } from 'src/helpers/replace';
 
 export interface DiagnosticoProps {
   id: string;
-  value: string;
+  diagnosticos: string[];
   pontosFortes: string[];
   pontosFracos: string[];
   diferencial: string;
@@ -38,11 +38,11 @@ export class Diagnostico {
     return this._id;
   }
 
-  public set value(value: string) {
-    this.props.value = value;
+  public set diagnosticos(diagnosticos: string[]) {
+    this.props.diagnosticos = diagnosticos;
   }
-  public get value(): string {
-    return this.props.value;
+  public get diagnosticos(): string[] {
+    return this.props.diagnosticos;
   }
 
   public set pontosFortes(pontosFortes: string[]) {

@@ -4,7 +4,7 @@ export class PrismaDiagnosticoMapper {
   static toPrisma(diagnostico: Diagnostico) {
     return {
       id: diagnostico.id,
-      value: diagnostico.value,
+      diagnosticos: diagnostico.diagnosticos,
       pontosFortes: diagnostico.pontosFortes,
       pontosFracos: diagnostico.pontosFracos,
       diferencial: diagnostico.diferencial,

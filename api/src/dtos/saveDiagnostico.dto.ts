@@ -2,9 +2,9 @@ import { Concorrente } from '@domains/Concorrente';
 import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 export class saveDiagnosticoDTO {
-  @IsNotEmpty({ message: 'o campo [value] não pode ser nulo' })
-  @IsString()
-  readonly value: string;
+  @IsNotEmpty({ message: 'o campo [diagnosticos] não pode ser nulo' })
+  @IsArray()
+  readonly diagnosticos: string[];
 
   @IsNotEmpty({ message: 'o campo [pontosFortes] não pode ser nulo' })
   @IsArray()
@@ -31,7 +31,7 @@ export class saveDiagnosticoDTO {
   readonly clientId: string;
 
   constructor(
-    value: string,
+    diagnosticos: string[],
     pontosFortes: string[],
     pontosFracos: string[],
     diferencial: string,
@@ -39,7 +39,7 @@ export class saveDiagnosticoDTO {
     concorrentes: Concorrente[],
     clientId: string,
   ) {
-    this.value = value;
+    this.diagnosticos = diagnosticos;
     this.pontosFortes = pontosFortes;
     this.pontosFracos = pontosFracos;
     this.diferencial = diferencial;

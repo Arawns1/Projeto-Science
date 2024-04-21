@@ -1,18 +1,22 @@
-import { Concorrente } from '@domains/Concorrente';
 import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { ConcorrenteDTO } from './ConcorrenteDTO';
+
+interface ArrayObject {
+  value: string;
+}
 
 export class saveDiagnosticoDTO {
   @IsNotEmpty({ message: 'o campo [diagnosticos] não pode ser nulo' })
   @IsArray()
-  readonly diagnosticos: string[];
+  readonly diagnosticos: ArrayObject[];
 
   @IsNotEmpty({ message: 'o campo [pontosFortes] não pode ser nulo' })
   @IsArray()
-  readonly pontosFortes: string[];
+  readonly pontosFortes: ArrayObject[];
 
   @IsNotEmpty({ message: 'o campo [pontosFracos] não pode ser nulo' })
   @IsArray()
-  readonly pontosFracos: string[];
+  readonly pontosFracos: ArrayObject[];
 
   @IsNotEmpty({ message: 'o campo [diferencial] não pode ser nulo' })
   @IsString()
@@ -20,23 +24,23 @@ export class saveDiagnosticoDTO {
 
   @IsNotEmpty({ message: 'o campo [objetivos] não pode ser nulo' })
   @IsArray()
-  readonly objetivos: string[];
+  readonly objetivos: ArrayObject[];
 
   @IsNotEmpty({ message: 'o campo [concorrentes] não pode ser nulo' })
   @IsArray()
-  readonly concorrentes: Concorrente[];
+  readonly concorrentes: ConcorrenteDTO[];
 
   @IsNotEmpty({ message: 'o campo [clientId] não pode ser nulo' })
   @IsString()
   readonly clientId: string;
 
   constructor(
-    diagnosticos: string[],
-    pontosFortes: string[],
-    pontosFracos: string[],
+    diagnosticos: ArrayObject[],
+    pontosFortes: ArrayObject[],
+    pontosFracos: ArrayObject[],
     diferencial: string,
-    objetivos: string[],
-    concorrentes: Concorrente[],
+    objetivos: ArrayObject[],
+    concorrentes: ConcorrenteDTO[],
     clientId: string,
   ) {
     this.diagnosticos = diagnosticos;

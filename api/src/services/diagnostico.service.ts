@@ -20,15 +20,8 @@ export class DiagnosticoService {
   ) {}
 
   async save(diagnosticoDTO: saveDiagnosticoDTO): Promise<DiagnosticoResponse> {
-    const mappedDiagnostico = new Diagnostico({
-      diagnosticos: diagnosticoDTO.diagnosticos,
-      pontosFortes: diagnosticoDTO.pontosFortes,
-      pontosFracos: diagnosticoDTO.pontosFracos,
-      diferencial: diagnosticoDTO.diferencial,
-      objetivos: diagnosticoDTO.objetivos,
-      clientId: diagnosticoDTO.clientId,
-    });
-
+    const mappedDiagnostico: Diagnostico =
+      this.fromSaveDiagnosticoDTOtoDiagnostico(diagnosticoDTO);
     const diagnostico =
       await this.diagnosticoRepository.save(mappedDiagnostico);
 
@@ -39,8 +32,12 @@ export class DiagnosticoService {
           redeSocial: concorrente.redeSocial,
           linkRedeSocial: concorrente.linkRedeSocial || null,
           descricao: concorrente.descricao,
-          pontosFortes: concorrente.pontosFortes,
-          pontosFracos: concorrente.pontosFracos,
+          pontosFortes: concorrente.pontosFortes.map(
+            (pontoForte) => pontoForte.value,
+          ),
+          pontosFracos: concorrente.pontosFracos.map(
+            (pontoForte) => pontoForte.value,
+          ),
           diagnosticoId: diagnostico.id,
         });
       },
@@ -64,5 +61,24 @@ export class DiagnosticoService {
       await this.diagnosticoRepository.findDiagnosticoByClientId(clientId);
 
     return { diagnostico };
+  }
+
+  private fromSaveDiagnosticoDTOtoDiagnostico(
+    dianosticoDTO: saveDiagnosticoDTO,
+  ): Diagnostico {
+    return new Diagnostico({
+      diagnosticos: dianosticoDTO.diagnosticos.map(
+        (diagnostico) => diagnostico.value,
+      ),
+      pontosFortes: dianosticoDTO.pontosFortes.map(
+        (pontoForte) => pontoForte.value,
+      ),
+      pontosFracos: dianosticoDTO.pontosFracos.map(
+        (pontoForte) => pontoForte.value,
+      ),
+      diferencial: dianosticoDTO.diferencial,
+      objetivos: dianosticoDTO.objetivos.map((objetivo) => objetivo.value),
+      clientId: dianosticoDTO.clientId,
+    });
   }
 }

@@ -17,13 +17,15 @@ export class DiagnosticoController {
   @Get()
   async list() {
     const { diagnostico } = await this.diagnosticoService.list();
-    return diagnostico;
+    return diagnostico.forEach((diagnostico) =>
+      DiagnosticoViewModel.toHTTP(diagnostico),
+    );
   }
 
   @Get('client/:clientId')
   async findDiagnosticoByClientId(@Param('clientId') clientId: string) {
     const { diagnostico } =
       await this.diagnosticoService.findDiagnosticoByClientId(clientId);
-    return diagnostico;
+    return DiagnosticoViewModel.toHTTP(diagnostico);
   }
 }

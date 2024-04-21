@@ -1,17 +1,21 @@
-export interface saveDiagnosticoDTO {
+interface ArrayObject {
   value: string
-  pontosFortes: string[]
-  pontosFracos: string[]
+}
+
+export interface saveDiagnosticoDTO {
+  diagnosticos: ArrayObject[]
+  pontosFortes: ArrayObject[]
+  pontosFracos: ArrayObject[]
   diferencial: string
-  objetivos: string
+  objetivos: ArrayObject[]
   concorrentes: [
     {
       nome: string
       redeSocial: string
       linkRedeSocial: string
       descricao: string
-      pontosFortes: string[]
-      pontosFracos: string[]
+      pontosFortes: ArrayObject[]
+      pontosFracos: ArrayObject[]
     },
   ]
   clientId: string

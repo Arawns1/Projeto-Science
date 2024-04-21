@@ -29,6 +29,7 @@ import {
   useSaveUserPhoto,
 } from '@/queries/clients/apresentacao'
 import { useToast } from '@/components/ui/use-toast'
+import { setSessionItem } from '@/lib/storage'
 
 export default function ApresentacaoPage() {
   const form = useForm<ApresentacaoSchemaType>({
@@ -69,6 +70,7 @@ export default function ApresentacaoPage() {
           })
         },
         onSuccess: (data) => {
+          setSessionItem('clientId', data.clientId)
           if (values.userPhoto) {
             const form = {
               clientId: data.clientId,

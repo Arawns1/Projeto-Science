@@ -3,8 +3,9 @@
 - [x] Puxar fotos dos clientes
 - [x] Corrigir service de imagem que invés de atualizar esta´criando nova apresentação
 - [x] Implementar exclusão de cliente
-- [ ] Implementar diagnostico
+- [x] Implementar diagnostico
 - [ ] Implementar projeto
+- [ ] Corrigir não apagamento de fotos da pasta userPhotos
 - [ ] Implementar identidade visual
 - [ ] Implementar cronograma
 - [ ] Implementar edição de cliente

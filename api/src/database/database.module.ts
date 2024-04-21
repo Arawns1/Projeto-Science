@@ -8,6 +8,8 @@ import { ConcorrenteRepository } from '@repositories/concorrente.repository';
 import { PrismaConcorrenteRepository } from './prisma/repositories/prisma.Concorrente.repository';
 import { DiagnosticoRepository } from '@repositories/diagnostico.repository';
 import { PrismaDiagnosticoRepository } from './prisma/repositories/prisma.Diagnostico.repository';
+import { ProjetoRepository } from '@repositories/projeto.repository';
+import { PrismaProjetoRepository } from './prisma/repositories/prisma.projeto.repository';
 
 @Module({
   imports: [],
@@ -30,12 +32,17 @@ import { PrismaDiagnosticoRepository } from './prisma/repositories/prisma.Diagno
       provide: ConcorrenteRepository,
       useClass: PrismaConcorrenteRepository,
     },
+    {
+      provide: ProjetoRepository,
+      useClass: PrismaProjetoRepository,
+    },
   ],
   exports: [
     ApresentacaoRepository,
     ClientRepository,
     DiagnosticoRepository,
     ConcorrenteRepository,
+    ProjetoRepository,
   ],
 })
 export class DatabaseModule {}

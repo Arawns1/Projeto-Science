@@ -1,8 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
 import { Apresentacao } from '@domains/Apresentacao';
+import { Injectable } from '@nestjs/common';
 import { ApresentacaoRepository } from '@repositories/apresentacao.repository';
-import { PrismaService } from '../prisma.service';
 import { PrismaApresentacaoMapper } from '../mappers/prisma.apresentacao.mapper';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaApresentacaoRepository implements ApresentacaoRepository {

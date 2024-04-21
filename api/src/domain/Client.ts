@@ -29,7 +29,7 @@ export class Client {
   }
 
   public get id() {
-    return this._id;
+    return this.id;
   }
 
   public set status(status: 'ATIVO' | 'INATIVO' | 'RASCUNHO') {

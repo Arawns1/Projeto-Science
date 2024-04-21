@@ -34,7 +34,7 @@ export class Concorrente {
   }
 
   public get id() {
-    return this._id;
+    return this.id;
   }
 
   public set nome(nome: string) {

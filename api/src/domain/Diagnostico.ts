@@ -35,7 +35,7 @@ export class Diagnostico {
   }
 
   public get id() {
-    return this._id;
+    return this.id;
   }
 
   public set diagnosticos(diagnosticos: string[]) {

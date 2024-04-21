@@ -31,6 +31,7 @@ model Client {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   Diagnostico  Diagnostico?
+  Projeto      Projeto?
 }
 
 model Apresentacao {
@@ -75,113 +76,113 @@ model Diagnostico {
   updatedAt    DateTime      @updatedAt
 }
 
-// model Projeto {
-//   id                   String            @id @default(uuid()) @map("_id")
-//   dna_estilo           String
-//   dna_valores          String
-//   dna_personalidade    String
-//   dna_comunicacao      String
-//   propositos           Proposito[]
-//   personas             Persona[]
-//   conteudos            SetupDeConteudo[]
-//   palavrasChave        String[]
-//   linkPlanilhaPalavras String?
-//   redesSociais         ObjetivoRede[]
-//   funis                Funil[]
-//   // genericFields        Field[]
+model Projeto {
+  id                   String            @id @default(uuid()) @map("_id")
+  dna_estilo           String
+  dna_valores          String
+  dna_personalidade    String
+  dna_comunicacao      String
+  palavrasChave        String[]
+  linkPlanilhaPalavras String?
+  propositos           Proposito[]
+  personas             Persona[]
+  conteudos            SetupDeConteudo[]
+  redesSociais         ObjetivoRede[]
+  funis                Funil[]
+  genericFields        Field[]
+  clientId             String            @unique
+  Client               Client            @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+}
 
-//   clientId  String   @unique
-//   Client    Client   @relation(fields: [clientId], references: [id])
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
+model Proposito {
+  id        String   @id @default(uuid()) @map("_id")
+  title     String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Projeto   Projeto? @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  projetoId String?
+}
 
-// model Proposito {
-//   id    String @id @default(uuid()) @map("_id")
-//   title String
-//   value String
+model Persona {
+  id               String   @id @default(uuid()) @map("_id")
+  personaPhotoPath String?
+  nome             String
+  idade            Int
+  profissao        String
+  sobre            String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  Projeto          Projeto? @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  projetoId        String?
+}
 
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
-//   projetoId String?
-// }
+model SetupDeConteudo {
+  id        String   @id @default(uuid()) @map("_id")
+  title     String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Projeto   Projeto? @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  projetoId String?
+}
 
-// model Persona {
-//   id               String  @id @default(uuid()) @map("_id")
-//   personaPhotoPath String?
-//   nome             String
-//   idade            Int
-//   profissao        String
-//   sobre            String
+model ObjetivoRede {
+  id                 String   @id @default(uuid()) @map("_id")
+  nome               String
+  objetivo           String
+  frequencia         String
+  estruturaLinguagem String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  Projeto            Projeto? @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  projetoId          String?
+}
 
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
-//   projetoId String?
-// }
+model Funil {
+  id         String         @id @default(uuid()) @map("_id")
+  title      String
+  value      String
+  formatos   FunilFormato[]
+  tipos      String[]
+  faseTambem String[]
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  Projeto    Projeto?       @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  projetoId  String?
+}
 
-// model SetupDeConteudo {
-//   id    String @id @default(uuid()) @map("_id")
-//   title String
-//   value String
+model FunilFormato {
+  id        String   @id @default(uuid()) @map("_id")
+  formato   String
+  titulo    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Funil     Funil?   @relation(fields: [funilId], references: [id], onDelete: Cascade)
+  funilId   String?
+}
 
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
-//   projetoId String?
-// }
+model Field {
+  id             String         @id @default(uuid()) @map("_id")
+  type           String?
+  title          String?
+  data_file_path String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  Projeto        Projeto?       @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  projetoId      String?
+  FieldContent   FieldContent[]
+}
 
-// model ObjetivoRede {
-//   id                 String @id @default(uuid()) @map("_id")
-//   nome               String
-//   objetivo           String
-//   frequencia         String
-//   estruturaLinguagem String
-
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
-//   projetoId String?
-// }
-
-// model Funil {
-//   id         String         @id @default(uuid()) @map("_id")
-//   nome_title String
-//   nome_value String
-//   formatos   FunilFormato[]
-//   tipos      String[]
-//   faseTambem String[]
-
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
-//   projetoId String?
-// }
-
-// model FunilFormato {
-//   id      String @id @default(uuid()) @map("_id")
-//   formato String
-//   titulo  String
-
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   Funil     Funil?   @relation(fields: [funilId], references: [id])
-//   funilId   String?
-// }
-
-// model Field {
-//   id           String  @id @default(uuid()) @map("_id") 
-//   type         String?
-//   title        String?
-//   data_file    Bytes?
-//   data_content Json?
-
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   Projeto   Projeto? @relation(fields: [projetoId], references: [id])
-//   projetoId String?  
-// }
+model FieldContent {
+  id      String  @id @default(uuid()) @map("_id")
+  title   String?
+  value   String?
+  Field   Field?  @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+  fieldId String?
+}
 
 // model IdentidadeVisual {
 //   id                        String   @id @default(uuid()) @map("_id")

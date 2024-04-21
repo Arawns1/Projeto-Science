@@ -9,6 +9,8 @@ import { ImageService } from '@services/image.service';
 import { DiagnosticoController } from './diagnostico.controller';
 import { DiagnosticoService } from '@services/diagnostico.service';
 import { ConcorrenteService } from '@services/concorrente.service';
+import { ProjetoController } from './projeto.controller';
+import { ProjetoService } from '@services/projeto.service';
 
 @Module({
   imports: [DatabaseModule],
@@ -17,6 +19,7 @@ import { ConcorrenteService } from '@services/concorrente.service';
     ClientController,
     ImageController,
     DiagnosticoController,
+    ProjetoController,
   ],
   providers: [
     ApresentacaoService,
@@ -24,6 +27,7 @@ import { ConcorrenteService } from '@services/concorrente.service';
     ImageService,
     DiagnosticoService,
     ConcorrenteService,
+    ProjetoService,
   ],
 })
 export class ControllersModule {}

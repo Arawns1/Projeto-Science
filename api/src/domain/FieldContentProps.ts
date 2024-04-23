@@ -3,7 +3,7 @@ import { Replace } from 'src/helpers/replace';
 
 export interface FieldContentProps {
   id: string;
-  title: string | null;
+  title?: string | null;
   value: string | null;
   fieldId?: string;
   createdAt: Date;

@@ -1,13 +1,13 @@
 import { randomUUID } from 'crypto';
 import { Replace } from 'src/helpers/replace';
-import { FieldContentProps } from './FieldContentProps';
+import { FieldContent } from './FieldContentProps';
 
 export interface FieldProps {
   id: string;
   type?: string | null;
   title?: string | null;
   data_file_path?: string | null;
-  FieldContent?: FieldContentProps[];
+  fieldContent: FieldContent[];
   projetoId?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -62,6 +62,13 @@ export class Field {
   }
   public get projetoId(): string | undefined {
     return this.props.projetoId;
+  }
+
+  public set fieldContent(fieldContent: FieldContent[]) {
+    this.props.fieldContent = fieldContent;
+  }
+  public get fieldContent(): FieldContent[] {
+    return this.props.fieldContent;
   }
 
   public get createdAt(): Date {

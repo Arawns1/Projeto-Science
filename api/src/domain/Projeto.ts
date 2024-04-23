@@ -5,7 +5,7 @@ import { PersonaProps } from './Persona';
 import { SetupDeConteudoProps } from './SetupDeConteudo';
 import { RedeSocialProps } from './RedeSocial';
 import { FunilProps } from './Funil';
-import { FieldProps } from './Field';
+import { Field } from './Field';
 
 export interface ProjetoProps {
   id: string;
@@ -20,7 +20,7 @@ export interface ProjetoProps {
   conteudos: SetupDeConteudoProps[];
   redesSociais: RedeSocialProps[];
   funis: FunilProps[];
-  genericFields: FieldProps[];
+  genericFields: Field[];
   clientId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -93,7 +93,7 @@ export class Projeto {
     return this.props.funis;
   }
 
-  public get genericFields(): FieldProps[] {
+  public get genericFields(): Field[] {
     return this.props.genericFields;
   }
 

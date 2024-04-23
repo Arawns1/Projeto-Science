@@ -54,12 +54,12 @@ export interface GenericField {
   type: string
 }
 
-export interface Data {
-  content: Content[]
-}
-
-export interface Content {
+interface ArrayObject {
+  title?: string
   value: string
+}
+export interface Data {
+  content: ArrayObject[]
 }
 
 export interface PalavrasChave {

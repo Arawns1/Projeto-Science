@@ -1,9 +1,10 @@
 import { Projeto } from '@domains/Projeto';
 import { Injectable } from '@nestjs/common';
 import { ProjetoRepository } from '@repositories/projeto.repository';
-import { PrismaService } from '../prisma.service';
-import { PrismaProjetoMapper } from '../mappers/prisma.projeto.mapper';
+import { PrismaFieldMapper } from '../mappers/prisma.field.mapper';
 import { PrismaFunilMapper } from '../mappers/prisma.funil.mapper';
+import { PrismaProjetoMapper } from '../mappers/prisma.projeto.mapper';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaProjetoRepository implements ProjetoRepository {
@@ -13,6 +14,9 @@ export class PrismaProjetoRepository implements ProjetoRepository {
     const raw = PrismaProjetoMapper.toPrisma(projeto);
     const funis_raw = projeto.funis.map((funil) =>
       PrismaFunilMapper.toPrisma(funil),
+    );
+    const fields_raw = projeto.genericFields.map((field) =>
+      PrismaFieldMapper.toPrisma(field),
     );
 
     try {
@@ -56,13 +60,22 @@ export class PrismaProjetoRepository implements ProjetoRepository {
             projetoId: raw.id,
           })),
         });
+
         await trx.field.createMany({
-          data: projeto.genericFields.map((field) => ({
-            title: field.title,
-            type: field.type,
-            data_file_path: field.data_file_path,
-            projetoId: raw.id,
-          })),
+          data: fields_raw.map((field) => ({ ...field, projetoId: raw.id })),
+        });
+
+        await trx.fieldContent.createMany({
+          data: projeto.genericFields.flatMap((field) => {
+            if (!field.fieldContent) {
+              return [];
+            }
+            return field.fieldContent.map((fieldContent) => ({
+              title: fieldContent.title,
+              value: fieldContent.value,
+              fieldId: field.id,
+            }));
+          }),
         });
 
         await trx.funil.createMany({
@@ -117,7 +130,7 @@ export class PrismaProjetoRepository implements ProjetoRepository {
         },
       },
     });
-    return projeto as Projeto[];
+    return projeto as unknown as Projeto[];
   }
 
   async findByClientId(clientId: string): Promise<Projeto> {
@@ -147,7 +160,7 @@ export class PrismaProjetoRepository implements ProjetoRepository {
       throw new Error('Projeto not found');
     }
 
-    return projeto as Projeto;
+    return projeto as unknown as Projeto;
   }
   async findById(id: string): Promise<Projeto> {
     const projeto = await this.prismaService.projeto.findFirst({
@@ -176,6 +189,6 @@ export class PrismaProjetoRepository implements ProjetoRepository {
       throw new Error('Projeto not found');
     }
 
-    return projeto as Projeto;
+    return projeto as unknown as Projeto;
   }
 }

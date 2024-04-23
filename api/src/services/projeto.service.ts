@@ -16,6 +16,7 @@ import {
 import { Injectable } from '@nestjs/common';
 import { Projeto } from '../domain/Projeto';
 import { ProjetoRepository } from '../repositories/projeto.repository';
+import { FieldContent } from '@domains/FieldContentProps';
 
 interface ProjetoListResponse {
   projeto: Projeto[];
@@ -124,10 +125,19 @@ export class ProjetoService {
       faseTambem: funilDTO.faseTambem.map((fase) => fase.value),
     });
   }
+
   private genericFieldFromProjetoDTO(genericFieldDTO: GenericFieldsProps) {
+    const fieldContentMapped = genericFieldDTO.data.content.map((content) => {
+      return new FieldContent({
+        title: content.title || null,
+        value: content.value,
+      });
+    });
+
     return new Field({
       type: genericFieldDTO.type,
       title: genericFieldDTO.title,
+      fieldContent: fieldContentMapped,
       data_file_path: 'data_file_path',
     });
   }

@@ -21,18 +21,19 @@ enum ClientStatus {
 }
 
 model Client {
-  id           String        @id @default(uuid()) @map("_id")
-  status       ClientStatus
-  Apresentacao Apresentacao?
+  id               String            @id @default(uuid()) @map("_id")
+  status           ClientStatus
+  Apresentacao     Apresentacao?
   // Diagnostico      Diagnostico?
   // Projeto          Projeto?
   // IdentidadeVisual IdentidadeVisual?
   // Cronograma       Cronograma?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  Diagnostico  Diagnostico?
-  Projeto      Projeto?
-  Cronograma   Cronograma?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  Diagnostico      Diagnostico?
+  Projeto          Projeto?
+  Cronograma       Cronograma?
+  IdentidadeVisual IdentidadeVisual?
 }
 
 model Apresentacao {
@@ -185,14 +186,14 @@ model FieldContent {
   fieldId String?
 }
 
-// model IdentidadeVisual {
-//   id                        String   @id @default(uuid()) @map("_id")
-//   identidadeVisualPhotoPath String[]
-//   clientId                  String   @unique
-//   Client                    Client   @relation(fields: [clientId], references: [id])
-//   createdAt                 DateTime @default(now())
-//   updatedAt                 DateTime @updatedAt
-// }
+model IdentidadeVisual {
+  id                        String   @id @default(uuid()) @map("_id")
+  identidadeVisualPhotoPath String
+  clientId                  String   @unique
+  Client                    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+}
 
 model Cronograma {
   id        String   @id @default(uuid()) @map("_id")

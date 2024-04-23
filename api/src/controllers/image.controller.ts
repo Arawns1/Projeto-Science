@@ -10,11 +10,12 @@ import {
   Query,
   Req,
   UploadedFile,
+  UploadedFiles,
 } from '@nestjs/common';
 import * as path from 'path';
 import { of } from 'rxjs';
 import { Response } from 'express';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { FileHelper } from '../helpers/FileHelper';
 import { Request } from 'express';
@@ -99,6 +100,38 @@ export class ImageController {
 
     return {
       filePath: `http://${req.get('host')}${path}`,
+    };
+  }
+
+  @Post('/identidadeVisual/upload')
+  @UseInterceptors(
+    FilesInterceptor('files', 5, {
+      storage: diskStorage({
+        destination: FileHelper.destinationIdentidadeVisualPath,
+        filename: FileHelper.customIdentidadeVisualFileName,
+      }),
+    }),
+  )
+  uploadIdentidadeVisualFiles(
+    @UploadedFiles(
+      new ParseFilePipe({
+        validators: [new FileTypeValidator({ fileType: 'image/*' })],
+      }),
+    )
+    files: Array<Express.Multer.File>,
+    @Query('_clientId') clientId: string,
+    @Req() req: Request,
+  ) {
+    const paths: string[] = [];
+
+    files.forEach((file) => {
+      const path = `/images/identidadeVisual/${file.filename}`;
+      this.imageService.saveIdentidadeVisualImage(path, clientId);
+      paths.push(`http://${req.get('host')}${path}`);
+    });
+
+    return {
+      paths,
     };
   }
 }

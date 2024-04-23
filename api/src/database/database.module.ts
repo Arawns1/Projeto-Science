@@ -14,6 +14,8 @@ import { PersonaRepository } from '@repositories/persona.repository';
 import { PrismaPersonaRepository } from './prisma/repositories/prisma.Persona.repository';
 import { CronogramaRepository } from '@repositories/cronograma.repository';
 import { PrismaCronogramaRepository } from './prisma/repositories/prisma.Cronograma.repository';
+import { IdentidadeVisualRepository } from '@repositories/identidadeVisual.repository';
+import { PrismaIdentidadeVisualRepository } from './prisma/repositories/prisma.IdentidadeVisual.repository';
 
 @Module({
   imports: [],
@@ -48,6 +50,10 @@ import { PrismaCronogramaRepository } from './prisma/repositories/prisma.Cronogr
       provide: CronogramaRepository,
       useClass: PrismaCronogramaRepository,
     },
+    {
+      provide: IdentidadeVisualRepository,
+      useClass: PrismaIdentidadeVisualRepository,
+    },
   ],
   exports: [
     ApresentacaoRepository,
@@ -57,6 +63,7 @@ import { PrismaCronogramaRepository } from './prisma/repositories/prisma.Cronogr
     ProjetoRepository,
     PersonaRepository,
     CronogramaRepository,
+    IdentidadeVisualRepository,
   ],
 })
 export class DatabaseModule {}

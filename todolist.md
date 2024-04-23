@@ -8,10 +8,10 @@
 - [x] Corrigir não apagamento de fotos da pasta userPhotos
 - [x] Corrigir GenericFields
 - [x] Corrigir salvamento de fotos do projeto / personas
-- [ ] Corrigir link projetoId - Cronograma
-- [ ] Corrigir Exclusão de client e fotos das personas
-- [ ] Implementar exclusão da persona
-- [ ] Implementar identidade visual
+- [x] Corrigir link projetoId - Cronograma
+- [x] Corrigir Exclusão de client e fotos das personas
+- [x] Implementar exclusão da persona
+- [x] Implementar identidade visual
 - [x] Implementar cronograma
 - [ ] Implementar edição de cliente
 - [ ] Implementar frontend customizado

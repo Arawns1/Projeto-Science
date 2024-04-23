@@ -10,6 +10,9 @@ import {
   IdentidadeVisualSchema,
 } from "./IdentidadeVisualSchema"
 import { useToast } from "@/components/ui/use-toast"
+import { useSaveIdentidadeVisualImage } from "@/queries/clients/identidadeVisual"
+import { getSessionItem } from "@/lib/storage"
+import { useNavigate } from "react-router-dom"
 
 export default function IdentidadeVisualPage() {
   const form = useForm<IdentidadeVisualFormData>({
@@ -17,15 +20,43 @@ export default function IdentidadeVisualPage() {
   })
   const { control } = form
   const { toast } = useToast()
+  const navigate = useNavigate()
+  const saveIdentidadeVisual = useSaveIdentidadeVisualImage()
 
   const imagesList = useFieldArray<IdentidadeVisualFormData>({
     control: control,
-    name: "images",
+    name: "files",
   })
 
   function onSubmit(values: IdentidadeVisualFormData) {
-    console.log(values)
-    // navigate('/novo-cliente/diagnostico')
+    const formData = new FormData()
+    const clientId = getSessionItem("clientId")
+
+    if (!clientId || clientId == null) {
+      return navigate("/dashboard")
+    }
+    values.files.forEach((file) => {
+      if (file.file) {
+        formData.append("files", file.file)
+      }
+    })
+
+    const valuesComClientId = {
+      formData: formData,
+      clientId: clientId,
+    }
+
+    saveIdentidadeVisual.mutate(valuesComClientId, {
+      onSuccess: () => {
+        navigate("/novo-cliente/cronograma")
+      },
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Não foi possível salvar as imagens",
+        })
+      },
+    })
   }
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -44,7 +75,7 @@ export default function IdentidadeVisualPage() {
   }
 
   async function appendNewPhoto(file: File) {
-    const imagesListLength = form.getValues("images").length
+    const imagesListLength = form.getValues("files").length
     if (imagesListLength < 5) {
       imagesList.append({ file: file })
     } else {

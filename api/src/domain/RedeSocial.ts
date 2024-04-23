@@ -32,7 +32,7 @@ export class RedeSocial {
   }
 
   public get id(): string {
-    return this.props.id;
+    return this._id;
   }
 
   public get nome(): string {

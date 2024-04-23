@@ -30,7 +30,7 @@ export class SetupDeConteudo {
   }
 
   public get id(): string {
-    return this.props.id;
+    return this._id;
   }
 
   public get title(): string {

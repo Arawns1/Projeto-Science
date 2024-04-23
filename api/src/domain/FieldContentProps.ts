@@ -30,7 +30,7 @@ export class FieldContent {
   }
 
   public get id(): string {
-    return this.props.id;
+    return this._id;
   }
 
   public set title(title: string | null) {

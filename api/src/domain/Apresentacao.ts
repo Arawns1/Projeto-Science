@@ -34,7 +34,7 @@ export class Apresentacao {
   }
 
   public get id() {
-    return this.id;
+    return this._id;
   }
 
   public set nome(nome: string) {

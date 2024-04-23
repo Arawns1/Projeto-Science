@@ -33,7 +33,7 @@ export class Field {
   }
 
   public get id(): string {
-    return this.props.id;
+    return this._id;
   }
 
   public set type(type: string | null | undefined) {

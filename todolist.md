@@ -4,12 +4,15 @@
 - [x] Corrigir service de imagem que invés de atualizar esta´criando nova apresentação
 - [x] Implementar exclusão de cliente
 - [x] Implementar diagnostico
-- [ ] Implementar projeto
-- [ ] Corrigir GenericFields
-- [ ] Corrigir salvamento de fotos do projeto
-- [ ] Corrigir não apagamento de fotos da pasta userPhotos
+- [x] Implementar projeto
+- [x] Corrigir não apagamento de fotos da pasta userPhotos
+- [x] Corrigir GenericFields
+- [x] Corrigir salvamento de fotos do projeto / personas
+- [ ] Corrigir link projetoId - Cronograma
+- [ ] Corrigir Exclusão de client e fotos das personas
+- [ ] Implementar exclusão da persona
 - [ ] Implementar identidade visual
-- [ ] Implementar cronograma
+- [x] Implementar cronograma
 - [ ] Implementar edição de cliente
-- [ ] Implementar envio de email
 - [ ] Implementar frontend customizado
+- [ ] Implementar envio de email

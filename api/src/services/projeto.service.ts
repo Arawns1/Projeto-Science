@@ -62,9 +62,6 @@ export class ProjetoService {
       propositos: projetoDTO.propositos.map((proposito) =>
         this.propositoFromProjetoDTO(proposito),
       ),
-      personas: projetoDTO.personas.map((persona) =>
-        this.personaFromProjetoDTO(persona),
-      ),
       conteudos: projetoDTO.conteudos.map((conteudo) =>
         this.conteudosFromProjetoDTO(conteudo),
       ),

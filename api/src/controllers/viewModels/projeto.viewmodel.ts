@@ -36,14 +36,14 @@ export class ProjetoViewModel {
       palavrasChave: projeto.palavrasChave.map((palavraChave) => ({
         value: palavraChave,
       })),
-      personas: projeto.personas.map((persona) => ({
-        id: persona.id,
-        idade: persona.idade,
-        nome: persona.nome,
-        personaPhotoPath: persona.personaPhotoPath,
-        profissao: persona.profissao,
-        sobre: persona.sobre,
-      })),
+      // personas: projeto.personas.map((persona) => ({
+      //   id: persona.id,
+      //   idade: persona.idade,
+      //   nome: persona.nome,
+      //   personaPhotoPath: persona.personaPhotoPath,
+      //   profissao: persona.profissao,
+      //   sobre: persona.sobre,
+      // })),
       propositos: projeto.propositos.map((proposito) => ({
         id: proposito.id,
         title: proposito.title,

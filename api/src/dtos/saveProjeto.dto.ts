@@ -71,10 +71,6 @@ export class saveProjetoDTO {
   @IsArray()
   readonly palavrasChave: ArrayObject[];
 
-  @IsNotEmpty({ message: 'o campo [personas] não pode ser nulo' })
-  @IsArray()
-  readonly personas: Persona[];
-
   @IsNotEmpty({ message: 'o campo [propositos] não pode ser nulo' })
   @IsArray()
   readonly propositos: ArrayObject[];
@@ -94,7 +90,6 @@ export class saveProjetoDTO {
     genericFields: GenericFields[],
     linkPlanilhaPalavras: string | null,
     palavrasChave: ArrayObject[],
-    personas: Persona[],
     propositos: ArrayObject[],
     redesSociais: RedeSocial[],
     clientId: string,
@@ -105,7 +100,6 @@ export class saveProjetoDTO {
     this.genericFields = genericFields;
     this.linkPlanilhaPalavras = linkPlanilhaPalavras;
     this.palavrasChave = palavrasChave;
-    this.personas = personas;
     this.propositos = propositos;
     this.redesSociais = redesSociais;
     this.clientId = clientId;

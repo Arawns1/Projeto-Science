@@ -32,16 +32,16 @@ export class PrismaProjetoRepository implements ProjetoRepository {
           })),
         });
 
-        await trx.persona.createMany({
-          data: projeto.personas.map((persona) => ({
-            personaPhotoPath: persona.personaPhotoPath,
-            nome: persona.nome,
-            idade: persona.idade,
-            profissao: persona.profissao,
-            sobre: persona.sobre,
-            projetoId: raw.id,
-          })),
-        });
+        // await trx.persona.createMany({
+        //   data: projeto.personas.map((persona) => ({
+        //     personaPhotoPath: persona.personaPhotoPath,
+        //     nome: persona.nome,
+        //     idade: persona.idade,
+        //     profissao: persona.profissao,
+        //     sobre: persona.sobre,
+        //     projetoId: raw.id,
+        //   })),
+        // });
 
         await trx.setupDeConteudo.createMany({
           data: projeto.conteudos.map((conteudo) => ({

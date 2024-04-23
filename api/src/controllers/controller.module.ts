@@ -11,6 +11,8 @@ import { DiagnosticoService } from '@services/diagnostico.service';
 import { ConcorrenteService } from '@services/concorrente.service';
 import { ProjetoController } from './projeto.controller';
 import { ProjetoService } from '@services/projeto.service';
+import { PersonaController } from './persona.controller';
+import { PersonaService } from '@services/persona.service';
 
 @Module({
   imports: [DatabaseModule],
@@ -20,6 +22,7 @@ import { ProjetoService } from '@services/projeto.service';
     ImageController,
     DiagnosticoController,
     ProjetoController,
+    PersonaController,
   ],
   providers: [
     ApresentacaoService,
@@ -28,6 +31,7 @@ import { ProjetoService } from '@services/projeto.service';
     DiagnosticoService,
     ConcorrenteService,
     ProjetoService,
+    PersonaService,
   ],
 })
 export class ControllersModule {}

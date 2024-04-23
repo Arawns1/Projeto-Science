@@ -22,7 +22,7 @@ import { ImageService } from '@services/image.service';
 
 @Controller('images')
 export class ImageController {
-  constructor(private imageService: ImageService) { }
+  constructor(private imageService: ImageService) {}
 
   @Get('userPhotos/:userPhotoName')
   async getPhotoByUrl(
@@ -32,6 +32,18 @@ export class ImageController {
     return of(
       res.sendFile(
         path.join(process.cwd(), `/images/userPhotos/${userPhotoName}`),
+      ),
+    );
+  }
+
+  @Get('personas/:personaPhotoName')
+  async getPersonaPhotoByUrl(
+    @Param('personaPhotoName') personaPhotoName: string,
+    @Res() res: Response,
+  ) {
+    return of(
+      res.sendFile(
+        path.join(process.cwd(), `/images/personas/${personaPhotoName}`),
       ),
     );
   }
@@ -57,6 +69,33 @@ export class ImageController {
   ) {
     const path = `/images/userPhotos/${req.body.__filename}`;
     this.imageService.saveImage(path, clientId);
+
+    return {
+      filePath: `http://${req.get('host')}${path}`,
+    };
+  }
+
+  @Post('/persona/upload')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: FileHelper.destinationPersonaPath,
+        filename: FileHelper.customPersonaFileName,
+      }),
+    }),
+  )
+  uploadPersona(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [new FileTypeValidator({ fileType: 'image/*' })],
+      }),
+    )
+    file: Express.Multer.File,
+    @Query('_personaId') clientId: string,
+    @Req() req: Request,
+  ) {
+    const path = `/images/personas/${req.body.__filename}`;
+    this.imageService.savePersonaImage(path, clientId);
 
     return {
       filePath: `http://${req.get('host')}${path}`,

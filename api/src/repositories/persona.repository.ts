@@ -1,8 +1,9 @@
 import { Persona } from '../domain/Persona';
 
 export abstract class PersonaRepository {
-  abstract save(field: Persona): Promise<void>;
+  abstract save(persona: Persona): Promise<Persona>;
+  abstract findById(personaId: string): Promise<Persona>;
+  abstract update(persona: Persona): Promise<Persona>;
   abstract list(): Promise<Persona[]>;
-  abstract findByProjetoId(projeto: string): Promise<Persona>;
-  abstract findById(id: string): Promise<Persona>;
+  abstract delete(personaId: string): Promise<void>;
 }

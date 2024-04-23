@@ -10,6 +10,8 @@ import { DiagnosticoRepository } from '@repositories/diagnostico.repository';
 import { PrismaDiagnosticoRepository } from './prisma/repositories/prisma.Diagnostico.repository';
 import { ProjetoRepository } from '@repositories/projeto.repository';
 import { PrismaProjetoRepository } from './prisma/repositories/prisma.projeto.repository';
+import { PersonaRepository } from '@repositories/persona.repository';
+import { PrismaPersonaRepository } from './prisma/repositories/prisma.Persona.repository';
 
 @Module({
   imports: [],
@@ -36,6 +38,10 @@ import { PrismaProjetoRepository } from './prisma/repositories/prisma.projeto.re
       provide: ProjetoRepository,
       useClass: PrismaProjetoRepository,
     },
+    {
+      provide: PersonaRepository,
+      useClass: PrismaPersonaRepository,
+    },
   ],
   exports: [
     ApresentacaoRepository,
@@ -43,6 +49,7 @@ import { PrismaProjetoRepository } from './prisma/repositories/prisma.projeto.re
     DiagnosticoRepository,
     ConcorrenteRepository,
     ProjetoRepository,
+    PersonaRepository,
   ],
 })
 export class DatabaseModule {}

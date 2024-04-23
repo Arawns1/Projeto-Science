@@ -16,7 +16,7 @@ export interface ProjetoProps {
   palavrasChave: string[];
   linkPlanilhaPalavras?: string | null;
   propositos: PropositoProps[];
-  personas: PersonaProps[];
+  personas?: PersonaProps[];
   conteudos: SetupDeConteudoProps[];
   redesSociais: RedeSocialProps[];
   funis: FunilProps[];
@@ -77,7 +77,7 @@ export class Projeto {
     return this.props.propositos;
   }
 
-  public get personas(): PersonaProps[] {
+  public get personas(): PersonaProps[] | undefined {
     return this.props.personas;
   }
 

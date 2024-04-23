@@ -4,56 +4,88 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog'
 import {
   personaFormData,
   personaSchema,
   projetoFormData,
-} from "@/pages/clientForm/projeto/ProjetoSchema"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Trash } from "@phosphor-icons/react"
-import { useState } from "react"
+} from '@/pages/clientForm/projeto/ProjetoSchema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Trash } from '@phosphor-icons/react'
+import { useState } from 'react'
 import {
   FormProvider,
   useFieldArray,
   useForm,
   useFormContext,
-} from "react-hook-form"
-import userImagePlaceholder from "../assets/images/img_placeholder.png"
-import UserPhoto from "./UserPhoto"
-import { Button } from "./ui/button"
+} from 'react-hook-form'
+import userImagePlaceholder from '../assets/images/img_placeholder.png'
+import UserPhoto from './UserPhoto'
+import { Button } from './ui/button'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form"
-import { Input } from "./ui/input"
-import { Textarea } from "./ui/textarea"
+} from './ui/form'
+import { Input } from './ui/input'
+import { Textarea } from './ui/textarea'
+import { useSavePersona, useSavePersonaImage } from '@/queries/clients/persona'
+import { useToast } from './ui/use-toast'
 
 export default function PersonasList() {
   const contextForm = useFormContext<projetoFormData>()
+  const { toast } = useToast()
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
   const { control } = contextForm
+  const savePersona = useSavePersona()
+  const savePersonaImage = useSavePersonaImage()
   const { append, remove, fields } = useFieldArray({
     control,
-    name: "personas",
+    name: 'personas',
   })
 
   const personaForm = useForm<personaFormData>({
     resolver: zodResolver(personaSchema),
     defaultValues: {
-      nome: "",
+      nome: '',
       idade: 0,
-      profissao: "",
-      sobre: "",
+      profissao: '',
+      sobre: '',
     },
   })
 
   const onSubmit = () => {
     const formData = personaForm.getValues()
     append(formData)
+    const mappedFormData = {
+      ...formData,
+      idade: parseInt(formData.idade.toString()),
+    }
+
+    const personaPhotoForm = new FormData()
+    if (formData.userPhoto) {
+      personaPhotoForm.append('file', formData.userPhoto)
+    }
+
+    savePersona.mutate(mappedFormData, {
+      onSuccess: async (data) => {
+        if (formData.userPhoto) {
+          const form = {
+            personaId: data.id,
+            formData: personaPhotoForm,
+          }
+          savePersonaImage.mutate(form)
+        }
+      },
+      onError: () => {
+        toast({
+          variant: 'destructive',
+          title: 'Erro ao salvar persona',
+        })
+      },
+    })
     personaForm.reset()
     setIsDialogOpen(false)
   }
@@ -105,8 +137,8 @@ export default function PersonasList() {
                 </DialogTrigger>
                 <div className="absolute top-1 right-1">
                   <Button
-                    size={"icon"}
-                    variant={"ghost"}
+                    size={'icon'}
+                    variant={'ghost'}
                     onClick={() => handleRemove(index)}
                   >
                     <Trash size={24} className="text-zinc-400" />
@@ -252,7 +284,7 @@ export default function PersonasList() {
               </div>
               <div className="flex flex-row gap-4">
                 <Button
-                  variant={"outline"}
+                  variant={'outline'}
                   className="w-full h-12"
                   onClick={handleDiscard}
                   type="button"

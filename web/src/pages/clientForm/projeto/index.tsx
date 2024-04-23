@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import DiscardDialog from '@/components/DiscardDialog'
-import PalavraChaveInput from '@/components/PalavraChaveInput'
-import PersonasList from '@/components/PersonasList'
-import RedeSocialAccordion from '@/components/RedeSocialAccordion'
-import SimpleList from '@/components/SimpleList'
-import { AlertDialog } from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
+import DiscardDialog from "@/components/DiscardDialog"
+import FunilList from "@/components/FunilList"
+import GenericFields from "@/components/GenericFields"
+import PalavraChaveInput from "@/components/PalavraChaveInput"
+import PersonasList from "@/components/PersonasList"
+import RedeSocialAccordion from "@/components/RedeSocialAccordion"
+import SimpleList from "@/components/SimpleList"
+import { AlertDialog } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -13,19 +15,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Link } from '@phosphor-icons/react'
-import { KeyboardEvent, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { projetoFormData, projetoSchema } from './ProjetoSchema'
-import FunilList from '@/components/FunilList'
-import GenericFields from '@/components/GenericFields'
-import { saveProjetoDTO } from '@/dtos/saveProjetoDTO'
-import { getSessionItem } from '@/lib/storage'
-import { useNavigate } from 'react-router-dom'
-import { useSaveProjeto } from '@/queries/clients/projeto'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { saveProjetoDTO } from "@/dtos/saveProjetoDTO"
+import { getSessionItem } from "@/lib/storage"
+import { useSaveProjeto } from "@/queries/clients/projeto"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Link } from "@phosphor-icons/react"
+import { KeyboardEvent, useState } from "react"
+import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
+import { projetoFormData, projetoSchema } from "./ProjetoSchema"
 
 export default function ProjetoPage() {
   const navigate = useNavigate()
@@ -34,23 +34,23 @@ export default function ProjetoPage() {
     resolver: zodResolver(projetoSchema),
     defaultValues: {
       dna: {
-        estilo: '',
-        valores: '',
-        personalidade: '',
-        comunicacao: '',
+        estilo: "",
+        valores: "",
+        personalidade: "",
+        comunicacao: "",
       },
-      propositos: [{ title: '', value: '' }],
-      conteudos: [{ title: '', value: '' }],
-      linkPlanilhaPalavras: '',
+      propositos: [{ title: "", value: "" }],
+      conteudos: [{ title: "", value: "" }],
+      linkPlanilhaPalavras: "",
       redesSociais: [
-        { nome: '', objetivo: '', frequencia: '', estruturaLinguagem: '' },
+        { nome: "", objetivo: "", frequencia: "", estruturaLinguagem: "" },
       ],
       funis: [
         {
-          nome: { title: '', value: '' },
-          formatos: [{ formato: '', titulo: '' }],
-          tipos: [{ value: '' }],
-          faseTambem: [{ value: '' }],
+          nome: { title: "", value: "" },
+          formatos: [{ formato: "", titulo: "" }],
+          tipos: [{ value: "" }],
+          faseTambem: [{ value: "" }],
         },
       ],
     },
@@ -59,19 +59,18 @@ export default function ProjetoPage() {
   const { handleSubmit } = form
 
   function onSubmit(values: saveProjetoDTO) {
-    const clientId = getSessionItem('clientId')
+    const clientId = getSessionItem("clientId")
     if (!clientId || clientId == null) {
-      return navigate('/dashboard')
+      return navigate("/dashboard")
     }
 
     const valuesComClientId = {
       ...values,
       clientId: clientId,
     }
-
     saveProjeto.mutate(valuesComClientId, {
       onSuccess: () => {
-        navigate('/novo-cliente/identidade-visual')
+        navigate("/novo-cliente/identidade-visual")
       },
       onError: (error) => {
         console.error(error)
@@ -84,7 +83,7 @@ export default function ProjetoPage() {
     setIsDialogOpen(true)
   }
   const checkKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') e.preventDefault()
+    if (e.key === "Enter") e.preventDefault()
   }
   return (
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -333,10 +332,10 @@ export default function ProjetoPage() {
           </section>
           <div className="w-full flex justify-end items-center gap-8">
             <Button
-              variant={'ghost'}
+              variant={"ghost"}
               type="button"
               className="font-semibold text-lg"
-              size={'lg'}
+              size={"lg"}
               onClick={handleDiscard}
             >
               Descartar
@@ -345,7 +344,7 @@ export default function ProjetoPage() {
               data-formid="projetoForm"
               form="projetoForm"
               type="submit"
-              size={'lg'}
+              size={"lg"}
             >
               Próxima Etapa
             </Button>

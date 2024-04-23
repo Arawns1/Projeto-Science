@@ -68,6 +68,9 @@ export class ProjetoService {
       redesSociais: projetoDTO.redesSociais.map((redeSocial) =>
         this.redesSociaisFromProjetoDTO(redeSocial),
       ),
+      personas: projetoDTO.personas.map((persona) =>
+        this.personaFromProjetoDTO(persona),
+      ),
       funis: projetoDTO.funis.map((funil) => this.funisFromProjetoDTO(funil)),
       genericFields: projetoDTO.genericFields.map((genericField) =>
         this.genericFieldFromProjetoDTO(genericField),
@@ -84,6 +87,7 @@ export class ProjetoService {
 
   private personaFromProjetoDTO(personaDTO: PersonaProps) {
     return new Persona({
+      id: personaDTO.id,
       nome: personaDTO.nome,
       idade: personaDTO.idade,
       profissao: personaDTO.profissao,

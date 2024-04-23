@@ -8,6 +8,16 @@ import { PersonaRepository } from '@repositories/persona.repository';
 export class PrismaPersonaRepository implements PersonaRepository {
   constructor(private prismaService: PrismaService) {}
 
+  async findAllByProjetoId(projetoId: string): Promise<Persona[]> {
+    const personas = await this.prismaService.persona.findMany({
+      where: {
+        projetoId: projetoId,
+      },
+    });
+
+    return personas as unknown as Persona[];
+  }
+
   async update(persona: Persona): Promise<Persona> {
     const updatedPersona = await this.prismaService.persona.update({
       where: {

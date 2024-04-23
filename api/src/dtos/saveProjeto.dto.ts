@@ -33,6 +33,7 @@ export interface GenericFields {
 }
 
 export interface Persona {
+  id: string;
   userPhoto: string;
   nome: string;
   idade: number;
@@ -75,6 +76,10 @@ export class saveProjetoDTO {
   @IsArray()
   readonly propositos: ArrayObject[];
 
+  @IsNotEmpty({ message: 'o campo [personas] não pode ser nulo' })
+  @IsArray()
+  readonly personas: Persona[];
+
   @IsNotEmpty({ message: 'o campo [redesSociais] não pode ser nulo' })
   @IsArray()
   readonly redesSociais: RedeSocial[];
@@ -87,6 +92,7 @@ export class saveProjetoDTO {
     conteudos: ArrayObject[],
     dna: DnaObject,
     funis: FunilType[],
+    personas: Persona[],
     genericFields: GenericFields[],
     linkPlanilhaPalavras: string | null,
     palavrasChave: ArrayObject[],
@@ -101,6 +107,7 @@ export class saveProjetoDTO {
     this.linkPlanilhaPalavras = linkPlanilhaPalavras;
     this.palavrasChave = palavrasChave;
     this.propositos = propositos;
+    this.personas = personas;
     this.redesSociais = redesSociais;
     this.clientId = clientId;
   }

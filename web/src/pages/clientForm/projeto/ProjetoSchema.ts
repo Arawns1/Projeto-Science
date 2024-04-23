@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 const proposito = z.object({
   title: z.string(),
@@ -6,13 +6,14 @@ const proposito = z.object({
 })
 
 export const personaSchema = z.object({
+  id: z.string().optional(),
   userPhoto: z.instanceof(Blob).optional(),
-  nome: z.string().min(1, 'Adicione um nome válido'),
+  nome: z.string().min(1, "Adicione um nome válido"),
   idade: z.coerce
     .number()
-    .min(1, 'Adicione uma idade entre 1 e 100')
-    .max(100, 'Adicione uma idade entre 1 e 100'),
-  profissao: z.string().min(1, 'Adicione uma profisão válida'),
+    .min(1, "Adicione uma idade entre 1 e 100")
+    .max(100, "Adicione uma idade entre 1 e 100"),
+  profissao: z.string().min(1, "Adicione uma profisão válida"),
   sobre: z.string(),
 })
 

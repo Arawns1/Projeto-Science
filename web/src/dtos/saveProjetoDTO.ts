@@ -67,6 +67,7 @@ export interface PalavrasChave {
 }
 
 export interface Persona {
+  id: string
   idade: number
   nome: string
   profissao: string

@@ -1,5 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ProjetoService } from '../services/projeto.service';
 import { saveProjetoDTO } from '@dtos/saveProjeto.dto';
 import { ProjetoViewModel } from './viewModels/projeto.viewmodel';
@@ -11,6 +19,7 @@ export class ProjetoController {
   @Post()
   async save(@Body() body: saveProjetoDTO) {
     const { projeto } = await this.projetoService.save(body);
+    return ProjetoViewModel.toHTTP(projeto);
   }
 
   @Get()

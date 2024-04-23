@@ -1,5 +1,5 @@
 import { Projeto } from '@domains/Projeto';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ProjetoRepository } from '@repositories/projeto.repository';
 import { PrismaFieldMapper } from '../mappers/prisma.field.mapper';
 import { PrismaFunilMapper } from '../mappers/prisma.funil.mapper';
@@ -20,6 +20,7 @@ export class PrismaProjetoRepository implements ProjetoRepository {
     );
 
     try {
+      Logger.log('Salvando projeto');
       await this.prismaService.$transaction(async (trx) => {
         await trx.projeto.create({
           data: raw,
@@ -32,16 +33,16 @@ export class PrismaProjetoRepository implements ProjetoRepository {
           })),
         });
 
-        // await trx.persona.createMany({
-        //   data: projeto.personas.map((persona) => ({
-        //     personaPhotoPath: persona.personaPhotoPath,
-        //     nome: persona.nome,
-        //     idade: persona.idade,
-        //     profissao: persona.profissao,
-        //     sobre: persona.sobre,
-        //     projetoId: raw.id,
-        //   })),
-        // });
+        await trx.persona.updateMany({
+          data: {
+            projetoId: raw.id,
+          },
+          where: {
+            id: {
+              in: projeto.personas.map((persona) => persona.id),
+            },
+          },
+        });
 
         await trx.setupDeConteudo.createMany({
           data: projeto.conteudos.map((conteudo) => ({
@@ -95,6 +96,7 @@ export class PrismaProjetoRepository implements ProjetoRepository {
           }),
         });
       });
+      Logger.log('Projeto salvo com sucesso!');
     } catch (error) {
       console.error('Erro ao salvar projeto:', error);
       throw error;

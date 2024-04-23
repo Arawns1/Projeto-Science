@@ -1,9 +1,9 @@
 import { ApresentacaoRepository } from '@repositories/apresentacao.repository';
 import { Injectable } from '@nestjs/common';
-
 import { Client } from '@domains/Client';
 import { ClientRepository } from '@repositories/client.repository';
-//TODO: Implementar a lógica de salvar caminho da imagem
+import * as fs from 'fs';
+import { cwd } from 'process';
 
 interface ClientResponse {
   clients: Client[];
@@ -27,6 +27,9 @@ export class ClientService {
   async deleteByApresentacaoId(apresentacaoId: string): Promise<void> {
     const apresentacao =
       await this.apresentacaoRepository.findById(apresentacaoId);
+    if (apresentacao.userPhotoPath) {
+      fs.unlinkSync(cwd() + apresentacao.userPhotoPath);
+    }
     await this.clientRepository.delete(apresentacao.clientId);
   }
 }

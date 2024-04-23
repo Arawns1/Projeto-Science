@@ -31,6 +31,7 @@ export class PersonaController {
 
   @Delete(':personaId')
   async deleteByPersonaId(@Param('personaId') id: string) {
+    Logger.log(`Deleting persona with id: ${id}`);
     await this.personaService.deleteByPersonaId(id);
   }
 }

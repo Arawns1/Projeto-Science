@@ -31,7 +31,11 @@ import {
 } from "./ui/form"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
-import { useSavePersona, useSavePersonaImage } from "@/queries/clients/persona"
+import {
+  useDeletePersona,
+  useSavePersona,
+  useSavePersonaImage,
+} from "@/queries/clients/persona"
 import { useToast } from "./ui/use-toast"
 
 export default function PersonasList() {
@@ -40,6 +44,7 @@ export default function PersonasList() {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
   const { control } = contextForm
   const savePersona = useSavePersona()
+  const deletePersona = useDeletePersona()
   const savePersonaImage = useSavePersonaImage()
   const { append, remove, fields } = useFieldArray({
     control,
@@ -80,7 +85,7 @@ export default function PersonasList() {
         }
         const personaForm = {
           ...formData,
-          id: data.id,
+          personaId: data.id,
         }
         append(personaForm)
       },
@@ -91,6 +96,7 @@ export default function PersonasList() {
         })
       },
     })
+
     personaForm.reset()
     setIsDialogOpen(false)
   }
@@ -101,7 +107,20 @@ export default function PersonasList() {
   }
 
   const handleRemove = (index: number) => {
-    remove(index)
+    const personaId = fields[index].personaId
+    if (personaId) {
+      deletePersona.mutate(personaId, {
+        onSuccess: () => {
+          remove(index)
+        },
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Erro ao deletar persona",
+          })
+        },
+      })
+    }
   }
 
   return (

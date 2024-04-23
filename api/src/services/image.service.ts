@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ApresentacaoRepository } from '@repositories/apresentacao.repository';
 import { PersonaRepository } from '@repositories/persona.repository';
 

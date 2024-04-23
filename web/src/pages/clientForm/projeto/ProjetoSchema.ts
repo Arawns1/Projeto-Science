@@ -6,7 +6,7 @@ const proposito = z.object({
 })
 
 export const personaSchema = z.object({
-  id: z.string().optional(),
+  personaId: z.string().optional(),
   userPhoto: z.instanceof(Blob).optional(),
   nome: z.string().min(1, "Adicione um nome válido"),
   idade: z.coerce

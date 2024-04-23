@@ -56,7 +56,6 @@ const field = z.object({
   title: z.string().optional(),
   data: z
     .object({
-      file: z.instanceof(File).optional(),
       content: z
         .array(
           z.object({

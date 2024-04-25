@@ -1,15 +1,15 @@
-import { ApresentacaoDTO } from '@/dtos/ApresentacaoDTO'
-import { saveApresentacaoDTO } from '@/dtos/saveApresentacaoDTO'
-import api from '@/lib/api'
-import { queryClient } from '@/lib/queryClient'
+import { ApresentacaoDTO } from "@/dtos/ApresentacaoDTO"
+import { saveApresentacaoDTO } from "@/dtos/saveApresentacaoDTO"
+import api from "@/lib/api"
+import { queryClient } from "@/lib/queryClient"
 import {
   QueryFunctionContext,
   useMutation,
   useQuery,
-} from '@tanstack/react-query'
+} from "@tanstack/react-query"
 
 async function saveApresentacao(apresentacao: saveApresentacaoDTO) {
-  const { data } = await api.post('/apresentacao', apresentacao)
+  const { data } = await api.post("/apresentacao", apresentacao)
   return data
 }
 async function saveUserPhoto({
@@ -38,7 +38,7 @@ export function useSaveApresentacao() {
   return useMutation({
     mutationFn: saveApresentacao,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['apresentacao'] })
+      queryClient.invalidateQueries({ queryKey: ["apresentacao"] })
     },
     onError: (error) => {
       console.error(error)
@@ -50,7 +50,7 @@ export function useSaveUserPhoto() {
   return useMutation({
     mutationFn: saveUserPhoto,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['apresentacao'] })
+      queryClient.invalidateQueries({ queryKey: ["apresentacao"] })
     },
     onError: (error) => {
       console.error(error)
@@ -60,7 +60,7 @@ export function useSaveUserPhoto() {
 
 export function useFindApresentacaoByClientId(clientId: string) {
   return useQuery({
-    queryKey: ['apresentacao', clientId],
+    queryKey: ["apresentacao", clientId],
     queryFn: findApresentacaoByClientId,
   })
 }

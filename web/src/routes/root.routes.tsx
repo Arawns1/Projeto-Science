@@ -9,6 +9,7 @@ import Home from "@/pages/home/Home"
 import FormLayout from "@/pages/clientForm/FormLayout"
 import { ClientForm } from "@/pages/clientForm"
 import Login from "@/pages/auth/Login"
+import ClientPage from "@/pages/client/ClientPage"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +17,7 @@ export const router = createBrowserRouter(
       <Route path="/" element={<Login />} />
       <Route element={<ProtectedRoutes />}>
         <Route element={<Home />} path="dashboard" />
+        <Route element={<ClientPage />} path="client" />
         <Route element={<FormLayout />} path="/novo-cliente">
           <Route
             element={<ClientForm.Apresentacao />}

@@ -1,9 +1,9 @@
-import { SignOut, User } from '@phosphor-icons/react'
-import { Link } from 'react-router-dom'
-import Logo from '@/assets/science-logo-2.svg'
-import { SearchInput } from './SearchInput'
-import { NewClientButton } from './NewClientButton'
-import { ChangeEvent } from 'react'
+import { SignOut, User } from "@phosphor-icons/react"
+import { Link } from "react-router-dom"
+import Logo from "@/assets/science-logo-2.svg"
+import { SearchInput } from "./SearchInput"
+import { NewClientButton } from "./NewClientButton"
+import { ChangeEvent } from "react"
 interface DrawerProps {
   isHeaderVisible?: boolean
   searchValue?: string
@@ -37,7 +37,7 @@ export default function Drawer({
                 onChange={searchOnChange}
               />
               <NewClientButton
-                variant={'collapsed'}
+                variant={"collapsed"}
                 className="h-12 rounded-lg"
               />
             </div>
@@ -52,7 +52,7 @@ export default function Drawer({
         <li className="bg-Light-background h-12 w-full flex items-center justify-start text-base font-semibold text-zinc-400 rounded-lg px-6 hover:brightness-95 hover:cursor-pointer ">
           <SignOut size={28} weight="bold" />
           <Link
-            to={'/'}
+            to={"/"}
             className="w-full flex items-center justify-center text-center"
           >
             Sair

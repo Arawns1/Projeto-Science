@@ -7,25 +7,25 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from "@/components/ui/card"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Skeleton } from '@/components/ui/skeleton'
-import { useToast } from '@/components/ui/use-toast'
-import { Client } from '@/dtos/ClientDTO'
-import { useDeleteClientById } from '@/queries/clients'
+} from "@/components/ui/dropdown-menu"
+import { Skeleton } from "@/components/ui/skeleton"
+import { useToast } from "@/components/ui/use-toast"
+import { Client } from "@/dtos/ClientDTO"
+import { useDeleteClientById } from "@/queries/clients"
 import {
   Check,
   Copy,
@@ -34,10 +34,10 @@ import {
   Pencil,
   Trash,
   Warning,
-} from '@phosphor-icons/react'
-import { Loader2 } from 'lucide-react'
-import { useState } from 'react'
-import UserPhoto from './UserPhoto'
+} from "@phosphor-icons/react"
+import { Loader2 } from "lucide-react"
+import { useState } from "react"
+import UserPhoto from "./UserPhoto"
 
 interface ClientCardProps {
   client?: Client
@@ -151,7 +151,7 @@ const EmailSenderButton = () => {
   return (
     <Button
       type="button"
-      variant={'outline'}
+      variant={"outline"}
       className="w-full flex flex-row gap-x-2 text-base"
       onClick={handleClick}
       disabled={isSending || isSent}
@@ -223,16 +223,16 @@ const ConfirmExclusionDialog = ({
         onSuccess: () => {
           setIsOpen(false)
           toast({
-            variant: 'success',
-            title: 'Cliente excluído com sucesso!',
+            variant: "success",
+            title: "Cliente excluído com sucesso!",
           })
         },
         onError: () => {
           setIsOpen(true)
           toast({
-            variant: 'destructive',
-            title: 'Erro ao excluir cliente',
-            description: 'Tente novamente mais tarde',
+            variant: "destructive",
+            title: "Erro ao excluir cliente",
+            description: "Tente novamente mais tarde",
           })
         },
       })
@@ -270,7 +270,7 @@ const ConfirmExclusionDialog = ({
           {isPending ? (
             <Loader2 className=" h-8 w-8 animate-spin" />
           ) : (
-            'Excluir Cliente'
+            "Excluir Cliente"
           )}
         </Button>
       </AlertDialogFooter>

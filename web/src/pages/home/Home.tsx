@@ -1,18 +1,18 @@
-import ClientCard from '@/components/ClientCard'
-import Drawer from '@/components/Drawer'
-import { Header } from '@/components/Header/Header'
-import { NewClientButton } from '@/components/NewClientButton'
-import { SearchInput } from '@/components/SearchInput'
-import { Button } from '@/components/ui/button'
-import { Client } from '@/dtos/ClientDTO'
-import { useFetchClients } from '@/queries/clients'
-import { UserPlus } from '@phosphor-icons/react'
-import { Loader2 } from 'lucide-react'
-import { ChangeEvent, useEffect, useState } from 'react'
-import { useInView } from 'react-intersection-observer'
-import { useNavigate } from 'react-router-dom'
+import ClientCard from "@/components/ClientCard"
+import Drawer from "@/components/Drawer"
+import { Header } from "@/components/Header/Header"
+import { NewClientButton } from "@/components/NewClientButton"
+import { SearchInput } from "@/components/SearchInput"
+import { Button } from "@/components/ui/button"
+import { Client } from "@/dtos/ClientDTO"
+import { useFetchClients } from "@/queries/clients"
+import { UserPlus } from "@phosphor-icons/react"
+import { Loader2 } from "lucide-react"
+import { ChangeEvent, useEffect, useState } from "react"
+import { useInView } from "react-intersection-observer"
+import { useNavigate } from "react-router-dom"
 export default function Home() {
-  const [search, setSearch] = useState<string>('')
+  const [search, setSearch] = useState<string>("")
   const [clientsCount, setClientsCount] = useState<number>(0)
   const navigate = useNavigate()
   const {
@@ -35,7 +35,7 @@ export default function Home() {
   }, [data])
 
   useEffect(() => {
-    if (inView && search === '' && clientsCount > 0) {
+    if (inView && search === "" && clientsCount > 0) {
       fetchNextPage()
     }
   }, [fetchNextPage, inView, search])
@@ -90,9 +90,9 @@ export default function Home() {
                   <span>
                     Clique em
                     <Button
-                      variant={'link'}
+                      variant={"link"}
                       className="p-0 m-0 px-2"
-                      onClick={() => navigate('/novo-cliente/apresentacao')}
+                      onClick={() => navigate("/novo-cliente/apresentacao")}
                     >
                       Novo Cliente
                     </Button>

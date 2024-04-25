@@ -1,17 +1,17 @@
 /* eslint-disable no-useless-escape */
-import { z } from 'zod'
+import { z } from "zod"
 
 export const apresentacaoSchema = z
   .object({
-    nome: z.string().min(1, 'Insira um nome válido'),
-    contato: z.string().min(1, 'Insira um contato válido'),
-    email: z.string().email('Insira um email válido').min(1, 'Insira um email'),
+    nome: z.string().min(1, "Insira um nome válido"),
+    contato: z.string().min(1, "Insira um contato válido"),
+    email: z.string().email("Insira um email válido").min(1, "Insira um email"),
     userPhoto: z.instanceof(File).optional(),
     senha: z
       .string()
       .min(
         8,
-        'A senha deve conter no mínimo 8 caracteres, uma letra maiúscula e um caracter especial',
+        "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula e um caracter especial",
       ),
     sobre: z.string().optional(),
   })
@@ -34,16 +34,16 @@ export const apresentacaoSchema = z
     let errObj = {
       upperCase: {
         pass: true,
-        message: 'A senha deve conter ao menos uma letra maiúscula',
+        message: "A senha deve conter ao menos uma letra maiúscula",
       },
       lowerCase: {
         pass: true,
-        message: 'A senha deve conter ao menos uma letra minúscula',
+        message: "A senha deve conter ao menos uma letra minúscula",
       },
       specialCh: {
         pass: true,
         message:
-          'A senha deve conter ao menos um caracter especial Ex.: (!$%&@#*)',
+          "A senha deve conter ao menos um caracter especial Ex.: (!$%&@#*)",
       },
     }
 
@@ -58,7 +58,7 @@ export const apresentacaoSchema = z
     }
 
     const errMessage = (errObj: any): string => {
-      let message = ''
+      let message = ""
       if (!errObj.upperCase.pass) message = errObj.upperCase.message
       if (!errObj.lowerCase.pass) message = errObj.lowerCase.message
       if (!errObj.specialCh.pass) message = errObj.specialCh.message
@@ -71,8 +71,8 @@ export const apresentacaoSchema = z
       countOfSpecialChar < 1
     ) {
       checkPassComplexity.addIssue({
-        code: 'custom',
-        path: ['senha'],
+        code: "custom",
+        path: ["senha"],
         message: errMessage(errObj),
       })
     }

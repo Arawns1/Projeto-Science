@@ -1,12 +1,12 @@
-import { Client } from '@/dtos/ClientDTO'
-import api from '@/lib/api'
-import { queryClient } from '@/lib/queryClient'
+import { Client } from "@/dtos/ClientDTO"
+import api from "@/lib/api"
+import { queryClient } from "@/lib/queryClient"
 import {
   QueryFunctionContext,
   useInfiniteQuery,
   useMutation,
   useQuery,
-} from '@tanstack/react-query'
+} from "@tanstack/react-query"
 
 async function getAllClients({ queryKey, pageParam = 0 }) {
   const search = queryKey[1]
@@ -30,9 +30,9 @@ async function deleteByApresentacaoId(apresentacaoId: string) {
   return data
 }
 
-export function useFetchClients(search: string = '') {
+export function useFetchClients(search: string = "") {
   return useInfiniteQuery({
-    queryKey: ['clients', search],
+    queryKey: ["clients", search],
     queryFn: getAllClients,
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.page + 1,
@@ -40,14 +40,14 @@ export function useFetchClients(search: string = '') {
 }
 
 export function useFetchClientById(clientId: string) {
-  return useQuery({ queryKey: ['clients', clientId], queryFn: getClientById })
+  return useQuery({ queryKey: ["clients", clientId], queryFn: getClientById })
 }
 
 export function useDeleteClientById() {
   return useMutation({
     mutationFn: deleteByApresentacaoId,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clients'] })
+      queryClient.invalidateQueries({ queryKey: ["clients"] })
     },
   })
 }

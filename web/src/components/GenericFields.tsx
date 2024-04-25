@@ -2,25 +2,25 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
+} from "@/components/ui/popover"
 import {
   fieldFormData,
   projetoFormData,
-} from '@/pages/clientForm/projeto/ProjetoSchema'
-import { Plus, Trash } from '@phosphor-icons/react'
-import { useState } from 'react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
-import SimpleList from './SimpleList'
-import { Button } from './ui/button'
-import { Input } from './ui/input'
-import { Textarea } from './ui/textarea'
+} from "@/pages/clientForm/projeto/ProjetoSchema"
+import { Plus, Trash } from "@phosphor-icons/react"
+import { useState } from "react"
+import { useFieldArray, useFormContext } from "react-hook-form"
+import SimpleList from "./SimpleList"
+import { Button } from "./ui/button"
+import { Input } from "./ui/input"
+import { Textarea } from "./ui/textarea"
 
 export default function GenericFields() {
   const form = useFormContext<projetoFormData>()
   const { control, register } = form
   const { append, remove, fields } = useFieldArray({
     control,
-    name: 'genericFields',
+    name: "genericFields",
   })
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
@@ -36,7 +36,7 @@ export default function GenericFields() {
 
   const getComponent = (field: fieldFormData, index: number) => {
     switch (field.type) {
-      case 'CampoTexto':
+      case "CampoTexto":
         return (
           <Textarea
             placeholder="Campo de texto simples"
@@ -44,14 +44,14 @@ export default function GenericFields() {
           />
         )
 
-      case 'Lista Simples':
+      case "Lista Simples":
         return (
           <SimpleList
             name={`genericFields.${index}.data.content`}
             listType="textArea"
           />
         )
-      case 'Lista Complexa':
+      case "Lista Complexa":
         return (
           <SimpleList
             name={`genericFields.${index}.data.content`}
@@ -77,8 +77,8 @@ export default function GenericFields() {
               <Button
                 title="Excluir item da lista"
                 type="button"
-                variant={'ghost'}
-                size={'icon'}
+                variant={"ghost"}
+                size={"icon"}
                 onClick={() => deleteField(index)}
               >
                 <Trash size={24} weight="bold" className="text-destructive " />
@@ -101,19 +101,19 @@ export default function GenericFields() {
         >
           <button
             className="w-full text-black p-2 hover:bg-slate-200 hover:font-semibold cursor-pointer"
-            onClick={() => saveField('CampoTexto')}
+            onClick={() => saveField("CampoTexto")}
           >
             <span>Campo de Texto</span>
           </button>
           <button
             className="w-full text-black p-2 hover:bg-slate-200 hover:font-semibold cursor-pointer "
-            onClick={() => saveField('Lista Simples')}
+            onClick={() => saveField("Lista Simples")}
           >
             <span>Lista Simples</span>
           </button>
           <button
             className="w-full text-black p-2 hover:bg-slate-200 hover:font-semibold cursor-pointer "
-            onClick={() => saveField('Lista Complexa')}
+            onClick={() => saveField("Lista Complexa")}
           >
             <span>Lista Complexa</span>
           </button>

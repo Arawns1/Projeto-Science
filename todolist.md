@@ -13,6 +13,6 @@
 - [x] Implementar exclusão da persona
 - [x] Implementar identidade visual
 - [x] Implementar cronograma
-- [ ] Implementar edição de cliente
 - [ ] Implementar frontend customizado
+- [ ] Implementar edição de cliente
 - [ ] Implementar envio de email

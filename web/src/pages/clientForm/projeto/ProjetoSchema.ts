@@ -14,7 +14,7 @@ export const personaSchema = z.object({
     .min(1, "Adicione uma idade entre 1 e 100")
     .max(100, "Adicione uma idade entre 1 e 100"),
   profissao: z.string().min(1, "Adicione uma profisão válida"),
-  sobre: z.string(),
+  sobre: z.string().min(1, "Adicione uma descrição válida"),
 })
 
 const setupDeConteudo = z.object({
@@ -26,9 +26,7 @@ const objetivoRede = z.object({
   nome: z.string().min(1, "Adicione o nome da rede social"),
   objetivo: z.string().min(1, "Adicione o objetivo da rede social"),
   frequencia: z.string().min(1, "Adicione a frequência da rede social"),
-  estruturaLinguagem: z
-    .string()
-    .min(1, "Adicione a estrutura de linguagem da rede social"),
+  estruturaLinguagem: z.string().min(1, "Adicione a estrutura de linguagem da rede social"),
 })
 
 const funilFormato = z.object({

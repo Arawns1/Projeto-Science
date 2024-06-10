@@ -1,12 +1,7 @@
 import { Client } from "@/dtos/ClientDTO"
 import api from "@/lib/api"
 import { queryClient } from "@/lib/queryClient"
-import {
-  QueryFunctionContext,
-  useInfiniteQuery,
-  useMutation,
-  useQuery,
-} from "@tanstack/react-query"
+import { QueryFunctionContext, useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query"
 
 async function getAllClients({ queryKey, pageParam = 0 }) {
   const search = queryKey[1]

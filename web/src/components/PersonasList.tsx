@@ -13,29 +13,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Trash } from "@phosphor-icons/react"
 import { useState } from "react"
-import {
-  FormProvider,
-  useFieldArray,
-  useForm,
-  useFormContext,
-} from "react-hook-form"
+import { FormProvider, useFieldArray, useForm, useFormContext } from "react-hook-form"
 import userImagePlaceholder from "../assets/images/img_placeholder.png"
 import UserPhoto from "./UserPhoto"
 import { Button } from "./ui/button"
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
-import {
-  useDeletePersona,
-  useSavePersona,
-  useSavePersonaImage,
-} from "@/queries/clients/persona"
+import { useDeletePersona, useSavePersona, useSavePersonaImage } from "@/queries/clients/persona"
 import { useToast } from "./ui/use-toast"
 
 export default function PersonasList() {
@@ -145,22 +130,17 @@ export default function PersonasList() {
                       className="rounded-full w-24 h-24 border-2 border-primaryScale-500"
                     />
                     <div className="flex flex-col items-center justify-center">
-                      <h3 className="text-lg font-medium text-primaryScale-700">
-                        {item.nome}
-                      </h3>
-                      <span className="text-sm text-primaryScale-600">
-                        {item.profissao}
-                      </span>
+                      <h3 className="text-lg font-medium text-primaryScale-700">{item.nome}</h3>
+                      <span className="text-sm text-primaryScale-600">{item.profissao}</span>
                       {item.idade != 0 && (
-                        <span className="text-sm text-primaryScale-600">
-                          {item.idade} anos
-                        </span>
+                        <span className="text-sm text-primaryScale-600">{item.idade} anos</span>
                       )}
                     </div>
                   </div>
                 </DialogTrigger>
                 <div className="absolute top-1 right-1">
                   <Button
+                    type="button"
                     size={"icon"}
                     variant={"ghost"}
                     onClick={() => handleRemove(index)}
@@ -180,9 +160,7 @@ export default function PersonasList() {
                   className="rounded-full w-24 h-24 "
                 />
                 <div className="flex flex-col items-center justify-center">
-                  <h3 className="text-lg font-medium text-primaryScale-700">
-                    + Adicionar Persona
-                  </h3>
+                  <h3 className="text-lg font-medium text-primaryScale-700">+ Adicionar Persona</h3>
                 </div>
               </div>
             </DialogTrigger>
@@ -217,13 +195,14 @@ export default function PersonasList() {
                           htmlFor="nomeInput"
                           className="text-zinc-800 font-semibold text-base"
                         >
-                          Nome
+                          Nome*
                         </FormLabel>
                         <FormControl>
                           <Input
                             type="text"
                             id="nomeInput"
                             placeholder="Nome"
+                            required
                             // eslint-disable-next-line jsx-a11y/no-autofocus
                             autoFocus
                             className="w-80"
@@ -243,12 +222,13 @@ export default function PersonasList() {
                           htmlFor="idadeInput"
                           className="text-zinc-800 font-semibold text-base"
                         >
-                          Idade
+                          Idade*
                         </FormLabel>
                         <FormControl>
                           <Input
                             type="number"
                             id="idadeInput"
+                            required
                             placeholder="Idade"
                             min={0}
                             max={100}
@@ -269,7 +249,7 @@ export default function PersonasList() {
                         htmlFor="profissaoInput"
                         className="text-zinc-800 font-semibold text-base"
                       >
-                        Profissão
+                        Profissão*
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -277,6 +257,7 @@ export default function PersonasList() {
                           id="profissaoInput"
                           placeholder="Profissão"
                           {...field}
+                          required
                         />
                       </FormControl>
                       <FormMessage />
@@ -292,13 +273,14 @@ export default function PersonasList() {
                         htmlFor="sobreInput"
                         className="text-zinc-800 font-semibold text-base"
                       >
-                        Sobre
+                        Sobre*
                       </FormLabel>
                       <FormControl>
                         <Textarea
                           id="sobreInput"
                           placeholder="Sobre a persona"
                           {...field}
+                          required
                         />
                       </FormControl>
                       <FormMessage />

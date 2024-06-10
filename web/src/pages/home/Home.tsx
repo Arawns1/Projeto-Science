@@ -15,7 +15,8 @@ export default function Home() {
   const [search, setSearch] = useState<string>("")
   const [clientsCount, setClientsCount] = useState<number>(0)
   const navigate = useNavigate()
-  const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, refetch } = useFetchClients(search)
+  const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, refetch } =
+    useFetchClients(search)
   const { ref, inView } = useInView()
   const { ref: headerRef, inView: isHeaderVisible } = useInView()
 
@@ -48,14 +49,21 @@ export default function Home() {
       </Header.Root>
       <div className=" flex flex-1 flex-row gap-8 py-12">
         <aside className="flex flex-col w-[260px]">
-          <Drawer isHeaderVisible={isHeaderVisible} searchOnChange={handleInputSearchChange} searchValue={search} />
+          <Drawer
+            isHeaderVisible={isHeaderVisible}
+            searchOnChange={handleInputSearchChange}
+            searchValue={search}
+          />
         </aside>
         <main className="flex flex-1 flex-col pr-16 gap-y-6 ">
-          <div className="w-full flex justify-between items-center border-b border-gray-200 " ref={headerRef}>
+          <div
+            className="w-full flex justify-between items-center border-b border-gray-200 "
+            ref={headerRef}
+          >
             <h1 className="text-3xl font-semibold pb-2 w-full">Meus Clientes</h1>
             <SearchInput
               iconPosition="right"
-              className="  border-none text-right text-lg font-medium focus-visible:outline-none focus-visible:ring-0 caret-black placeholder:text-zinc-400 px-12"
+              className="border-none text-right text-lg font-medium focus-visible:outline-none focus-visible:ring-0 caret-black placeholder:text-zinc-400 px-12"
               value={search}
               onChange={handleInputSearchChange}
             />

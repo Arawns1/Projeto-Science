@@ -41,9 +41,7 @@ export default function ProjetoPage() {
       propositos: [{ title: "", value: "" }],
       conteudos: [{ title: "", value: "" }],
       linkPlanilhaPalavras: "",
-      redesSociais: [
-        { nome: "", objetivo: "", frequencia: "", estruturaLinguagem: "" },
-      ],
+      redesSociais: [{ nome: "", objetivo: "", frequencia: "", estruturaLinguagem: "" }],
       funis: [
         {
           nome: { title: "", value: "" },
@@ -95,10 +93,7 @@ export default function ProjetoPage() {
           className="flex flex-col gap-16"
         >
           <section id="dnaDoProjeto">
-            <div
-              id="dnaDoProjeto__wrapper"
-              className="flex flex-col w-full gap-8"
-            >
+            <div id="dnaDoProjeto__wrapper" className="flex flex-col w-full gap-8">
               <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
                 dna do <b>projeto</b>
               </h2>
@@ -206,10 +201,7 @@ export default function ProjetoPage() {
             </div>
           </section>
           <section id="propositos">
-            <div
-              id="propositos__wrapper"
-              className="flex flex-col w-full gap-8"
-            >
+            <div id="propositos__wrapper" className="flex flex-col w-full gap-8">
               <Form {...form}>
                 <SimpleList
                   listType="both"
@@ -233,10 +225,7 @@ export default function ProjetoPage() {
             </div>
           </section>
           <section id="setupDeConteudo">
-            <div
-              id="setupDeConteudo__wrapper"
-              className="flex flex-col w-full gap-8"
-            >
+            <div id="setupDeConteudo__wrapper" className="flex flex-col w-full gap-8">
               <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
                 setup de <b>conteúdo</b>
               </h2>
@@ -251,10 +240,7 @@ export default function ProjetoPage() {
             </div>
           </section>
           <section id="palavrasChave">
-            <div
-              id="palavrasChave__wrapper"
-              className="flex flex-col w-full gap-8"
-            >
+            <div id="palavrasChave__wrapper" className="flex flex-col w-full gap-8">
               <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
                 palavras <b>chave</b>
               </h2>
@@ -275,9 +261,7 @@ export default function ProjetoPage() {
                         <Input
                           id="linkPlanilhaPalavrasInput"
                           type="text"
-                          leftIcon={
-                            <Link size={28} className="text-zinc-600" />
-                          }
+                          leftIcon={<Link size={28} className="text-zinc-600" />}
                           placeholder="http://url.com"
                           className="caret-accent "
                           {...field}
@@ -291,10 +275,7 @@ export default function ProjetoPage() {
             </div>
           </section>
           <section id="objetivosRedes">
-            <div
-              id="objetivosRedes__wrapper"
-              className="flex flex-col w-full gap-8"
-            >
+            <div id="objetivosRedes__wrapper" className="flex flex-col w-full gap-8">
               <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
                 objetivos <b>redes sociais</b>
               </h2>
@@ -304,10 +285,7 @@ export default function ProjetoPage() {
             </div>
           </section>
           <section id="funilConteudo">
-            <div
-              id="funilConteudo__wrapper"
-              className="flex flex-col w-full gap-8"
-            >
+            <div id="funilConteudo__wrapper" className="flex flex-col w-full gap-8">
               <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
                 funil de <b>conteúdos</b>
               </h2>
@@ -317,10 +295,7 @@ export default function ProjetoPage() {
             </div>
           </section>
           <section id="camposGenericos">
-            <div
-              id="camposGenericos__wrapper"
-              className="flex flex-col w-full gap-8"
-            >
+            <div id="camposGenericos__wrapper" className="flex flex-col w-full gap-8">
               <h2 className="font-trirong italic text-4xl text-primaryScale-700 tracking-wide">
                 campos <b>genéricos</b>
               </h2>
@@ -339,12 +314,7 @@ export default function ProjetoPage() {
             >
               Descartar
             </Button>
-            <Button
-              data-formid="projetoForm"
-              form="projetoForm"
-              type="submit"
-              size={"lg"}
-            >
+            <Button data-formid="projetoForm" form="projetoForm" type="submit" size={"lg"}>
               Próxima Etapa
             </Button>
           </div>

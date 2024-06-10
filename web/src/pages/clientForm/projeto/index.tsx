@@ -28,7 +28,6 @@ import { useNavigate } from "react-router-dom"
 import { projetoFormData, projetoSchema } from "./ProjetoSchema"
 
 export default function ProjetoPage() {
-  const navigate = useNavigate()
   const saveProjeto = useSaveProjeto()
   const form = useForm<projetoFormData>({
     resolver: zodResolver(projetoSchema),

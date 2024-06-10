@@ -15,14 +15,7 @@ export default function Home() {
   const [search, setSearch] = useState<string>("")
   const [clientsCount, setClientsCount] = useState<number>(0)
   const navigate = useNavigate()
-  const {
-    data,
-    fetchNextPage,
-    isLoading,
-    isError,
-    isFetchingNextPage,
-    refetch,
-  } = useFetchClients(search)
+  const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, refetch } = useFetchClients(search)
   const { ref, inView } = useInView()
   const { ref: headerRef, inView: isHeaderVisible } = useInView()
 
@@ -31,14 +24,15 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    setClientsCount(data?.pages?.[0].data.clientsCount)
+    const dados = data?.pages?.[0].data
+    setClientsCount(dados?.clientsCount || dados?.apresentacao.length || 0)
   }, [data])
 
   useEffect(() => {
     if (inView && search === "" && clientsCount > 0) {
       fetchNextPage()
     }
-  }, [fetchNextPage, inView, search])
+  }, [fetchNextPage, inView, search, clientsCount])
 
   const handleInputSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
@@ -54,20 +48,11 @@ export default function Home() {
       </Header.Root>
       <div className=" flex flex-1 flex-row gap-8 py-12">
         <aside className="flex flex-col w-[260px]">
-          <Drawer
-            isHeaderVisible={isHeaderVisible}
-            searchOnChange={handleInputSearchChange}
-            searchValue={search}
-          />
+          <Drawer isHeaderVisible={isHeaderVisible} searchOnChange={handleInputSearchChange} searchValue={search} />
         </aside>
         <main className="flex flex-1 flex-col pr-16 gap-y-6 ">
-          <div
-            className="w-full flex justify-between items-center border-b border-gray-200 "
-            ref={headerRef}
-          >
-            <h1 className="text-3xl font-semibold pb-2 w-full">
-              Meus Clientes
-            </h1>
+          <div className="w-full flex justify-between items-center border-b border-gray-200 " ref={headerRef}>
+            <h1 className="text-3xl font-semibold pb-2 w-full">Meus Clientes</h1>
             <SearchInput
               iconPosition="right"
               className="  border-none text-right text-lg font-medium focus-visible:outline-none focus-visible:ring-0 caret-black placeholder:text-zinc-400 px-12"
@@ -106,13 +91,10 @@ export default function Home() {
                     className="grid grid-cols-3 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-y-16 gap-16"
                     key={index}
                   >
-                    {page.data
-                      ? page.data?.apresentacao.map((client: Client) => {
-                          return <ClientCard key={client.id} client={client} />
-                        })
-                      : page.apresentacao.map((client: Client) => {
-                          return <ClientCard key={client.id} client={client} />
-                        })}
+                    {page.data &&
+                      page.data?.apresentacao.map((client: Client) => {
+                        return <ClientCard key={client.id} client={client} />
+                      })}
                   </div>
                 )
               })}

@@ -24,6 +24,12 @@ import {
   ApresentacaoSchemaType,
   apresentacaoSchema,
 } from "./ApresentacaoSchema"
+import {
+  useSaveApresentacao,
+  useSaveUserPhoto,
+} from "@/queries/clients/apresentacao"
+import { useToast } from "@/components/ui/use-toast"
+import { setSessionItem } from "@/lib/storage"
 
 export default function ApresentacaoPage() {
   const form = useForm<ApresentacaoSchemaType>({
@@ -40,14 +46,52 @@ export default function ApresentacaoPage() {
 
   const contatoValue = form.watch("contato")
   const navigate = useNavigate()
+  const { toast } = useToast()
+  const saveApresentacao = useSaveApresentacao()
+  const saveUserPhoto = useSaveUserPhoto()
 
   useEffect(() => {
     form.setValue("contato", normalizePhoneNumber(contatoValue))
   }, [contatoValue, form])
 
-  function onSubmit(values: ApresentacaoSchemaType) {
-    console.log(values)
-    navigate("/novo-cliente/diagnostico")
+  async function onSubmit(values: ApresentacaoSchemaType) {
+    const userPhotoForm = new FormData()
+    if (values.userPhoto) {
+      userPhotoForm.append("file", values.userPhoto)
+    }
+
+    try {
+      const data = await saveApresentacao.mutate(values, {
+        onError: (error) => {
+          toast({
+            variant: "destructive",
+            title: "Erro ao salvar apresentação",
+            description: error.message,
+          })
+        },
+        onSuccess: (data) => {
+          setSessionItem("clientId", data.clientId)
+          if (values.userPhoto) {
+            const form = {
+              clientId: data.clientId,
+              formData: userPhotoForm,
+            }
+            saveUserPhoto.mutate(form, {
+              onSuccess: () => {
+                navigate("/novo-cliente/diagnostico")
+              },
+              onError: (error) => {
+                console.error(error)
+              },
+            })
+          } else {
+            navigate("/novo-cliente/diagnostico")
+          }
+        },
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   function handleDiscard() {
@@ -193,6 +237,7 @@ export default function ApresentacaoPage() {
             className="font-semibold text-lg"
             size={"lg"}
             onClick={handleDiscard}
+            disabled={saveApresentacao.isPending}
           >
             Descartar
           </Button>
@@ -201,6 +246,7 @@ export default function ApresentacaoPage() {
             form="apresentacaoForm"
             type="submit"
             size={"lg"}
+            disabled={saveApresentacao.isPending}
           >
             Próxima Etapa
           </Button>

@@ -11,8 +11,12 @@ import { useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { diagnosticoFormData, diagnosticoSchema } from "./DiagnosticoSchema"
+import { useSaveDiagnostico } from "@/queries/clients/diagnostico"
+import { saveDiagnosticoDTO } from "@/dtos/saveDiagnosticoDTO"
+import { getSessionItem } from "@/lib/storage"
 
 export default function DiagnosticoPage() {
+  const saveDiagnostico = useSaveDiagnostico()
   const form = useForm<diagnosticoFormData>({
     resolver: zodResolver(diagnosticoSchema),
     mode: "all",
@@ -39,9 +43,25 @@ export default function DiagnosticoPage() {
 
   const { handleSubmit } = form
 
-  function onSubmit(values: diagnosticoFormData) {
-    console.log(values)
-    navigate("/novo-cliente/projeto")
+  function onSubmit(values: saveDiagnosticoDTO) {
+    const clientId = getSessionItem("clientId")
+    if (!clientId || clientId == null) {
+      return navigate("/dashboard")
+    }
+
+    const valuesComClientId = {
+      ...values,
+      clientId: clientId,
+    }
+
+    saveDiagnostico.mutate(valuesComClientId, {
+      onSuccess: () => {
+        navigate("/novo-cliente/projeto")
+      },
+      onError: (error) => {
+        console.error(error)
+      },
+    })
   }
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)

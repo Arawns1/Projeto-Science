@@ -6,6 +6,7 @@ const proposito = z.object({
 })
 
 export const personaSchema = z.object({
+  personaId: z.string().optional(),
   userPhoto: z.instanceof(Blob).optional(),
   nome: z.string().min(1, "Adicione um nome válido"),
   idade: z.coerce
@@ -58,7 +59,6 @@ const field = z.object({
   title: z.string().optional(),
   data: z
     .object({
-      file: z.instanceof(File).optional(),
       content: z
         .array(
           z.object({
@@ -73,10 +73,10 @@ const field = z.object({
 
 export const projetoSchema = z.object({
   dna: z.object({
-    estilo: z.string().min(1, "Adicione o estilo do cliente"),
-    valores: z.string().min(1, "Adicione os valores do cliente"),
-    personalidade: z.string().min(1, "Adicione a personalidade do cliente"),
-    comunicação: z.string().min(1, "Adicione a comunicação do cliente"),
+    estilo: z.string(),
+    valores: z.string(),
+    personalidade: z.string(),
+    comunicacao: z.string(),
   }),
   propositos: z.array(proposito),
   personas: z.array(personaSchema),

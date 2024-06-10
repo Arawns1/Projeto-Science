@@ -31,11 +31,21 @@ import {
 } from "./ui/form"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
+import {
+  useDeletePersona,
+  useSavePersona,
+  useSavePersonaImage,
+} from "@/queries/clients/persona"
+import { useToast } from "./ui/use-toast"
 
 export default function PersonasList() {
   const contextForm = useFormContext<projetoFormData>()
+  const { toast } = useToast()
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
   const { control } = contextForm
+  const savePersona = useSavePersona()
+  const deletePersona = useDeletePersona()
+  const savePersonaImage = useSavePersonaImage()
   const { append, remove, fields } = useFieldArray({
     control,
     name: "personas",
@@ -53,7 +63,40 @@ export default function PersonasList() {
 
   const onSubmit = () => {
     const formData = personaForm.getValues()
-    append(formData)
+
+    const mappedFormData = {
+      ...formData,
+      idade: parseInt(formData.idade.toString()),
+    }
+
+    const personaPhotoForm = new FormData()
+    if (formData.userPhoto) {
+      personaPhotoForm.append("file", formData.userPhoto)
+    }
+
+    savePersona.mutate(mappedFormData, {
+      onSuccess: async (data) => {
+        if (formData.userPhoto) {
+          const form = {
+            personaId: data.id,
+            formData: personaPhotoForm,
+          }
+          savePersonaImage.mutate(form)
+        }
+        const personaForm = {
+          ...formData,
+          personaId: data.id,
+        }
+        append(personaForm)
+      },
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Erro ao salvar persona",
+        })
+      },
+    })
+
     personaForm.reset()
     setIsDialogOpen(false)
   }
@@ -64,7 +107,20 @@ export default function PersonasList() {
   }
 
   const handleRemove = (index: number) => {
-    remove(index)
+    const personaId = fields[index].personaId
+    if (personaId) {
+      deletePersona.mutate(personaId, {
+        onSuccess: () => {
+          remove(index)
+        },
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Erro ao deletar persona",
+          })
+        },
+      })
+    }
   }
 
   return (

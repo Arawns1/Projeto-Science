@@ -20,6 +20,7 @@ export default function UserPhoto({
   name = "userPhoto",
   ...props
 }: UserPhotoProps) {
+  const API_URL = import.meta.env.VITE_API_URL
   const [userImage, setUserImage] = useState(userImagePlaceholder)
   const formContext = useFormContext()
 
@@ -27,9 +28,9 @@ export default function UserPhoto({
 
   useEffect(() => {
     if (client?.userPhoto) {
-      setUserImage(client.userPhoto)
+      setUserImage(`${API_URL}${client.userPhoto}`)
     }
-  }, [client, userImage])
+  }, [client, userImage, API_URL])
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target?.files?.[0]

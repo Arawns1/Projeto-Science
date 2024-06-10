@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 export const IdentidadeVisualSchema = z.object({
-  images: z
+  files: z
     .array(
       z.object({
         file: z.instanceof(File).optional(),

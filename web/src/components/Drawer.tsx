@@ -3,10 +3,18 @@ import { Link } from "react-router-dom"
 import Logo from "@/assets/science-logo-2.svg"
 import { SearchInput } from "./SearchInput"
 import { NewClientButton } from "./NewClientButton"
+import { ChangeEvent } from "react"
 interface DrawerProps {
   isHeaderVisible?: boolean
+  searchValue?: string
+  // eslint-disable-next-line no-unused-vars
+  searchOnChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
-export default function Drawer({ isHeaderVisible }: DrawerProps) {
+export default function Drawer({
+  isHeaderVisible,
+  searchValue,
+  searchOnChange,
+}: DrawerProps) {
   return (
     <nav className={`sticky top-8`}>
       <ul
@@ -22,7 +30,12 @@ export default function Drawer({ isHeaderVisible }: DrawerProps) {
               />
             </div>
             <div className="w-full flex flex-row justify-start items-center gap-2">
-              <SearchInput placeholder="Buscar" className="h-12" />
+              <SearchInput
+                placeholder="Buscar"
+                className="h-12"
+                value={searchValue}
+                onChange={searchOnChange}
+              />
               <NewClientButton
                 variant={"collapsed"}
                 className="h-12 rounded-lg"

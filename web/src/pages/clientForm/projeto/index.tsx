@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import DiscardDialog from "@/components/DiscardDialog"
+import FunilList from "@/components/FunilList"
+import GenericFields from "@/components/GenericFields"
 import PalavraChaveInput from "@/components/PalavraChaveInput"
 import PersonasList from "@/components/PersonasList"
 import RedeSocialAccordion from "@/components/RedeSocialAccordion"
@@ -15,16 +17,19 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { saveProjetoDTO } from "@/dtos/saveProjetoDTO"
+import { getSessionItem } from "@/lib/storage"
+import { useSaveProjeto } from "@/queries/clients/projeto"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Link } from "@phosphor-icons/react"
 import { KeyboardEvent, useState } from "react"
 import { useForm } from "react-hook-form"
-import { projetoFormData, projetoSchema } from "./ProjetoSchema"
-import FunilList from "@/components/FunilList"
-import GenericFields from "@/components/GenericFields"
 import { useNavigate } from "react-router-dom"
+import { projetoFormData, projetoSchema } from "./ProjetoSchema"
 
 export default function ProjetoPage() {
+  const navigate = useNavigate()
+  const saveProjeto = useSaveProjeto()
   const form = useForm<projetoFormData>({
     resolver: zodResolver(projetoSchema),
     defaultValues: {
@@ -32,7 +37,7 @@ export default function ProjetoPage() {
         estilo: "",
         valores: "",
         personalidade: "",
-        comunicação: "",
+        comunicacao: "",
       },
       propositos: [{ title: "", value: "" }],
       conteudos: [{ title: "", value: "" }],
@@ -53,9 +58,24 @@ export default function ProjetoPage() {
   const navigate = useNavigate()
   const { handleSubmit } = form
 
-  function onSubmit(values: projetoFormData) {
-    console.log(values)
-    navigate("/novo-cliente/identidade-visual")
+  function onSubmit(values: saveProjetoDTO) {
+    const clientId = getSessionItem("clientId")
+    if (!clientId || clientId == null) {
+      return navigate("/dashboard")
+    }
+
+    const valuesComClientId = {
+      ...values,
+      clientId: clientId,
+    }
+    saveProjeto.mutate(valuesComClientId, {
+      onSuccess: () => {
+        navigate("/novo-cliente/identidade-visual")
+      },
+      onError: (error) => {
+        console.error(error)
+      },
+    })
   }
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -160,7 +180,7 @@ export default function ProjetoPage() {
                   />
                   <FormField
                     control={form.control}
-                    name="dna.comunicação"
+                    name="dna.comunicacao"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel

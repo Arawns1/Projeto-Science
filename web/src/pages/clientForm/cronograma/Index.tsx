@@ -23,11 +23,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { addDays } from "date-fns"
+import { addDays, format } from "date-fns"
 import { AddNewButton } from "@/components/AddNewButton"
 import { Trash } from "@phosphor-icons/react"
-import { useNavigate } from "react-router-dom"
+import { useSaveCronograma } from "@/queries/clients/cronograma"
 import { useToast } from "@/components/ui/use-toast"
+import { useNavigate } from "react-router-dom"
+import { getSessionItem } from "@/lib/storage"
 
 export default function CronogramaPage() {
   const form = useForm<CronogramaFormData>({
@@ -60,13 +62,39 @@ export default function CronogramaPage() {
     name: "eventos",
   })
 
+  const saveCronograma = useSaveCronograma()
+  const { toast } = useToast()
+  const navigate = useNavigate()
   function onSubmit(values: CronogramaFormData) {
-    console.log(values)
-    toast({
-      variant: "success",
-      title: "Cliente cadastrado com sucesso!",
+    const clientId = getSessionItem("clientId")
+    if (!clientId || clientId == null) {
+      return navigate("/dashboard")
+    }
+    const mappedValues = {
+      eventos: values.eventos.map((evento) => ({
+        ...evento,
+        periodo: {
+          from: format(evento.periodo.from, "dd/MM/yyyy"),
+          to: format(evento.periodo.to, "dd/MM/yyyy"),
+        },
+      })),
+      clientId: clientId,
+    }
+    saveCronograma.mutate(mappedValues, {
+      onSuccess: () => {
+        toast({
+          variant: "success",
+          title: "Cliente salvo com sucesso!",
+        })
+        navigate("/dashboard")
+      },
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Erro ao salvar cronograma",
+        })
+      },
     })
-    navigate("/dashboard")
   }
 
   const handleAddNew = () => {

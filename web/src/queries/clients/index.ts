@@ -9,13 +9,14 @@ import {
 } from "@tanstack/react-query"
 
 async function getAllClients({ queryKey, pageParam = 0 }) {
-  const searchParam = queryKey[1]
-  if (searchParam) {
-    const { data } = await api.get(`/clients?fullName_like${searchParam}`)
+  const search = queryKey[1]
+  if (search) {
+    const { data } = await api.get(`/apresentacao?_name_like=${search}`)
+
     return data
   }
-  const { data } = await api.get(`/clients?_page=${pageParam}&_per_page=6`)
-  return data
+  const data = await api.get(`/apresentacao?_page=${pageParam}&_per_page=6`)
+  return { ...data, page: pageParam }
 }
 
 async function getClientById(ctx: QueryFunctionContext) {
@@ -24,8 +25,8 @@ async function getClientById(ctx: QueryFunctionContext) {
   return data
 }
 
-async function deleteClientById(clientId: string) {
-  const { data } = await api.delete(`/clients/${clientId}`)
+async function deleteByApresentacaoId(apresentacaoId: string) {
+  const { data } = await api.delete(`/clients/${apresentacaoId}`)
   return data
 }
 
@@ -33,10 +34,8 @@ export function useFetchClients(search: string = "") {
   return useInfiniteQuery({
     queryKey: ["clients", search],
     queryFn: getAllClients,
-    staleTime: 5000,
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.next,
-    getPreviousPageParam: (firstPage) => firstPage.prev,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.page + 1,
   })
 }
 
@@ -46,7 +45,7 @@ export function useFetchClientById(clientId: string) {
 
 export function useDeleteClientById() {
   return useMutation({
-    mutationFn: deleteClientById,
+    mutationFn: deleteByApresentacaoId,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["clients"] })
     },

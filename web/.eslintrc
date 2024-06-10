@@ -34,7 +34,9 @@
     "prettier/prettier": [
       "error",
       {
+        "singleQuote": false,
         "endOfLine": "auto",
+        "semi": false,
       },
     ],
     "no-unused-vars": [

@@ -54,9 +54,6 @@ export default function CronogramaPage() {
     register,
     formState: { errors },
   } = form
-  const navigate = useNavigate()
-  const { toast } = useToast()
-
   const { fields, append, remove } = useFieldArray({
     control,
     name: "eventos",

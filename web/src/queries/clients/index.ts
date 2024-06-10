@@ -11,9 +11,8 @@ import {
 async function getAllClients({ queryKey, pageParam = 0 }) {
   const search = queryKey[1]
   if (search) {
-    const { data } = await api.get(`/apresentacao?_name_like=${search}`)
-
-    return data
+    const data = await api.get(`/apresentacao?_name_like=${search}`)
+    return { ...data, page: pageParam }
   }
   const data = await api.get(`/apresentacao?_page=${pageParam}&_per_page=6`)
   return { ...data, page: pageParam }

@@ -35,7 +35,7 @@
       "error",
       {
         "singleQuote": false,
-        "endOfLine": "auto",
+        "endOfLine": "off",
         "semi": false,
       },
     ],

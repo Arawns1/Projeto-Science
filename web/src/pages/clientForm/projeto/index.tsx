@@ -108,7 +108,7 @@ export default function ProjetoPage() {
                           htmlFor="dnaEstilo"
                           className="text-zinc-800 font-semibold text-base"
                         >
-                          Estilo
+                          Estilo*
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -133,7 +133,7 @@ export default function ProjetoPage() {
                           htmlFor="dnaValores"
                           className="text-zinc-800 font-semibold text-base"
                         >
-                          Valores
+                          Valores*
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -157,7 +157,7 @@ export default function ProjetoPage() {
                           htmlFor="dnaPersonalidade"
                           className="text-zinc-800 font-semibold text-base"
                         >
-                          Personalidade
+                          Personalidade*
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -181,7 +181,7 @@ export default function ProjetoPage() {
                           htmlFor="dnaComunicacao"
                           className="text-zinc-800 font-semibold text-base"
                         >
-                          Comunicação
+                          Comunicação*
                         </FormLabel>
                         <FormControl>
                           <Input

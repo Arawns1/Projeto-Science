@@ -1,17 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Post,
-  Res,
-  UseInterceptors,
-  FileTypeValidator,
-  ParseFilePipe,
-  Query,
-  Req,
-  UploadedFile,
-  UploadedFiles,
-} from '@nestjs/common';
+import { Controller, Get, Param, Post, Res, UseInterceptors, FileTypeValidator, ParseFilePipe, Query, Req, UploadedFile, UploadedFiles } from '@nestjs/common';
 import * as path from 'path';
 import { of } from 'rxjs';
 import { Response } from 'express';
@@ -26,27 +13,13 @@ export class ImageController {
   constructor(private imageService: ImageService) {}
 
   @Get('userPhotos/:userPhotoName')
-  async getPhotoByUrl(
-    @Param('userPhotoName') userPhotoName: string,
-    @Res() res: Response,
-  ) {
-    return of(
-      res.sendFile(
-        path.join(process.cwd(), `/images/userPhotos/${userPhotoName}`),
-      ),
-    );
+  async getPhotoByUrl(@Param('userPhotoName') userPhotoName: string, @Res() res: Response) {
+    return of(res.sendFile(path.join(process.cwd(), `/images/userPhotos/${userPhotoName}`)));
   }
 
   @Get('personas/:personaPhotoName')
-  async getPersonaPhotoByUrl(
-    @Param('personaPhotoName') personaPhotoName: string,
-    @Res() res: Response,
-  ) {
-    return of(
-      res.sendFile(
-        path.join(process.cwd(), `/images/personas/${personaPhotoName}`),
-      ),
-    );
+  async getPersonaPhotoByUrl(@Param('personaPhotoName') personaPhotoName: string, @Res() res: Response) {
+    return of(res.sendFile(path.join(process.cwd(), `/images/personas/${personaPhotoName}`)));
   }
 
   @Post('/clientPhoto/upload')
@@ -124,7 +97,7 @@ export class ImageController {
   ) {
     const paths: string[] = [];
 
-    files.forEach((file) => {
+    files.forEach(file => {
       const path = `/images/identidadeVisual/${file.filename}`;
       this.imageService.saveIdentidadeVisualImage(path, clientId);
       paths.push(`http://${req.get('host')}${path}`);

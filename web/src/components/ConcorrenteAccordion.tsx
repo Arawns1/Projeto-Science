@@ -7,13 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Trash } from "@phosphor-icons/react"
@@ -44,10 +38,7 @@ export default function ConcorrenteAccordion() {
     <div className="flex flex-col gap-4 items-start justify-start">
       <Accordion type="multiple" className="w-full flex flex-col gap-4">
         {fields.map((field, index) => (
-          <div
-            key={field.id}
-            className="w-full flex flex-row gap-2 items-start justify-center"
-          >
+          <div key={field.id} className="w-full flex flex-row gap-2 items-start justify-center">
             <AccordionItem
               className="flex-1 bg-zinc-100 px-2 rounded-lg shadow-sm space-y-4"
               value={`item-${index}`}
@@ -63,7 +54,7 @@ export default function ConcorrenteAccordion() {
                       control={control}
                       render={({ field }) => (
                         <FormItem className="w-full">
-                          <FormLabel htmlFor="nameInput">Nome</FormLabel>
+                          <FormLabel htmlFor="nameInput">Nome*</FormLabel>
                           <FormControl>
                             <Input
                               id="nameInput"
@@ -83,7 +74,7 @@ export default function ConcorrenteAccordion() {
                       render={({ field }) => (
                         <FormItem className="w-full">
                           <FormLabel htmlFor="redeSocialInput">
-                            Rede Social do concorrente
+                            Rede Social do concorrente*
                           </FormLabel>
                           <FormControl>
                             <Input
@@ -107,11 +98,7 @@ export default function ConcorrenteAccordion() {
                           Link da rede social do concorrente
                         </FormLabel>
                         <FormControl>
-                          <Input
-                            id="linkRedeSocialInput"
-                            placeholder="http://url.com"
-                            {...field}
-                          />
+                          <Input id="linkRedeSocialInput" placeholder="http://url.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -122,9 +109,7 @@ export default function ConcorrenteAccordion() {
                     control={control}
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel htmlFor="descricaoInput">
-                          Descrição
-                        </FormLabel>
+                        <FormLabel htmlFor="descricaoInput">Descrição*</FormLabel>
                         <FormControl>
                           <Textarea
                             id="descricaoInput"
@@ -150,11 +135,7 @@ export default function ConcorrenteAccordion() {
                   variant={"ghost"}
                   onClick={() => handleDeleteConcorrente(index)}
                 >
-                  <Trash
-                    size={24}
-                    weight="bold"
-                    className="text-destructive "
-                  />
+                  <Trash size={24} weight="bold" className="text-destructive " />
                 </Button>
               </div>
             )}

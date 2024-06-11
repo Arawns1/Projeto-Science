@@ -25,6 +25,8 @@ module.exports = {
       'error',
       {
         endOfLine: 'auto',
+        printWidth: 200,
+        arrowParens: "avoid"
       },
     ],
   },

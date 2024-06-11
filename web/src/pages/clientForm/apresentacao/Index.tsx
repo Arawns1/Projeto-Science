@@ -20,14 +20,8 @@ import { Envelope, Phone, User } from "@phosphor-icons/react"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import {
-  ApresentacaoSchemaType,
-  apresentacaoSchema,
-} from "./ApresentacaoSchema"
-import {
-  useSaveApresentacao,
-  useSaveUserPhoto,
-} from "@/queries/clients/apresentacao"
+import { ApresentacaoSchemaType, apresentacaoSchema } from "./ApresentacaoSchema"
+import { useSaveApresentacao, useSaveUserPhoto } from "@/queries/clients/apresentacao"
 import { useToast } from "@/components/ui/use-toast"
 import { setSessionItem } from "@/lib/storage"
 
@@ -107,10 +101,7 @@ export default function ApresentacaoPage() {
         <div className="flex flex-row py-12">
           <FormProvider {...form}>
             <div className="w-[280px] flex items-start justify-start px-8">
-              <UserPhoto
-                editable
-                className="border-primaryScale-300 w-48 h-48"
-              />
+              <UserPhoto editable className="border-primaryScale-300 w-48 h-48" />
             </div>
           </FormProvider>
 
@@ -126,7 +117,7 @@ export default function ApresentacaoPage() {
                 control={form.control}
                 render={({ field, formState }) => (
                   <FormItem className="w-full">
-                    <FormLabel htmlFor="nameInput">Nome</FormLabel>
+                    <FormLabel htmlFor="nameInput">Nome*</FormLabel>
                     <FormControl>
                       <Input
                         id="nameInput"
@@ -152,7 +143,7 @@ export default function ApresentacaoPage() {
                       htmlFor="contatoInput"
                       className="text-zinc-800 font-semibold text-base"
                     >
-                      Contato
+                      Contato*
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -174,7 +165,7 @@ export default function ApresentacaoPage() {
                 control={form.control}
                 render={({ field, formState }) => (
                   <FormItem>
-                    <FormLabel htmlFor="emailInput">Email</FormLabel>
+                    <FormLabel htmlFor="emailInput">Email*</FormLabel>
                     <FormControl>
                       <Input
                         id="emailInput"
@@ -195,7 +186,7 @@ export default function ApresentacaoPage() {
                 control={form.control}
                 render={({ field, formState }) => (
                   <FormItem>
-                    <FormLabel htmlFor="senhaInput">Senha de acesso</FormLabel>
+                    <FormLabel htmlFor="senhaInput">Senha de acesso*</FormLabel>
                     <FormControl>
                       <PasswordInput
                         id="passwordInput"

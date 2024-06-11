@@ -32,8 +32,7 @@ export class ClientService {
 
   async deleteByApresentacaoId(apresentacaoId: string): Promise<void> {
     Logger.log('[Deletando Projeto]  - Encontrando apresentação pelo id');
-    const apresentacao =
-      await this.apresentacaoRepository.findById(apresentacaoId);
+    const apresentacao = await this.apresentacaoRepository.findById(apresentacaoId);
 
     Logger.log('[Deletando Projeto]  - Apagando userPhoto');
 
@@ -43,9 +42,7 @@ export class ClientService {
 
     let projeto: any = {};
     try {
-      projeto = await this.projetoRepository.findByClientId(
-        apresentacao.clientId,
-      );
+      projeto = await this.projetoRepository.findByClientId(apresentacao.clientId);
     } catch (error) {
       Logger.error('[Deletando Projeto] - Projeto não encontrado');
     }
@@ -55,27 +52,20 @@ export class ClientService {
     try {
       personas = await this.personasRepository.findAllByProjetoId(projeto.id);
       Logger.log('[Deletando Projeto]  - Apagando personas');
-      personas.forEach(async (persona) => {
-        if (persona.personaPhotoPath)
-          fs.unlinkSync(cwd() + persona.personaPhotoPath);
+      personas.forEach(async persona => {
+        if (persona.personaPhotoPath) fs.unlinkSync(cwd() + persona.personaPhotoPath);
       });
     } catch (error) {
       Logger.error('[Deletando Projeto] - Personas não encontradas');
     }
 
-    Logger.log(
-      '[Deletando Projeto]  - Encontrando identidades pelo id do cliente',
-    );
+    Logger.log('[Deletando Projeto]  - Encontrando identidades pelo id do cliente');
 
     try {
       Logger.log('[Deletando Projeto]  - Apagando identidades');
-      const identidades =
-        await this.identidadeVisualRepository.findAllByClientId(
-          apresentacao.clientId,
-        );
-      identidades.forEach(async (identidade) => {
-        if (identidade.identidadeVisualPhotoPath)
-          fs.unlinkSync(cwd() + identidade.identidadeVisualPhotoPath);
+      const identidades = await this.identidadeVisualRepository.findAllByClientId(apresentacao.clientId);
+      identidades.forEach(async identidade => {
+        if (identidade.identidadeVisualPhotoPath) fs.unlinkSync(cwd() + identidade.identidadeVisualPhotoPath);
       });
     } catch (error) {
       Logger.error('[Deletando Projeto] - Identidades não encontradas');

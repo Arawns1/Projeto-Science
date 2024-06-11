@@ -71,10 +71,10 @@ const field = z.object({
 
 export const projetoSchema = z.object({
   dna: z.object({
-    estilo: z.string(),
-    valores: z.string(),
-    personalidade: z.string(),
-    comunicacao: z.string(),
+    estilo: z.string().min(1, "Adicione um estilo"),
+    valores: z.string().min(1, "Adicione um valor"),
+    personalidade: z.string().min(1, "Adicione uma personalidade"),
+    comunicacao: z.string().min(1, "Adicione uma comunicacao"),
   }),
   propositos: z.array(proposito),
   personas: z.array(personaSchema),

@@ -3,21 +3,9 @@ import { useFieldArray, useFormContext } from "react-hook-form"
 import { AddNewButton } from "./AddNewButton"
 import SimpleList from "./SimpleList"
 import { Button } from "./ui/button"
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
 import { Input } from "./ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 
 interface FunilItemProps {
   name: string
@@ -43,26 +31,18 @@ export default function FunilItem({ name }: FunilItemProps) {
     <div className="w-full pl-16 flex flex-col gap-12">
       <div id="formatos" className="flex flex-col gap-4">
         <div id="formatosTitle" className="w-full">
-          <h3 className="text-2xl font-semibold text-primaryScale-700">
-            Formatos
-          </h3>
+          <h3 className="text-2xl font-semibold text-primaryScale-700">Formatos</h3>
         </div>
         {formatosArray.fields.map((field, index) => {
           return (
-            <div
-              className="w-full flex flex-row gap-4 justify-center items-center"
-              key={field.id}
-            >
+            <div className="w-full flex flex-row gap-4 justify-center items-center" key={field.id}>
               <FormField
                 control={form.control}
                 name={`${name}.formatos.${index}.formato`}
                 render={({ field }) => (
                   <FormItem className="w-60">
                     <FormLabel>Formato</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger className="h-12 w-60">
                           <SelectValue placeholder="Selecione um formato" />
@@ -70,9 +50,7 @@ export default function FunilItem({ name }: FunilItemProps) {
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="Reels">Reels</SelectItem>
-                        <SelectItem value="Post Simples">
-                          Post Simples
-                        </SelectItem>
+                        <SelectItem value="Post Simples">Post Simples</SelectItem>
                         <SelectItem value="Carrossel">Carrossel</SelectItem>
                         <SelectItem value="Stories">Stories</SelectItem>
                         <SelectItem value="Live">Live</SelectItem>
@@ -94,7 +72,7 @@ export default function FunilItem({ name }: FunilItemProps) {
                       htmlFor="formatoTitulo"
                       className="text-zinc-800 font-semibold text-base"
                     >
-                      Titulo
+                      Titulo*
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -118,11 +96,7 @@ export default function FunilItem({ name }: FunilItemProps) {
                     size={"icon"}
                     onClick={() => deleteFormato(index)}
                   >
-                    <Trash
-                      size={24}
-                      weight="bold"
-                      className="text-destructive "
-                    />
+                    <Trash size={24} weight="bold" className="text-destructive " />
                   </Button>
                 </div>
               )}
@@ -135,27 +109,15 @@ export default function FunilItem({ name }: FunilItemProps) {
       </div>
       <div id="tiposDeConteudo" className="flex flex-col gap-4">
         <div id="tiposDeConteudoTitle" className="w-full">
-          <h3 className="text-2xl font-semibold text-primaryScale-700">
-            Tipos de Conteúdos
-          </h3>
+          <h3 className="text-2xl font-semibold text-primaryScale-700">Tipos de Conteúdos</h3>
         </div>
-        <SimpleList
-          name={`${name}.tipos`}
-          listType="input"
-          itemPlaceholder="Tipo"
-        />
+        <SimpleList name={`${name}.tipos`} listType="input" itemPlaceholder="Tipo" />
       </div>
       <div id="estaFaseTambem" className="flex flex-col gap-4">
         <div id="estaFaseTambemTitle" className="w-full">
-          <h3 className="text-2xl font-semibold text-primaryScale-700">
-            Esta fase também deve
-          </h3>
+          <h3 className="text-2xl font-semibold text-primaryScale-700">Esta fase também deve</h3>
         </div>
-        <SimpleList
-          name={`${name}.faseTambem`}
-          listType="input"
-          itemPlaceholder="Objetivo"
-        />
+        <SimpleList name={`${name}.faseTambem`} listType="input" itemPlaceholder="Objetivo" />
       </div>
     </div>
   )

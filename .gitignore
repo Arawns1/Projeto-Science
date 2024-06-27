@@ -1,4 +1,3 @@
 
-api/images/userPhotos/
-
-api/images/personas/
+api/images/*
+node_modules

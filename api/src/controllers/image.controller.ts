@@ -7,7 +7,8 @@ import { diskStorage } from 'multer';
 import { FileHelper } from '../helpers/FileHelper';
 import { Request } from 'express';
 import { ImageService } from '@services/image.service';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('imagens')
 @Controller('images')
 export class ImageController {
   constructor(private imageService: ImageService) {}

@@ -1,6 +1,7 @@
 import { Controller, Delete, Get, Logger, Param, Query } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ClientService } from '@services/client.service';
-
+@ApiTags('cliente')
 @Controller('clients')
 export class ClientController {
   constructor(private clientService: ClientService) {}

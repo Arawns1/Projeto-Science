@@ -3,4 +3,5 @@ export interface Client {
   nome: string
   userPhoto: string
   sobre: string
+  clientId: string
 }

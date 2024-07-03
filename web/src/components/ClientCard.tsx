@@ -38,7 +38,7 @@ export default function ClientCard({ client, isLoading }: ClientCardProps) {
   }
   const navigate = useNavigate()
   const navegarTelaEdicao = () => {
-    navigate(`/cliente/${client?.id}/apresentacao`)
+    navigate(`/cliente/${client?.clientId}/apresentacao`)
   }
 
   if (isLoading) {

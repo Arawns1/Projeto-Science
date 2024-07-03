@@ -1,4 +1,5 @@
 import ApresentacaoPage from "./apresentacao/Index"
+import UpdateApresentacaoPage from "./apresentacao/update"
 import CronogramaPage from "./cronograma/Index"
 import DiagnosticoPage from "./diagnostico/Index"
 import IdentidadeVisualPage from "./identidadeVisual"
@@ -10,4 +11,8 @@ export const ClientForm = {
   Projeto: ProjetoPage,
   IdentidadeVisual: IdentidadeVisualPage,
   Cronograma: CronogramaPage,
+}
+
+export const ClientFormUpdate = {
+  Apresentacao: UpdateApresentacaoPage,
 }

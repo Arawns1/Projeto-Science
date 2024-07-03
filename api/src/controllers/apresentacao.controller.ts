@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { saveApresentacaoDTO } from '@dtos/saveApresentacao.dto';
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Param, Put } from '@nestjs/common';
 import { ApresentacaoService } from '../services/apresentacao.service';
 import { ApresentacaoViewModel } from './viewModels/apresentacao.viewmodel';
 import { ApiTags } from '@nestjs/swagger';
+import { viewApresentacaoDTO } from '@dtos/viewApresentacao.dto';
+import { updateApresentacaoDTO } from '@dtos/updateApresentacao.dto';
 
 @ApiTags('apresentacao')
 @Controller('apresentacao')
@@ -32,5 +34,15 @@ export class ApresentacaoController {
     }
     const { apresentacao } = await this.apresentacaoService.list();
     return apresentacao;
+  }
+
+  @Get('/user/:clientId')
+  async findApresentacaoByClientId(@Param('clientId') clientId: string): Promise<viewApresentacaoDTO> {
+    return this.apresentacaoService.findByClientId(clientId);
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() body: updateApresentacaoDTO): Promise<viewApresentacaoDTO> {
+    return await this.apresentacaoService.update(id, body);
   }
 }

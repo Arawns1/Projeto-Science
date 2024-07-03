@@ -9,13 +9,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,18 +20,11 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useToast } from "@/components/ui/use-toast"
 import { Client } from "@/dtos/ClientDTO"
 import { useDeleteClientById } from "@/queries/clients"
-import {
-  Check,
-  Copy,
-  Gear,
-  PaperPlaneTilt,
-  Pencil,
-  Trash,
-  Warning,
-} from "@phosphor-icons/react"
+import { Check, Copy, Gear, PaperPlaneTilt, Pencil, Trash, Warning } from "@phosphor-icons/react"
 import { Loader2 } from "lucide-react"
 import { useState } from "react"
 import UserPhoto from "./UserPhoto"
+import { useNavigate } from "react-router-dom"
 
 interface ClientCardProps {
   client?: Client
@@ -48,6 +35,10 @@ export default function ClientCard({ client, isLoading }: ClientCardProps) {
 
   const handleDeleteClient = () => {
     setIsOpen(true)
+  }
+  const navigate = useNavigate()
+  const navegarTelaEdicao = () => {
+    navigate(`/cliente/${client?.clientId}/apresentacao`)
   }
 
   if (isLoading) {
@@ -79,9 +70,7 @@ export default function ClientCard({ client, isLoading }: ClientCardProps) {
             <CardHeader className="text-center flex flex-col items-center justify-center ">
               <UserPhoto client={client} />
               <div className="flex flex-col gap-2">
-                <CardTitle className="font-semibold text-xl capitalize">
-                  {client?.nome}
-                </CardTitle>
+                <CardTitle className="font-semibold text-xl capitalize">{client?.nome}</CardTitle>
                 <CardDescription className="text-center text-ellipsis line-clamp-2 h-10">
                   {client?.sobre}
                 </CardDescription>
@@ -90,7 +79,10 @@ export default function ClientCard({ client, isLoading }: ClientCardProps) {
 
             <CardFooter className="flex justify-center items-center gap-4 ">
               <EmailSenderButton />
-              <Button className="w-full flex flex-row gap-x-2 text-base  ">
+              <Button
+                className="w-full flex flex-row gap-x-2 text-base"
+                onClick={navegarTelaEdicao}
+              >
                 <Pencil size={22} />
                 <span>Editar</span>
               </Button>
@@ -184,11 +176,7 @@ const CopyLinkButton = () => {
   }
 
   return (
-    <DropdownMenuItem
-      className="gap-2 cursor-pointer"
-      onClick={handleClick}
-      disabled={isCopied}
-    >
+    <DropdownMenuItem className="gap-2 cursor-pointer" onClick={handleClick} disabled={isCopied}>
       {isCopied ? (
         <>
           <Check size={24} />
@@ -246,19 +234,15 @@ const ConfirmExclusionDialog = ({
           <Warning size={36} />
         </div>
         <AlertDialogTitle className="font-semibold text-xl ">
-          Confirmar exclusão de <span className="capitalize">{clientName}</span>
-          ?
+          Confirmar exclusão de <span className="capitalize">{clientName}</span>?
         </AlertDialogTitle>
         <AlertDialogDescription className="text-center">
-          Esta ação não pode ser desfeita. Se continuar os dados do cliente
-          serão deletados permanentemente dos nossos servidores.
+          Esta ação não pode ser desfeita. Se continuar os dados do cliente serão deletados
+          permanentemente dos nossos servidores.
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter className="w-full flex flex-row items-center justify-center gap-8">
-        <AlertDialogCancel
-          className="w-full h-14 text-base"
-          disabled={isPending}
-        >
+        <AlertDialogCancel className="w-full h-14 text-base" disabled={isPending}>
           Cancelar
         </AlertDialogCancel>
         <Button
@@ -267,11 +251,7 @@ const ConfirmExclusionDialog = ({
           onClick={handleDeleteClient}
           disabled={isPending}
         >
-          {isPending ? (
-            <Loader2 className=" h-8 w-8 animate-spin" />
-          ) : (
-            "Excluir Cliente"
-          )}
+          {isPending ? <Loader2 className=" h-8 w-8 animate-spin" /> : "Excluir Cliente"}
         </Button>
       </AlertDialogFooter>
     </AlertDialogContent>

@@ -12,12 +12,7 @@ export class Client {
   private props: ClientProps;
   private _id: string;
 
-  constructor(
-    props: Replace<
-      ClientProps,
-      { id?: string; createdAt?: Date; updatedAt?: Date }
-    >,
-  ) {
+  constructor(props: Replace<ClientProps, { id?: string; createdAt?: Date; updatedAt?: Date }>) {
     this._id = randomUUID();
     this.props = {
       ...props,

@@ -1,21 +1,27 @@
 import { Header } from "@/components/Header/Header"
 import { MultiStep } from "@/components/MultiStep"
 import { useEffect, useState } from "react"
-import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom"
 import { stepsPaths } from "./Paths"
 
-export default function FormLayout() {
+interface FormLayoutProps {
+  isEdicao?: boolean
+}
+
+export default function FormLayout({ isEdicao = false }: FormLayoutProps) {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
   const [activeStep, setActiveStep] = useState<number>(0)
 
   useEffect(() => {
-    const activeStepIndex = stepsPaths.findIndex(
-      (stepPath) => stepPath.path === pathname,
-    )
+    let activeStepIndex = -1
+    if (isEdicao) {
+      return setActiveStep((activeStepIndex = stepsPaths.length - 1))
+    }
+    activeStepIndex = stepsPaths.findIndex((stepPath) => stepPath.path === pathname)
 
-    if (activeStepIndex === -1) {
+    if (activeStepIndex === -1 && !isEdicao) {
       navigate("/novo-cliente/apresentacao")
     } else {
       setActiveStep(activeStepIndex)
@@ -30,14 +36,22 @@ export default function FormLayout() {
         </Header.RightMenu.Root>
       </Header.Root>
       <div className="w-full min-h-screen my-4 flex flex-col gap-8">
-        <div className="w-full flex flex-col gap-2 items-center justify-center py-8 ">
-          <h1 className="text-3xl font-medium text-primaryScale-950">
-            Cadastro de Novo Cliente
-          </h1>
-          <p className="text-base text-zinc-400">
-            Preencha os campos para cadastrar um novo cliente
-          </p>
-        </div>
+        {isEdicao ? (
+          <div className="w-full flex flex-col gap-2 items-center justify-center py-8 ">
+            <h1 className="text-3xl font-medium text-primaryScale-950">Atualizar Cliente</h1>
+            <p className="text-base text-zinc-400">
+              Altere os campos que deseja para atualizar as informações do cliente
+            </p>
+          </div>
+        ) : (
+          <div className="w-full flex flex-col gap-2 items-center justify-center py-8 ">
+            <h1 className="text-3xl font-medium text-primaryScale-950">Cadastro de Novo Cliente</h1>
+            <p className="text-base text-zinc-400">
+              Preencha os campos para cadastrar um novo cliente
+            </p>
+          </div>
+        )}
+
         <div className="w-5/6 mx-auto flex flex-col gap-8">
           <MultiStep.Root>
             {stepsPaths.map((stepPath, index) => (
